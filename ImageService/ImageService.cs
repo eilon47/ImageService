@@ -8,13 +8,20 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using ImageService.Controller;
+using ImageService.Modal;
+using ImageService.Logging;
+using ImageService.Server;
 
 namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
         private int eventId = 1;
-
+        private IImageController imageController;
+        private ImageServer imageServer;
+        private ILoggingService loggingService;
+        private IImageServiceModal imageModal;
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
 
@@ -22,6 +29,7 @@ namespace ImageService
         public ImageService(string[] args)
         {
             InitializeComponent();
+            
             string eventSourceName = "MySource";
             string logName = "MyNewLog";
             if (args.Count() > 0)
@@ -40,6 +48,10 @@ namespace ImageService
             }
             eventLog.Source = eventSourceName;
             eventLog.Log = logName;
+            this.loggingService = new LoggingService(this.eventLog);
+            this.imageServer = new ImageServer();
+            this.imageModal = new ImageServiceModal(this.loggingService);
+            this.imageController = new ImageController(this.imageModal, this.loggingService);
 
         }
 
