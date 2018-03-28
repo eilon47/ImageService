@@ -11,15 +11,14 @@ namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
-        private EventLog eventLog;
-        public LoggingService(EventLog eventLog)
-        {
-            this.eventLog = eventLog;
-        }
+        
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         public void Log(string message, MessageTypeEnum type)
         {
-            eventLog.WriteEntry("mcds");
+            MessageRecievedEventArgs eventArgs = new MessageRecievedEventArgs();
+            eventArgs.Message = message;
+            eventArgs.Status = type;
+            MessageRecieved?.Invoke(this, eventArgs);
         }
     }
 }
