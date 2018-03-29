@@ -39,6 +39,7 @@ namespace ImageService.Controller
             {
                 return path;
             }
+            loggingService.Log(path, Logging.Modal.MessageTypeEnum.FAIL);
             return "ErrorMesssage";
         }
     }

@@ -27,8 +27,11 @@ namespace ImageService.Controller.Handlers
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
 
-        public DirectoyHandler(string dirPath)
+        public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
+            this.m_controller = imageController;
+            this.m_logging = loggingService;
+            this.m_path = dirPath;
             StartHandleDirectory(dirPath);
         }
 
@@ -45,7 +48,17 @@ namespace ImageService.Controller.Handlers
         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
         {
             bool result;
-            this.m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
+            if (e.RequestDirPath.Equals(this.m_path))
+            {
+                string message = this.m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
+                if(result)
+                {
+                    this.m_logging.Log(message, MessageTypeEnum.INFO);
+                } else
+                {
+                    this.m_logging.Log(message, MessageTypeEnum.FAIL);
+                }
+            }
         }
 
 
@@ -57,9 +70,7 @@ namespace ImageService.Controller.Handlers
 
             if (extensionsToListen.Contains(fileExtension))
             {
-
                 string[] args = { comArgs.FullPath };
-
                 CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs(1, args, m_path);
                 OnCommandRecieved(this, commandArgs);
             }

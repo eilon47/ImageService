@@ -21,14 +21,11 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             // The String Will Return the New Path if result = true, and will return the error message
-            string filePath = getFilePathFromArgs(args);
-            this.m_modal.AddFile(filePath, out result);
+           
+             return this.m_modal.AddFile(args[0], out result);
+            
         }
 
-        public string getFilePathFromArgs(string[] args)
-        {
-
-
-        }
+     
     }
 }

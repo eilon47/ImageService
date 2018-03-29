@@ -12,6 +12,7 @@ using ImageService.Controller;
 using ImageService.Modal;
 using ImageService.Logging;
 using ImageService.Server;
+using System.Configuration;
 
 namespace ImageService
 {
@@ -29,9 +30,17 @@ namespace ImageService
         public ImageService(string[] args)
         {
             InitializeComponent();
-            
-            string eventSourceName = "MySource";
-            string logName = "MyNewLog";
+            this.loggingService = new LoggingService();
+            this.imageModal = new ImageServiceModal()
+            {
+                OutputFolder = ConfigurationSettings.AppSettings.Get("OutputDir"),
+                ThumbnailSize = int.Parse(ConfigurationSettings.AppSettings.Get("ThumbnailSize"))
+
+            };
+            this.imageController = new ImageController(this.imageModal, this.loggingService);
+            this.imageServer = new ImageServer(loggingService, imageController);
+            string eventSourceName = ConfigurationSettings.AppSettings.Get("SourceName");
+            string logName = ConfigurationSettings.AppSettings.Get("LogName");
             if (args.Count() > 0)
             {
                 eventSourceName = args[0];
@@ -48,11 +57,6 @@ namespace ImageService
             }
             eventLog.Source = eventSourceName;
             eventLog.Log = logName;
-            this.loggingService = new LoggingService();
-            this.imageServer = new ImageServer();
-            this.imageModal = new ImageServiceModal();
-            this.imageController = new ImageController(this.imageModal, this.loggingService);
-
         }
 
         protected override void OnStart(string[] args)
@@ -64,7 +68,6 @@ namespace ImageService
             timer.Interval = 6000000; // 10 mins  
             timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
             timer.Start();
-
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;

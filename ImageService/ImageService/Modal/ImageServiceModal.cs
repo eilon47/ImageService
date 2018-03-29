@@ -14,18 +14,20 @@ namespace ImageService.Modal
     public class ImageServiceModal : IImageServiceModal
     {
         #region Members
-        private string m_OutputFolder;            // The Output Folder
         public string OutputFolder
         {
             get { return m_OutputFolder; }
             set { m_OutputFolder = value; }
         }
-        private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         public int ThumbnailSize
         {
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
-        }        
+        }
+        #endregion
+        private string m_OutputFolder;            // The Output Folder
+        private int m_thumbnailSize;              // The Size Of The Thumbnail Size
+
         public string AddFile(string path, out bool result)
         {
             try
@@ -58,7 +60,8 @@ namespace ImageService.Modal
                     return locationToCopy.ToString() + "\\" + name;
                 } else
                 {
-                    throw new Exception("Image does not exist!");
+                    result = false;
+                    return "Image does not exist!";
                 }
             }
             catch(Exception e)
@@ -68,7 +71,6 @@ namespace ImageService.Modal
             }
 
         }
-        #endregion
 
     }
   
