@@ -50,7 +50,7 @@ namespace ImageService
             eventLog.Log = logName;
             this.loggingService = new LoggingService();
             this.imageServer = new ImageServer();
-            this.imageModal = new ImageServiceModal(this.loggingService);
+            this.imageModal = new ImageServiceModal();
             this.imageController = new ImageController(this.imageModal, this.loggingService);
 
         }

@@ -55,7 +55,7 @@ namespace ImageService.Modal
                     thumbImage.Save(locationToCopyThumbnail.ToString() + "\\" + name);
 
                     result = true;
-                    return locationToCopy.ToString() + "\\" + name
+                    return locationToCopy.ToString() + "\\" + name;
                 } else
                 {
                     throw new Exception("Image does not exist!");
