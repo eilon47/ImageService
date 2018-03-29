@@ -43,7 +43,7 @@ namespace ImageService.Server
 
         public void invokeCommand(CommandRecievedEventArgs commandArgs)
         {
-            CommandRecieved?.Invoke(this, commandArgs);
+            CommandRecieved?.Invoke(this,commandArgs);
         }
 
         public void onClose(object o, DirectoryCloseEventArgs dirArgs)
