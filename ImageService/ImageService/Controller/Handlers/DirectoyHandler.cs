@@ -71,7 +71,8 @@ namespace ImageService.Controller.Handlers
             if (extensionsToListen.Contains(fileExtension))
             {
                 string[] args = { comArgs.FullPath };
-                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs(1, args, m_path);
+                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int) CommandEnum.NewFileCommand,
+                    args, m_path);
                 OnCommandRecieved(this, commandArgs);
             }
         }

@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Diagnostics.EventLog eventLog;
+        private System.Diagnostics.EventLog ImageServiceLog;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,13 +29,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.eventLog = new System.Diagnostics.EventLog();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).BeginInit();
+            this.ImageServiceLog = new System.Diagnostics.EventLog();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageServiceLog)).BeginInit();
             // 
             // ImageService
             // 
             this.ServiceName = "ImageService";
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageServiceLog)).EndInit();
 
         }
 

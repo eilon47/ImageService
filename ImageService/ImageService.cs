@@ -33,14 +33,14 @@ namespace ImageService
             this.loggingService = new LoggingService();
             this.imageModal = new ImageServiceModal()
             {
-                OutputFolder = ConfigurationSettings.AppSettings.Get("OutputDir"),
-                ThumbnailSize = int.Parse(ConfigurationSettings.AppSettings.Get("ThumbnailSize"))
+                OutputFolder = ConfigurationManager.AppSettings["OutputDir"],
+                ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"])
 
             };
             this.imageController = new ImageController(this.imageModal, this.loggingService);
             this.imageServer = new ImageServer(loggingService, imageController);
-            string eventSourceName = ConfigurationSettings.AppSettings.Get("SourceName");
-            string logName = ConfigurationSettings.AppSettings.Get("LogName");
+            string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
+            string logName = ConfigurationManager.AppSettings["LogName"];
             if (args.Count() > 0)
             {
                 eventSourceName = args[0];
@@ -50,18 +50,18 @@ namespace ImageService
                 logName = args[1];
             }
 
-            eventLog = new System.Diagnostics.EventLog();
+            ImageServiceLog = new System.Diagnostics.EventLog();
             if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
             {
                 System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
             }
-            eventLog.Source = eventSourceName;
-            eventLog.Log = logName;
+            ImageServiceLog.Source = eventSourceName;
+            ImageServiceLog.Log = logName;
         }
 
         protected override void OnStart(string[] args)
         {
-            eventLog.WriteEntry("In onStart.");
+            ImageServiceLog.WriteEntry("In onStart.");
 
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -81,7 +81,7 @@ namespace ImageService
 
         protected override void OnStop()
         {
-            eventLog.WriteEntry("In onStop.");
+            ImageServiceLog.WriteEntry("In onStop.");
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
@@ -97,7 +97,7 @@ namespace ImageService
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here. 
-            eventLog.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
+            ImageServiceLog.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
         }
 
         public enum ServiceState

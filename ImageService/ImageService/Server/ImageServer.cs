@@ -29,7 +29,7 @@ namespace ImageService.Server
         {
             this.m_controller = imageController;
             this.m_logging = loggingService;
-            string[] dirPaths = ConfigurationSettings.AppSettings["Handler"].Split(';');
+            string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             foreach (string path in dirPaths)
             {
                 //**need to check that dirPath is valid??***
@@ -40,7 +40,7 @@ namespace ImageService.Server
 
         public void CreateHandler(string dirPath)
         {
-            IDirectoryHandler dirHandler = new DirectoyHandler(dirPath);
+            IDirectoryHandler dirHandler = new DirectoyHandler(dirPath,m_logging,m_controller);
             CommandRecieved += dirHandler.OnCommandRecieved;
             dirHandler.DirectoryClose += this.onClose;
             this.m_logging.Log("Created handler for: " + dirPath, Logging.Modal.MessageTypeEnum.INFO);
