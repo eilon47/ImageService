@@ -30,6 +30,12 @@ namespace ImageService.Modal
 
         public string AddFile(string path, out bool result)
         {
+            string func = "AddFile\n";
+            string pth = @"C:\Users\green\Desktop\hello.txt"; 
+            using (StreamWriter sw = File.AppendText(pth)) 
+        {
+            sw.WriteLine(func);
+        }	
             try
             {
                 if (File.Exists(path))

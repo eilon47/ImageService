@@ -91,7 +91,6 @@ namespace ImageService
 
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-
         }
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
