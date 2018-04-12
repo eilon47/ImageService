@@ -32,15 +32,28 @@ namespace ImageService.Controller
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-            // Write Code Here
-            string path = commands[commandID].Execute(args,out resultSuccesful);
-
-            if (resultSuccesful)
+            if(isCommand(commandID))
             {
-                return path;
+               Task<Tuple<string,bool>> task = new Task<Tuple<string, bool>>(() =>
+               {
+                    string path = commands[commandID].Execute(args,out bool res);
+                    return Tuple.Create(path,res);
+               });
+               task.Start();
+               resultSuccesful = task.Result.Item2;
+               if (resultSuccesful)
+               {
+                    return task.Result.Item1;
+               }
             }
-            loggingService.Log(path, Logging.Modal.MessageTypeEnum.FAIL);
+            resultSuccesful = false;
+            loggingService.Log("ErrorMesssage", Logging.Modal.MessageTypeEnum.FAIL);
             return "ErrorMesssage";
+        }
+
+        public bool isCommand(int commandID)
+        {
+            return this.commands.ContainsKey(commandID);
         }
     }
 }
