@@ -9,13 +9,6 @@ namespace ImageService.ImageService
 {
     class CloseCommand : ICommand
     {
-
-        public string Execute(string[] args, out bool result)
-        {
-
-
-
-        }
-
+        private IImageServiceModal m_modal;
     }
 }

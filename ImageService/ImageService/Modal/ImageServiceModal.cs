@@ -50,7 +50,7 @@ namespace ImageService.Modal
                     string month = creation.Month.ToString();
                     string name = Path.GetFileName(path);
 
-
+                    //creates the outputDir and ThumbnailsDir if not exist.
                     Directory.CreateDirectory(this.OutputFolder);
 
                     Directory.CreateDirectory(thumbnailPath);
@@ -66,18 +66,19 @@ namespace ImageService.Modal
                     //Create the directory for the month
                     string loc = this.OutputFolder + "\\" + year + "\\" + month ;
                     DirectoryInfo locationToCopy = Directory.CreateDirectory(loc);
-                    sw.WriteLine(locationToCopy.FullName);
+                     //Create the thumbnails directory for the month
                     string thumLoc = thumbnailPath + "\\" + year + "\\" + month;
                     DirectoryInfo locationToCopyThumbnail =Directory.CreateDirectory(thumLoc);
                     sw.WriteLine(path);
-
+                    //copy the file to new direcory.
                     string dstFile = System.IO.Path.Combine(loc, name);
-                    string dstThum = System.IO.Path.Combine(thumLoc, name);
-                    File.Copy(path, dstFile,true);
+                    File.Move(path, dstFile);
+                    
                     sw.WriteLine("got so far4");
 
                     //Save the thumbnail image.
-                    Image thumbImage = Image.FromFile(path);
+                    string dstThum = System.IO.Path.Combine(thumLoc, name);
+                    Image thumbImage = Image.FromFile(dstFile);
                     thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
                     sw.WriteLine("got so far5");
@@ -95,6 +96,28 @@ namespace ImageService.Modal
                 result = false;
                 return e.ToString();
             }
+
+        }
+
+        public string deleteFile(string path, out bool result) 
+        {
+            if(System.IO.File.Exists(@path))
+        {
+            // Use a try block to catch IOExceptions, to
+            // handle the case of the file already being
+            // opened by another process.
+            try
+            {
+                System.IO.File.Delete(@path);
+                result = true;
+            }
+            catch (System.IO.IOException e)
+            {
+                result = false;
+                return e.ToString();
+            }
+        }
+
 
         }
 

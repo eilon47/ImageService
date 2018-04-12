@@ -93,6 +93,27 @@ namespace ImageService.Server
             string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
         }
+         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
+        {
+            string func = "OnCommandRecieved\n";
+            string path = @"C:\Users\green\Desktop\hello.txt"; 
+            using (StreamWriter sw = File.AppendText(path)) 
+        {
+            sw.WriteLine(func);
+        }	
+            bool result;
+            if (e.RequestDirPath.Equals(this.m_path))
+            {
+                string message = this.m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
+                if(result)
+                {
+                    this.m_logging.Log(message, MessageTypeEnum.INFO);
+                } else
+                {
+                    this.m_logging.Log(message, MessageTypeEnum.FAIL);
+                }
+            }
+        }
     }
 
 }

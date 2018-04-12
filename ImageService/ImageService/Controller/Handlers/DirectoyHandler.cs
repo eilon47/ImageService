@@ -10,6 +10,7 @@ using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
+using ImageService.Commands;
 
 namespace ImageService.Controller.Handlers
 {
@@ -48,17 +49,18 @@ namespace ImageService.Controller.Handlers
             string func = "StartHandleDirectory\n";
             string path = @"C:\Users\green\Desktop\hello.txt"; 
             using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
+            {
+               sw.WriteLine(func);
+            }	
             string startMessage = "Handeling directory: " + dirPath;
             this.m_logging.Log(startMessage, MessageTypeEnum.INFO);
             initializeWatcher(dirPath);
         }
 
+        
 
-
-        public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
+         
+         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
         {
             string func = "OnCommandRecieved\n";
             string path = @"C:\Users\green\Desktop\hello.txt"; 
@@ -79,43 +81,23 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
-
-
-
-        private void onChanged(object o, FileSystemEventArgs comArgs)
-        {
-            string func = "onChanged\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
-            //this method should check the extension of the file and if it fits than uses OnCommandRecieved
-            string fileExtension = Path.GetExtension(comArgs.FullPath);
-
-            if (extensionsToListen.Contains(fileExtension))
-            {
-                string[] args = { comArgs.FullPath };
-                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int) CommandEnum.NewFileCommand,
-                    args, m_path);
-                OnCommandRecieved(this, commandArgs);
-            }
-        }
-
         public void initializeWatcher(string dirPath)
         {
             string func = "initializeWatcher\n";
             string path = @"C:\Users\green\Desktop\hello.txt"; 
             using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
+            {
+               sw.WriteLine(func);
+            }	
             m_dirWatcher.Path = dirPath;
             m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             m_dirWatcher.Filter = "*.*";
             //m_dirWatcher.Created += new FileSystemEventHandler(onChanged);
             m_dirWatcher.Changed += new FileSystemEventHandler(onChanged);
+            m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
+            m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
+            m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
             m_dirWatcher.EnableRaisingEvents = true;
             //this.m_dirWatcher.Created += onChanged;
         }
