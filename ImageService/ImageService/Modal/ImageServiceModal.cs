@@ -39,31 +39,51 @@ namespace ImageService.Modal
             try
             {
                 if (File.Exists(path))
+                    
                 {
-                    string name = Path.GetFileName(path);
-                    //Creates(if it is not already exists) the hidden directory.
-                    Directory.CreateDirectory(this.OutputFolder);
-                    //Creates the thumbnail directory in the hidden directory.
-                    string thumbnailPath = this.OutputFolder + "\\Thumbnails";
-                    Directory.CreateDirectory(thumbnailPath);
-                   
+                    using (StreamWriter sw = File.AppendText(pth)) 
+                    {
+                    sw.WriteLine("got so far1");
                     DateTime creation = File.GetCreationTime(path);
+                    string thumbnailPath = this.OutputFolder + "\\Thumbnails";
                     string year = creation.Year.ToString();
                     string month = creation.Month.ToString();
+                    string name = Path.GetFileName(path);
+
+
+                    Directory.CreateDirectory(this.OutputFolder);
+
+                    Directory.CreateDirectory(thumbnailPath);
+                    
+                    sw.WriteLine("got so far2");
+
+                    
                     //Create the directory for the year
                     Directory.CreateDirectory(this.OutputFolder + "\\" + year);
                     Directory.CreateDirectory(thumbnailPath + "\\" + year);
+                    sw.WriteLine("got so far3");
+
                     //Create the directory for the month
-                    DirectoryInfo locationToCopy = Directory.CreateDirectory(this.OutputFolder + "\\" + year + "\\" + month);
-                    DirectoryInfo locationToCopyThumbnail =Directory.CreateDirectory(thumbnailPath + "\\" + year + "\\" + month);
-                    File.Copy(path, locationToCopy.ToString());
+                    string loc = this.OutputFolder + "\\" + year + "\\" + month ;
+                    DirectoryInfo locationToCopy = Directory.CreateDirectory(loc);
+                    sw.WriteLine(locationToCopy.FullName);
+                    string thumLoc = thumbnailPath + "\\" + year + "\\" + month;
+                    DirectoryInfo locationToCopyThumbnail =Directory.CreateDirectory(thumLoc);
+                    sw.WriteLine(path);
+
+                    string dstFile = System.IO.Path.Combine(loc, name);
+                    string dstThum = System.IO.Path.Combine(thumLoc, name);
+                    File.Copy(path, dstFile,true);
+                    sw.WriteLine("got so far4");
+
                     //Save the thumbnail image.
                     Image thumbImage = Image.FromFile(path);
                     thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero);
-                    thumbImage.Save(locationToCopyThumbnail.ToString() + "\\" + name);
-
+                    thumbImage.Save(dstThum);
+                    sw.WriteLine("got so far5");
                     result = true;
                     return locationToCopy.ToString() + "\\" + name;
+                        }
                 } else
                 {
                     result = false;
