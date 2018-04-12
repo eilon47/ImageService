@@ -98,29 +98,6 @@ namespace ImageService.Modal
             }
 
         }
-
-        public string deleteFile(string path, out bool result) 
-        {
-            if(System.IO.File.Exists(@path))
-        {
-            // Use a try block to catch IOExceptions, to
-            // handle the case of the file already being
-            // opened by another process.
-            try
-            {
-                System.IO.File.Delete(@path);
-                result = true;
-            }
-            catch (System.IO.IOException e)
-            {
-                result = false;
-                return e.ToString();
-            }
-        }
-
-
-        }
-
     }
   
 }

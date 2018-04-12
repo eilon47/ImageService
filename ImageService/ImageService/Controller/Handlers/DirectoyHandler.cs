@@ -57,17 +57,56 @@ namespace ImageService.Controller.Handlers
             initializeWatcher(dirPath);
         }
 
-        
+       
+        public void initializeWatcher(string dirPath)
+        {
+            string func = "initializeWatcher\n";
+            string path = @"C:\Users\green\Desktop\hello.txt"; 
+            using (StreamWriter sw = File.AppendText(path)) 
+            {
+               sw.WriteLine(func);
+            }	
+            m_dirWatcher.Path = dirPath;
+            m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            m_dirWatcher.Filter = "*.*";
+            //m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
+            m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
+            //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
+            //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+            m_dirWatcher.EnableRaisingEvents = true;
+            //this.m_dirWatcher.Created += onChanged;
+        }
 
-         
-         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
+        private void OnChanged(object source, FileSystemEventArgs comArgs)
+        {
+            string func = "onchanged\n";
+            string path = @"C:\Users\green\Desktop\hello.txt";
+            using (StreamWriter sw = File.AppendText(path)) 
+            {
+                sw.WriteLine(func);
+            }
+
+            string filEx = Path.GetExtension(comArgs.FullPath);
+
+            if (extensionsToListen.Contains(filEx))
+            {
+                string[] args = { comArgs.FullPath };
+                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs(
+                    (int)CommandEnum.NewFileCommand, args, m_path);
+                OnCommandRecieved(this, commandArgs);
+            }
+        }
+
+
+        public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
         {
             string func = "OnCommandRecieved\n";
             string path = @"C:\Users\green\Desktop\hello.txt"; 
             using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
+            {
+                sw.WriteLine(func);
+            }	
             bool result;
             if (e.RequestDirPath.Equals(this.m_path))
             {
@@ -81,25 +120,7 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
-        public void initializeWatcher(string dirPath)
-        {
-            string func = "initializeWatcher\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-            {
-               sw.WriteLine(func);
-            }	
-            m_dirWatcher.Path = dirPath;
-            m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            m_dirWatcher.Filter = "*.*";
-            //m_dirWatcher.Created += new FileSystemEventHandler(onChanged);
-            m_dirWatcher.Changed += new FileSystemEventHandler(onChanged);
-            m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
-            m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
-            m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-            m_dirWatcher.EnableRaisingEvents = true;
-            //this.m_dirWatcher.Created += onChanged;
-        }
+
+
     }
 }
