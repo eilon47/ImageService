@@ -29,7 +29,6 @@ namespace ImageService.Controller
             {
                 // For Now will contain NEW_FILE_COMMAND
                 {(int) CommandEnum.NewFileCommand,new NewFileCommand(m_modal)},
-                //{(int) CommandEnum.DeleteCommand,new DeleteCommand(m_modal)},
             };
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)

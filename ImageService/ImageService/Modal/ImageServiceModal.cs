@@ -68,7 +68,7 @@ namespace ImageService.Modal
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
                     result = true;
-                    return locationToCopy.ToString() + "\\" + name;
+                    return dstFile;
                 }
                 else
                 {

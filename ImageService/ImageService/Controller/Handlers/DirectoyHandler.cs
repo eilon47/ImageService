@@ -89,9 +89,11 @@ namespace ImageService.Controller.Handlers
                 string message = this.m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
                 if (result)
                 {
-                    this.m_logging.Log(message, MessageTypeEnum.INFO);
+                    string logMessage = "Added file: " + message;
+                    this.m_logging.Log(logMessage, MessageTypeEnum.INFO);
                 } else
                 {
+                    string logMessage = "Couldn't add file: " + message;
                     this.m_logging.Log(message, MessageTypeEnum.FAIL);
                 }
             }
