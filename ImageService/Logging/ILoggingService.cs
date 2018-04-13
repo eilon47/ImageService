@@ -7,9 +7,18 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging
 {
+    /// <summary>
+    /// Interface for our service Logger.
+    /// </summary>
     public interface ILoggingService
     {
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
+        /// <summary>
+        /// Log : 
+        /// write entrys for the service's eventsLog.
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="type">type</param>
         void Log(string message, MessageTypeEnum type);           // Logging the Message
     }
 }

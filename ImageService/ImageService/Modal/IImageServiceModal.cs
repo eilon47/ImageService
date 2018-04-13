@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Modal
 {
+    /// <summary>
+    /// Interface for Image service modal.
+    /// </summary>
     public interface IImageServiceModal
     {
         /// <summary>

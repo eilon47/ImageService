@@ -13,9 +13,14 @@ using ImageService.Modal;
 using ImageService.Logging;
 using ImageService.Server;
 using System.Configuration;
+using ImageService.Logging.Modal;
+using System.IO;
 
 namespace ImageService
 {
+    /// <summary>
+    /// partial class for ImageService, derived from ServiceBase.
+    /// </summary>
     public partial class ImageService : ServiceBase
     {
         private int eventId = 1;
@@ -26,7 +31,10 @@ namespace ImageService
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
 
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="args"> arguments for the service</param>
         public ImageService(string[] args)
         {
             InitializeComponent();
@@ -57,12 +65,15 @@ namespace ImageService
             }
             ImageServiceLog.Source = eventSourceName;
             ImageServiceLog.Log = logName;
+            this.loggingService.MessageRecieved += this.WriteEntryToLog;
         }
-
+        /// <summary>
+        /// OnStart - when the service starts running.
+        /// </summary>
+        /// <param name="args"> arguments for the service </param>
         protected override void OnStart(string[] args)
         {
             ImageServiceLog.WriteEntry("In onStart.");
-
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 6000000; // 10 mins  
@@ -74,31 +85,39 @@ namespace ImageService
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             // Update the service state to Running.  
-
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
-
+        /// <summary>
+        /// OnStop - when the user decide to stop the service.
+        /// </summary>
         protected override void OnStop()
         {
             ImageServiceLog.WriteEntry("In onStop.");
+            //Closing the server.
+            this.imageServer.OnClose();
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             // Update the service state to Running.  
-
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
-
+        /// <summary>
+        /// OnTimer
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="args">elapsed event args</param>
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here. 
             ImageServiceLog.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
         }
-
+        /// <summary>
+        /// ServiceState enums.
+        /// </summary>
         public enum ServiceState
         {
             SERVICE_STOPPED = 0x00000001,
@@ -121,8 +140,34 @@ namespace ImageService
             public int dwCheckPoint;
             public int dwWaitHint;
         };
+        /// <summary>
+        /// Gets a message from the Log and translates it to the eventLog.
+        /// </summary>
+        /// <param name="sender"> sender</param>
+        /// <param name="e">eventArgs</param>
+        public void WriteEntryToLog(object sender , MessageRecievedEventArgs e)
+        {
+            string message = sender.ToString() +": " + e.Message;
+            EventLogEntryType type;
+            switch (e.Status)
+            {
+                case MessageTypeEnum.WARNING:
+                    {
+                        type = EventLogEntryType.Warning;
+                        break;
+                    }
+                case MessageTypeEnum.FAIL:
+                    {
+                        type = EventLogEntryType.Error;
+                        break;
+                    }
+                default:
+                    {
+                        type = EventLogEntryType.Information;
+                        break;
+                    }
+            }
+            this.ImageServiceLog.WriteEntry(message, type);
+        }
     }
 }
-
-
-

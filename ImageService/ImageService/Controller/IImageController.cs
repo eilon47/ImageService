@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace ImageService.Controller
 {
+    /// <summary>
+    /// Interface for ImageController.
+    /// </summary>
     public interface IImageController
     {
-        string ExecuteCommand(int commandID, string[] args, out bool result);          // Executing the Command Requet
+        /// <summary>
+        /// Executes commands that the controller recive.
+        /// </summary>
+        /// <param name="commandID"></param>
+        /// <param name="args"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        string ExecuteCommand(int commandID, string[] args, out bool result);
     }
 }

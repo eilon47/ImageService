@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Modal
 {
+    /// <summary>
+    /// Event Args for the Directory Close.
+    /// </summary>
     public class DirectoryCloseEventArgs : EventArgs
     {
         public string DirectoryPath { get; set; }

@@ -11,6 +11,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using ImageService.Commands;
+using ImageService.Server;
 
 namespace ImageService.Controller.Handlers
 {
@@ -27,16 +28,14 @@ namespace ImageService.Controller.Handlers
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="dirPath">directory path</param>
+        /// <param name="loggingService">logging service</param>
+        /// <param name="imageController">image controller</param>
         public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
-            string func = "DirectoyHandler constructor\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
-
             this.m_dirWatcher = new FileSystemWatcher(dirPath);
             this.m_controller = imageController;
             this.m_logging = loggingService;
@@ -46,49 +45,30 @@ namespace ImageService.Controller.Handlers
 
         public void StartHandleDirectory(string dirPath)
         {
-            string func = "StartHandleDirectory\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-            {
-               sw.WriteLine(func);
-            }	
             string startMessage = "Handeling directory: " + dirPath;
             this.m_logging.Log(startMessage, MessageTypeEnum.INFO);
-            initializeWatcher(dirPath);
+            InitializeWatcher(dirPath);
         }
 
-       
-        public void initializeWatcher(string dirPath)
+
+        public void InitializeWatcher(string dirPath)
         {
-            string func = "initializeWatcher\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-            {
-               sw.WriteLine(func);
-            }	
-            m_dirWatcher.Path = dirPath;
-            m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            m_dirWatcher.Filter = "*.*";
-            //m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
-            m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
-            //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
-            //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-            m_dirWatcher.EnableRaisingEvents = true;
-            //this.m_dirWatcher.Created += onChanged;
+                m_dirWatcher.Path = dirPath;
+                m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                       | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                m_dirWatcher.Filter = "*.*";
+                //m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
+                m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
+                //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
+                //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+                m_dirWatcher.EnableRaisingEvents = true;
+                //this.m_dirWatcher.Created += onChanged;
         }
 
         private void OnChanged(object source, FileSystemEventArgs comArgs)
         {
-            string func = "onchanged\n";
-            string path = @"C:\Users\green\Desktop\hello.txt";
-            using (StreamWriter sw = File.AppendText(path)) 
-            {
-                sw.WriteLine(func);
-            }
-
             string filEx = Path.GetExtension(comArgs.FullPath);
-
+            //Checks the extension is relevant.
             if (extensionsToListen.Contains(filEx))
             {
                 string[] args = { comArgs.FullPath };
@@ -101,17 +81,13 @@ namespace ImageService.Controller.Handlers
 
         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
         {
-            string func = "OnCommandRecieved\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-            {
-                sw.WriteLine(func);
-            }	
+
             bool result;
+            //If it is it's directory it listens to:
             if (e.RequestDirPath.Equals(this.m_path))
             {
                 string message = this.m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
-                if(result)
+                if (result)
                 {
                     this.m_logging.Log(message, MessageTypeEnum.INFO);
                 } else
@@ -120,7 +96,20 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
-
-
+        public void CloseHandler(object sender, DirectoryCloseEventArgs dirArgs)
+        {
+            try
+            {
+                //Make the watcher enable to raise events.
+                this.m_dirWatcher.EnableRaisingEvents = false;
+                //Remove this handler from getting commands.
+                ((ImageServer)sender).CommandRecieved -= this.OnCommandRecieved;
+                this.m_logging.Log("Closed Directory handler for directory: " + m_path + " ", MessageTypeEnum.INFO);
+            }
+            catch (Exception e)
+            {
+                this.m_logging.Log("Could not close Directory handler for directory: " + m_path + " Reason: " + e.Message.ToString(), MessageTypeEnum.FAIL);
+            }
+        }
     }
 }

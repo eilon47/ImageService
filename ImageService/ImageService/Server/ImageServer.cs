@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace ImageService.Server
 {
+    /// <summary>
+    /// ImageServer . Server for the Service - Creating Directory handlers for each directory.
+    /// Connecting between the service and the handlers.
+    /// </summary>
     public class ImageServer
     {
         #region Members
@@ -23,76 +27,70 @@ namespace ImageService.Server
 
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
+        public event EventHandler<DirectoryCloseEventArgs> CloseEvent;
         #endregion
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="loggingService">Log</param>
+        /// <param name="imageController">Controller</param>
         public ImageServer(ILoggingService loggingService, IImageController imageController)
         {
-            string func = "ImageServer\n";
-            string pth = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(pth)) 
-        {
-            sw.WriteLine(func);
-        }	
             this.m_controller = imageController;
             this.m_logging = loggingService;
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
+            //Creates the direcory handlers for each directory path recieved.
             foreach (string path in dirPaths)
             {
-                //**need to check that dirPath is valid??***
-                //**************************************
-                this.CreateHandler(path);
-                using (StreamWriter sw = File.AppendText(pth)) 
-        {
-            sw.WriteLine("created handel for directory:");
-                                sw.WriteLine(path);
-                                sw.WriteLine("\n");
-
-
-        }	
+                if (Directory.Exists(path))
+                {
+                    this.CreateHandler(path);
+                }
             }
         }
-
+        /// <summary>
+        /// CreateHandler :
+        /// creates the handler for a given directory's path.
+        /// </summary>
+        /// <param name="dirPath"></param>
         public void CreateHandler(string dirPath)
         {
-            string func = "Createhandler\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }
-	        m_logging.Log(func, Logging.Modal.MessageTypeEnum.INFO);
-            IDirectoryHandler dirHandler = new DirectoyHandler(dirPath,m_logging,m_controller);
+            m_logging.Log("In create handler", Logging.Modal.MessageTypeEnum.INFO);
+            IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
             CommandRecieved += dirHandler.OnCommandRecieved;
-            dirHandler.DirectoryClose += this.onClose;
+            CloseEvent += dirHandler.CloseHandler;
             dirHandler.StartHandleDirectory(dirPath);
             this.m_logging.Log("Created handler for: " + dirPath, Logging.Modal.MessageTypeEnum.INFO);
         }
-
-        public void invokeCommand(CommandRecievedEventArgs commandArgs)
+        /// <summary>
+        /// InvokeCommand 
+        /// </summary>
+        /// <param name="commandArgs"></param>
+        public void InvokeCommand(CommandRecievedEventArgs commandArgs)
         {
-             string func = "invokeCommand\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
+            CommandRecieved?.Invoke(this, commandArgs);
         }
-
-            CommandRecieved?.Invoke(this,commandArgs);
-        }
-
-        public void onClose(object o, DirectoryCloseEventArgs dirArgs)
+        /// <summary>
+        /// OnClose the server need to close all the handlers.
+        /// </summary>
+        public void OnClose()
         {
-            string func = "onClose\n";
-            string path = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(path)) 
-        {
-            sw.WriteLine(func);
-        }	
-            IDirectoryHandler dirHandler = (IDirectoryHandler)o;
-            CommandRecieved -= dirHandler.OnCommandRecieved;
-            string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
-            m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+            try
+            {
+                m_logging.Log("Server closing the handlers", Logging.Modal.MessageTypeEnum.INFO);
+                CloseEvent?.Invoke(this, new DirectoryCloseEventArgs("", ""));
+                m_logging.Log("Server finished closing the handlers", Logging.Modal.MessageTypeEnum.INFO);
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                m_logging.Log("Error in closing the handlers", Logging.Modal.MessageTypeEnum.FAIL);
+            }
+            //IDirectoryHandler dirHandler = (IDirectoryHandler)o;
+            //CommandRecieved -= dirHandler.OnCommandRecieved;
+            //string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
+            //m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
         }
-         
     }
 }

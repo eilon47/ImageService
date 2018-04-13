@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,62 +31,46 @@ namespace ImageService.Modal
 
         public string AddFile(string path, out bool result)
         {
-            string func = "AddFile\n";
-            string pth = @"C:\Users\green\Desktop\hello.txt"; 
-            using (StreamWriter sw = File.AppendText(pth)) 
-        {
-            sw.WriteLine(func);
-        }	
             try
             {
                 if (File.Exists(path))
-                    
                 {
-                    using (StreamWriter sw = File.AppendText(pth)) 
-                    {
-                    sw.WriteLine("got so far1");
-                    DateTime creation = File.GetCreationTime(path);
+                    DateTime creation = this.GetDateTime(path);
                     string thumbnailPath = this.OutputFolder + "\\Thumbnails";
                     string year = creation.Year.ToString();
                     string month = creation.Month.ToString();
                     string name = Path.GetFileName(path);
 
                     //creates the outputDir and ThumbnailsDir if not exist.
-                    Directory.CreateDirectory(this.OutputFolder);
-
+                    DirectoryInfo dir =  Directory.CreateDirectory(this.OutputFolder) ;
+                    dir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                     Directory.CreateDirectory(thumbnailPath);
-                    
-                    sw.WriteLine("got so far2");
-
                     
                     //Create the directory for the year
                     Directory.CreateDirectory(this.OutputFolder + "\\" + year);
                     Directory.CreateDirectory(thumbnailPath + "\\" + year);
-                    sw.WriteLine("got so far3");
-
+                    
                     //Create the directory for the month
                     string loc = this.OutputFolder + "\\" + year + "\\" + month ;
                     DirectoryInfo locationToCopy = Directory.CreateDirectory(loc);
                      //Create the thumbnails directory for the month
                     string thumLoc = thumbnailPath + "\\" + year + "\\" + month;
                     DirectoryInfo locationToCopyThumbnail =Directory.CreateDirectory(thumLoc);
-                    sw.WriteLine(path);
-                    //copy the file to new direcory.
+                    
+                    //move the file to new direcory.
                     string dstFile = System.IO.Path.Combine(loc, name);
                     File.Move(path, dstFile);
-                    
-                    sw.WriteLine("got so far4");
-
+                  
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
                     Image thumbImage = Image.FromFile(dstFile);
-                    thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero);
+                    thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize,
+                        this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
-                    sw.WriteLine("got so far5");
                     result = true;
                     return locationToCopy.ToString() + "\\" + name;
-                        }
-                } else
+                }
+                else
                 {
                     result = false;
                     return "Image does not exist!";
@@ -97,6 +82,33 @@ namespace ImageService.Modal
                 return e.ToString();
             }
 
+        }
+        /// <summary>
+        /// GetDateTime
+        /// trying to get the date when the pic was taken, otherwise returns the creation date.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public DateTime GetDateTime(string path)
+        {
+            Regex r = new Regex(":");
+            try
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (Image myImage = Image.FromStream(fs, false, false))
+                {
+                    PropertyItem propItem = myImage.GetPropertyItem(36867);
+                    string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                    DateTime dt = DateTime.Parse(dateTaken);
+                    return dt;
+                }
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return File.GetCreationTime(path);
+
+            }
         }
     }
   
