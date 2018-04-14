@@ -60,12 +60,14 @@ namespace ImageService.Modal
                     
                     //move the file to new direcory.
                     string dstFile = System.IO.Path.Combine(loc, name);
-                    if(File.Exists(dstFile)) 
-                    {
-                        File.Delete(path);
-                        result = true;
-                        return "The file already exist";
-                    }
+                    //if(File.Exists(dstFile)) 
+                    //{
+                    //    name = RenameFile(loc, name);
+                    //    dstFile = Path.Combine(loc, name);
+                    //    //File.Delete(path);
+                    //    //result = true;
+                    //    //return "The file already exist";
+                    //}
                     //File.Create(dstFile);
                     File.Move(path, dstFile);
                     //Save the thumbnail image.
@@ -134,6 +136,7 @@ namespace ImageService.Modal
            if(MonthNum.Equals("12")) { return "December"; }
            return MonthNum;
         }
+       
     }
   
 }
