@@ -33,6 +33,7 @@ namespace ImageService.Modal
         {
             try
             {
+    
                 if (File.Exists(path))
                 {
                     DateTime creation = this.GetDateTime(path);
@@ -59,8 +60,14 @@ namespace ImageService.Modal
                     
                     //move the file to new direcory.
                     string dstFile = System.IO.Path.Combine(loc, name);
+                    if(File.Exists(dstFile)) 
+                    {
+                        File.Delete(path);
+                        result = true;
+                        return "The file already exist";
+                    }
+                    //File.Create(dstFile);
                     File.Move(path, dstFile);
-                  
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
                     Image thumbImage = Image.FromFile(dstFile);
@@ -68,7 +75,7 @@ namespace ImageService.Modal
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
                     result = true;
-                    return dstFile;
+                    return dstFile;               
                 }
                 else
                 {

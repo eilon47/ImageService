@@ -57,8 +57,8 @@ namespace ImageService.Controller.Handlers
                 m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                        | NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 m_dirWatcher.Filter = "*.*";
-                //m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
-                m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
+                m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
+                //m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
                 //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
                 //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
                 m_dirWatcher.EnableRaisingEvents = true;
