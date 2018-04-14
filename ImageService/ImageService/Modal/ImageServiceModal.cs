@@ -38,7 +38,7 @@ namespace ImageService.Modal
                     DateTime creation = this.GetDateTime(path);
                     string thumbnailPath = this.OutputFolder + "\\Thumbnails";
                     string year = creation.Year.ToString();
-                    string month = creation.Month.ToString();
+                    string month = getMonthName(creation.Month.ToString());
                     string name = Path.GetFileName(path);
 
                     //creates the outputDir and ThumbnailsDir if not exist.
@@ -109,6 +109,23 @@ namespace ImageService.Modal
                 return File.GetCreationTime(path);
 
             }
+        }
+
+        public string getMonthName(string MonthNum)
+        {
+           if(MonthNum.Equals("1")) { return "January"; }
+           if(MonthNum.Equals("2")) { return "February"; }
+           if(MonthNum.Equals("3")) { return "March"; }
+           if(MonthNum.Equals("4")) { return "April"; }
+           if(MonthNum.Equals("5")) { return "May"; }
+           if(MonthNum.Equals("6")) { return "June"; }
+           if(MonthNum.Equals("7")) { return "July"; }
+           if(MonthNum.Equals("8")) { return "August"; }
+           if(MonthNum.Equals("9")) { return "September"; }
+           if(MonthNum.Equals("10")) { return "October"; }
+           if(MonthNum.Equals("11")) { return "November"; }
+           if(MonthNum.Equals("12")) { return "December"; }
+           return MonthNum;
         }
     }
   
