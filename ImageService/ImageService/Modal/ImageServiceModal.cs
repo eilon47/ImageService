@@ -1,14 +1,10 @@
 ﻿//using ImageService.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ImageService.Modal
 {
@@ -33,43 +29,44 @@ namespace ImageService.Modal
         {
             try
             {
-    
+
                 if (File.Exists(path))
                 {
                     DateTime creation = this.GetDateTime(path);
                     string thumbnailPath = this.OutputFolder + "\\Thumbnails";
                     string year = creation.Year.ToString();
-                    string month = getMonthName(creation.Month.ToString());
+                    string month = GetMonthName(creation.Month.ToString());
                     string name = Path.GetFileName(path);
 
                     //creates the outputDir and ThumbnailsDir if not exist.
-                    DirectoryInfo dir =  Directory.CreateDirectory(this.OutputFolder) ;
+                    DirectoryInfo dir = Directory.CreateDirectory(this.OutputFolder);
                     dir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                     Directory.CreateDirectory(thumbnailPath);
-                    
+
                     //Create the directory for the year
                     Directory.CreateDirectory(this.OutputFolder + "\\" + year);
                     Directory.CreateDirectory(thumbnailPath + "\\" + year);
-                    
+
                     //Create the directory for the month
-                    string loc = this.OutputFolder + "\\" + year + "\\" + month ;
+                    string loc = this.OutputFolder + "\\" + year + "\\" + month;
                     DirectoryInfo locationToCopy = Directory.CreateDirectory(loc);
-                     //Create the thumbnails directory for the month
+                    //Create the thumbnails directory for the month
                     string thumLoc = thumbnailPath + "\\" + year + "\\" + month;
-                    DirectoryInfo locationToCopyThumbnail =Directory.CreateDirectory(thumLoc);
-                    
+                    DirectoryInfo locationToCopyThumbnail = Directory.CreateDirectory(thumLoc);
+
                     //move the file to new direcory.
                     string dstFile = System.IO.Path.Combine(loc, name);
-                    //if(File.Exists(dstFile)) 
-                    //{
-                    //    name = RenameFile(loc, name);
-                    //    dstFile = Path.Combine(loc, name);
-                    //    //File.Delete(path);
-                    //    //result = true;
-                    //    //return "The file already exist";
-                    //}
+                    if (File.Exists(dstFile))
+                    {
+                        name = RenameFile(loc, name);
+                        dstFile = Path.Combine(loc, name);
+                        //File.Delete(path);
+                        //result = true;
+                        //return "The file already exist";
+                    }
                     //File.Create(dstFile);
                     File.Move(path, dstFile);
+
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
                     Image thumbImage = Image.FromFile(dstFile);
@@ -77,7 +74,7 @@ namespace ImageService.Modal
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
                     result = true;
-                    return dstFile;               
+                    return dstFile;
                 }
                 else
                 {
@@ -119,8 +116,12 @@ namespace ImageService.Modal
 
             }
         }
-
-        public string getMonthName(string MonthNum)
+        /// <summary>
+        /// The function converts month represented in number to it's name.
+        /// </summary>
+        /// <param name="MonthNum">number represents the month</param>
+        /// <returns>string of the name of the month</returns>
+        public string GetMonthName(string MonthNum)
         {
            if(MonthNum.Equals("1")) { return "January"; }
            if(MonthNum.Equals("2")) { return "February"; }
@@ -135,6 +136,30 @@ namespace ImageService.Modal
            if(MonthNum.Equals("11")) { return "November"; }
            if(MonthNum.Equals("12")) { return "December"; }
            return MonthNum;
+        }
+        /// <summary>
+        /// Rename file,
+        /// renames the file name.
+        /// </summary>
+        /// <param name="loc">destination location</param>
+        /// <param name="oldName">old name</param>
+        /// <returns>new name</returns>
+        public string RenameFile(string loc, string oldName)
+        {
+            string path = Path.Combine(loc, oldName);
+            string extension = Path.GetExtension(path);
+            string nameWithoutExt = Path.GetFileNameWithoutExtension(path);
+            string newName = oldName;
+            int i = 0;
+            while (File.Exists(path))
+            {
+                newName = nameWithoutExt + "(" + i.ToString() + ")" + extension;
+                path = Path.Combine(loc, newName);
+                i++;
+            }
+
+            return newName;
+
         }
        
     }
