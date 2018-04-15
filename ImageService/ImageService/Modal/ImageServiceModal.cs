@@ -73,6 +73,7 @@ namespace ImageService.Modal
                     thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize,
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
+                    thumbImage.Dispose();
                     result = true;
                     return dstFile;
                 }
@@ -106,6 +107,7 @@ namespace ImageService.Modal
                     PropertyItem propItem = myImage.GetPropertyItem(36867);
                     string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                     DateTime dt = DateTime.Parse(dateTaken);
+                    myImage.Dispose();
                     return dt;
                 }
             }
