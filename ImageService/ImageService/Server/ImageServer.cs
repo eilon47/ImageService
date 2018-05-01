@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using StreamJsonRpc;
 using System.Threading.Tasks;
 
 
@@ -18,7 +20,7 @@ namespace ImageService.Server
     /// ImageServer . Server for the Service - Creating Directory handlers for each directory.
     /// Connecting between the service and the handlers.
     /// </summary>
-    public class ImageServer
+    public class ImageServer : IClientHandler
     {
         #region Members
         private IImageController m_controller;
@@ -91,6 +93,24 @@ namespace ImageService.Server
             //CommandRecieved -= dirHandler.OnCommandRecieved;
             //string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
             //m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+        }
+        public void HandleClient(TcpClient client)
+        {
+            new Task(() =>
+            {
+                using (NetworkStream stream = client.GetStream())
+                using (StreamReader reader = new StreamReader(stream))
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    string commandLine = reader.ReadLine();
+                    //CommandRecievedEventArgs command == get command from string;
+                    
+                    Console.WriteLine("Got command: {0}", commandLine);
+                    //this.m_controller.ExecuteCommand(CREA);
+                    //writer.Write(result);
+                }
+                client.Close();
+            }).Start();
         }
     }
 }

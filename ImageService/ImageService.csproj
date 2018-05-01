@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StreamJsonRpc, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -62,9 +63,11 @@
     <Compile Include="ImageService\Controller\IImageController.cs" />
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Controller\ImageController.cs" />
+    <Compile Include="ImageService\Server\IClientHandler.cs" />
     <Compile Include="ImageService\Server\ImageServer.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
+    <Compile Include="ImageService\Server\GuiServer.cs" />
     <Compile Include="Infrastructure\Enum\CommandEnum.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
