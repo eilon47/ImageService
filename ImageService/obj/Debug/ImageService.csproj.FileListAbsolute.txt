@@ -16,7 +16,6 @@ C:\Users\green\Source\Repos\ImageService2\ImageService\obj\Debug\ImageService.pd
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\ImageService.exe.config
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\ImageService.exe
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\ImageService.pdb
-C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
 C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.ImageService.resources
 C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.ProjectInstaller.resources
 C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.csproj.GenerateResource.cache
@@ -40,3 +39,6 @@ C:\Users\eilon\Desktop\ImageService\ImageService\ImageService\obj\Debug\ImageSer
 C:\Users\eilon\Desktop\ImageService\ImageService\ImageService\obj\Debug\ImageService.csproj.CoreCompileInputs.cache
 C:\Users\eilon\Desktop\ImageService\ImageService\ImageService\obj\Debug\ImageService.exe
 C:\Users\eilon\Desktop\ImageService\ImageService\ImageService\obj\Debug\ImageService.pdb
+C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\StreamJsonRpc.dll
+C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\Newtonsoft.Json.dll
+C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
