@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.ImageService.Server
+namespace ImageService.Server
 {
     class GuiServer
     {
@@ -48,6 +48,7 @@ namespace ImageService.ImageService.Server
         public void Stop()
         {
             listener.Stop();
-        }
+        }
+
     }
 }
