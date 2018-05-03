@@ -104,7 +104,7 @@ namespace ImageService.Server
                 {
                     string commandLine = reader.ReadLine();
                     //CommandRecievedEventArgs command == get command from string;
-                    
+
                     Console.WriteLine("Got command: {0}", commandLine);
                     //this.m_controller.ExecuteCommand(CREA);
                     //writer.Write(result);

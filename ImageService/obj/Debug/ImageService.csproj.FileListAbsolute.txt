@@ -42,3 +42,4 @@ C:\Users\eilon\Desktop\ImageService\ImageService\ImageService\obj\Debug\ImageSer
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\StreamJsonRpc.dll
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\Newtonsoft.Json.dll
 C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
+C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
