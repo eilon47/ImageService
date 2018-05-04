@@ -107,7 +107,7 @@ namespace ImageService.Server
 
                     Console.WriteLine("Got command: {0}", commandLine);
                     //this.m_controller.ExecuteCommand(CREA);
-                    //writer.Write(result);
+                    writer.Write("wow got here..");
                 }
                 client.Close();
             }).Start();
