@@ -41,8 +41,9 @@ namespace SettingsView
                     telnetClient.Write("getConfig");
                     Thread.Sleep(5000);
                     OutPutDir = "sent command";
+                    Thread.Sleep(5000);
                     OutPutDir = telnetClient.Read();
-                    Thread.Sleep(50);
+                    Thread.Sleep(5000);
                     OutPutDir = " recieved outputdir";
                     SourceName = telnetClient.Read();
                     LogName = telnetClient.Read();

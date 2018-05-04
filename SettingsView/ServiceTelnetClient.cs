@@ -12,42 +12,56 @@ namespace SettingsView
     class ServiceTelnetClient : ITelnetClient
     {
         private TcpClient tcpClient;
+        private IPEndPoint endPoint;
+
 
         public void Connect(string ip, int port)
         {
             this.tcpClient = new TcpClient();
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
+            this.endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             try
             {
-                tcpClient.Connect(ipep);
+                tcpClient.Connect(endPoint);
                 Console.WriteLine($"You Are Connected To Service On IP: {ip}, Port: {port}");
+                //get the app config for the first time...
+                
             } catch(SocketException e)
             {
-                throw new Exception(e.ToString());
-                //Console.WriteLine("Unable To Connect To Server.");
-                //Console.WriteLine(e.ToString());
+                
             }
         }
 
         public void Write(string command)
         {
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
-            NetworkStream stream = tcpClient.GetStream();
-            stream.Write(data, 0, data.Length);
-            Console.WriteLine("Sent: {0}", command);
+            //tcpClient.Connect(endPoint);
+            using (NetworkStream stream = tcpClient.GetStream())
+            using (BinaryReader reader = new BinaryReader(stream))
+            using (BinaryWriter writer = new BinaryWriter(stream))
+            {
+                // Send data to server
+                Console.WriteLine($"Send {command} to Server");
+                writer.Write(command);
+                stream.Dispose();
+            }
+           
         }
+
         public string Read()
         {
-            NetworkStream stream = tcpClient.GetStream();
-            Byte[] data = new Byte[256];
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
+            //tcpClient.Connect(endPoint);
+            string result = string.Empty;
+            using (NetworkStream stream = tcpClient.GetStream()) 
+            using (BinaryReader reader = new BinaryReader(stream))
+            using (BinaryWriter writer = new BinaryWriter(stream))
+            {
+                // Get result from server
 
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            //Console.WriteLine("Received: {0}", responseData);
-            return responseData;
+                result = reader.ReadString();
+                Console.WriteLine($"Recieve {result} from Server");
+            }
+            //Console.WriteLine("Received: {0}", result);
+            tcpClient.Close();
+            return result;
         }
 
         public void Disconnect()

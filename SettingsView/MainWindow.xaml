@@ -21,8 +21,8 @@
                     <TextBlock Text="Logs" Foreground="Blue" />
                 </StackPanel>
             </TabItem.Header>
-            <Label Content="Content goes here..." />
+            <controls:LogViewModel x:Name="View" />
         </TabItem>
-        <TabItem Background="Gray" Width="696" />
+        <TabItem Background="Gray" Width="auto" Margin="-2.333,-2,-172,0" />
     </TabControl>
 </Window>
