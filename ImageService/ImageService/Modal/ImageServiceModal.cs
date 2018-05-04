@@ -1,5 +1,6 @@
 ﻿//using ImageService.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -90,6 +91,34 @@ namespace ImageService.Modal
             }
 
         }
+
+        public string getConfig(string optionalHandlerToremove, out bool res)
+        {
+            if(!optionalHandlerToremove.Equals(""))
+            {
+                SettingsObject sO = new SettingsObject();
+                List<string> handlers = new List<string>(sO.Handlers);
+                if (handlers.Contains(optionalHandlerToremove))
+                {
+                    handlers.Remove(optionalHandlerToremove);
+                }
+            }
+            string config = string.Empty;
+            try
+            {
+                config = SettingsObject.ToJson();
+            }
+            catch(Exception e)
+            {
+                res = false;
+                return e.ToString();
+            }
+            res = true;
+            return config;
+        }
+
+    
+
         /// <summary>
         /// GetDateTime
         /// trying to get the date when the pic was taken, otherwise returns the creation date.

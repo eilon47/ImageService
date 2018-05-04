@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Release\
 SettingsView
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\green\Source\Repos\ImageService\SettingsView\App.xaml
 31187297150
 
-171377977935
-151489337706
+132011088115
+14-865821764
 ConfigViewModel.xaml;LogViewModel.xaml;MainWindow.xaml;
 
-False
+True
 

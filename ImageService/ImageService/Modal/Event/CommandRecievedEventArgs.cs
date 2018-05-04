@@ -35,7 +35,6 @@ namespace ImageService.Modal
             string[] argsArr = args.ToObject<string[]>();
             string path = (string)jObject["RequestDirPath"];
             return new CommandRecievedEventArgs(id, argsArr, path);
-
         }
 
     } 

@@ -102,14 +102,18 @@ namespace ImageService.Server
                 using (StreamReader reader = new StreamReader(stream))
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
-                    string commandLine = reader.ReadLine();
-                    //CommandRecievedEventArgs command == get command from string;
+                    string commandLine = string.Empty;
+                    while (!commandLine.Equals("stop"))
+                    {
+                        commandLine = reader.ReadLine();
+                        //CommandRecievedEventArgs command == get command from string;
 
-                    Console.WriteLine("Got command: {0}", commandLine);
-                    //this.m_controller.ExecuteCommand(CREA);
-                    writer.Write("wow got here..");
+                        Console.WriteLine("Got command: {0}", commandLine);
+                        //this.m_controller.ExecuteCommand(CREA);
+                        writer.Write("wow got here..");
+                    }
+                    client.Close();
                 }
-                client.Close();
             }).Start();
         }
     }

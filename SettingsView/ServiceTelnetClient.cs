@@ -33,16 +33,19 @@ namespace SettingsView
 
         public void Write(string command)
         {
-            //tcpClient.Connect(endPoint);
-            using (NetworkStream stream = tcpClient.GetStream())
-            using (BinaryReader reader = new BinaryReader(stream))
-            using (BinaryWriter writer = new BinaryWriter(stream))
+            try
             {
-                // Send data to server
-                Console.WriteLine($"Send {command} to Server");
-                writer.Write(command);
-                stream.Dispose();
-            }
+                //tcpClient.Connect(endPoint);
+                using (NetworkStream stream = tcpClient.GetStream())
+                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
+                {
+                    // Send data to server
+                    Console.WriteLine($"Send {command} to Server");
+                    writer.Write(command);
+                    //stream.Dispose();
+                }
+            } catch (ObjectDisposedException ode) { od}
            
         }
 
@@ -60,7 +63,7 @@ namespace SettingsView
                 Console.WriteLine($"Recieve {result} from Server");
             }
             //Console.WriteLine("Received: {0}", result);
-            tcpClient.Close();
+            //tcpClient.Close();
             return result;
         }
 
