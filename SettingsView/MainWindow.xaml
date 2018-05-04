@@ -23,6 +23,6 @@
             </TabItem.Header>
             <controls:LogViewModel x:Name="View" />
         </TabItem>
-        <TabItem Background="Gray" Width="auto" Margin="-2.333,-2,-172,0" />
+        <TabItem Background="Gray" Width="auto" Margin="-2.2,-2,-528.4,0" />
     </TabControl>
 </Window>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +23,21 @@ namespace ImageService.Modal
             Args = args;
             RequestDirPath = path;
         }
-    }
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+        public static CommandRecievedEventArgs FromJson(string jStr)
+        {
+            JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
+            int id = (int)jObject["CommandID"];
+            var args = jObject["Args"];
+            string[] argsArr = args.ToObject<string[]>();
+            string path = (string)jObject["RequestDirPath"];
+            return new CommandRecievedEventArgs(id, argsArr, path);
+
+        }
+
+    } 
+    
 }
