@@ -59,7 +59,7 @@ namespace ImageService.Modal
             }
         }
 
-        public static string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
         }

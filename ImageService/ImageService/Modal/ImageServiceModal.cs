@@ -92,21 +92,21 @@ namespace ImageService.Modal
 
         }
 
-        public string getConfig(string optionalHandlerToremove, out bool res)
+        public string GetConfig(string handlerToRemove, out bool res)
         {
-            if(!optionalHandlerToremove.Equals(""))
+            SettingsObject sO = new SettingsObject();
+            string config = string.Empty;
+            if (!handlerToRemove.Equals(""))
             {
-                SettingsObject sO = new SettingsObject();
                 List<string> handlers = new List<string>(sO.Handlers);
-                if (handlers.Contains(optionalHandlerToremove))
+                if (handlers.Contains(handlerToRemove))
                 {
-                    handlers.Remove(optionalHandlerToremove);
+                    handlers.Remove(handlerToRemove);
                 }
             }
-            string config = string.Empty;
             try
             {
-                config = SettingsObject.ToJson();
+                config = sO.ToJson();
             }
             catch(Exception e)
             {

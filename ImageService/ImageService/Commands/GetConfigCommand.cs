@@ -18,17 +18,12 @@ namespace ImageService.Commands
         /// <param name="modal">Service Modal</param>
         public GetConfigCommand(IImageServiceModal modal)
         {
-            m_modal = modal;            // Storing the Modal
+            this.m_modal = modal;            // Storing the Modal
         }
         public string Execute(string[] args, out bool result)
         {
-            // The String Will Return the New Path if result = true, and will return the error message
-
-            result = true;
-            return "hey";
-
+            // This method will return the configuration as string if result = true, and will return the error message otherwise.
+            return this.m_modal.GetConfig(args[0], out result);
         }
-
-
     }
 }

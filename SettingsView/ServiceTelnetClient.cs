@@ -45,7 +45,7 @@ namespace SettingsView
                     writer.Write(command);
                     //stream.Dispose();
                 }
-            } catch (ObjectDisposedException ode) { od}
+            } catch (ObjectDisposedException ode) {}
            
         }
 

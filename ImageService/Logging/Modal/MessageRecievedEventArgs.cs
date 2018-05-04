@@ -26,7 +26,7 @@ namespace ImageService.Logging.Modal
         {
             return JsonConvert.SerializeObject(this);
         }
-        public static MessageRecievedEventArgs fromJson(string jStr)
+        public static MessageRecievedEventArgs FromJson(string jStr)
         {
             JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
             int messageType = (int)jObject["Status"];
