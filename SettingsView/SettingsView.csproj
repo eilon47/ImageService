@@ -133,7 +133,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Source\Repos\ImageService\ImageService\ImageService.csproj">
+    <ProjectReference Include="..\ImageService\ImageService.csproj">
       <Project>{80fca2b6-e52d-44ea-bc85-ccf393001419}</Project>
       <Name>ImageService</Name>
     </ProjectReference>

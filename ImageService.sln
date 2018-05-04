@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{80FCA2B6-E52D-44EA-BC85-CCF393001419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsView", "..\..\..\OneDrive\Documents\Visual Studio 2017\Projects\SettingsView\SettingsView\SettingsView.csproj", "{A075D626-D608-4423-9210-4DA810EC0806}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsView", "SettingsView\SettingsView.csproj", "{A075D626-D608-4423-9210-4DA810EC0806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
