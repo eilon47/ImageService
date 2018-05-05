@@ -1,6 +1,8 @@
 ﻿//using ImageService.Infrastructure;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -92,33 +94,6 @@ namespace ImageService.Modal
 
         }
 
-        public string GetConfig(string handlerToRemove, out bool res)
-        {
-            SettingsObject sO = new SettingsObject();
-            string config = string.Empty;
-            if (!handlerToRemove.Equals(""))
-            {
-                List<string> handlers = new List<string>(sO.Handlers);
-                if (handlers.Contains(handlerToRemove))
-                {
-                    handlers.Remove(handlerToRemove);
-                }
-            }
-            try
-            {
-                config = sO.ToJson();
-            }
-            catch(Exception e)
-            {
-                res = false;
-                return e.ToString();
-            }
-            res = true;
-            return config;
-        }
-
-    
-
         /// <summary>
         /// GetDateTime
         /// trying to get the date when the pic was taken, otherwise returns the creation date.
@@ -192,7 +167,37 @@ namespace ImageService.Modal
             return newName;
 
         }
-       
+
+        public string GetLog(string path, out bool result)
+        {
+            result = true;
+            return "log";
+        }
+        public string CloseHandler(string path, out bool result)
+        {
+            result = true;
+            return "Closed";
+        }
+        public string GetConfig(string path, out bool result)
+        {
+            try
+            {
+                JObject j = new JObject();
+                j["SourceName"] = ConfigurationManager.AppSettings["SourceName"];
+                j["ThumbnailSize"] = ConfigurationManager.AppSettings["ThumbnailSize"];
+                j["LogName"] = ConfigurationManager.AppSettings["LogName"];
+                j["Handler"] = ConfigurationManager.AppSettings["Handler"];
+                j["OutputDir"] = ConfigurationManager.AppSettings["OutputDir"];
+                result = true;
+                return j.ToString();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                return e.ToString();
+            }
+
+        }
     }
   
 }

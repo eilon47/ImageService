@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
-    class CloseCommand : ICommand
+    class GetConfigCommand : ICommand
     {
         //Members
         private IImageServiceModal m_modal;
@@ -17,7 +17,7 @@ namespace ImageService.Commands
         /// Constructors.
         /// </summary>
         /// <param name="modal">Service Modal</param>
-        public CloseCommand(IImageServiceModal modal)
+        public GetConfigCommand(IImageServiceModal modal)
         {
             m_modal = modal;            // Storing the Modal
         }
@@ -25,7 +25,7 @@ namespace ImageService.Commands
         {
             // The String Will Return the New Path if result = true, and will return the error message
 
-            return this.m_modal.CloseHandler(args[0], out result);
+            return this.m_modal.GetConfig(args[0], out result);
 
         }
     }

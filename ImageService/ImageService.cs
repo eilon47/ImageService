@@ -14,6 +14,7 @@ using ImageService.Logging;
 using ImageService.Server;
 using System.Configuration;
 using ImageService.Logging.Modal;
+
 using System.IO;
 
 namespace ImageService
@@ -60,10 +61,10 @@ namespace ImageService
                 logName = args[1];
             }
 
-            ImageServiceLog = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            ImageServiceLog = new EventLog();
+            if (!EventLog.SourceExists(eventSourceName))
             {
-                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+                EventLog.CreateEventSource(eventSourceName, logName);
             }
             ImageServiceLog.Source = eventSourceName;
             ImageServiceLog.Log = logName;

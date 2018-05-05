@@ -1,4 +1,5 @@
-﻿using ImageService.Modal;
+﻿using ImageService.Commands;
+using ImageService.Modal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
-    public class GetConfigCommand : ICommand
+    class LogCommand : ICommand
     {
         //Members
         private IImageServiceModal m_modal;
@@ -16,14 +17,17 @@ namespace ImageService.Commands
         /// Constructors.
         /// </summary>
         /// <param name="modal">Service Modal</param>
-        public GetConfigCommand(IImageServiceModal modal)
+        public LogCommand(IImageServiceModal modal)
         {
-            this.m_modal = modal;            // Storing the Modal
+            m_modal = modal;            // Storing the Modal
         }
         public string Execute(string[] args, out bool result)
         {
-            // This method will return the configuration as string if result = true, and will return the error message otherwise.
-            return this.m_modal.GetConfig(args[0], out result);
+            // The String Will Return the New Path if result = true, and will return the error message
+
+            return this.m_modal.GetLog(args[0], out result);
+
         }
     }
+
 }

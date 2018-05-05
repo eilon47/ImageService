@@ -27,8 +27,10 @@ namespace ImageService.Controller
             //Dictionary for commands.
             commands = new Dictionary<int, ICommand>()
             {
-                // For Now will contain NEW_FILE_COMMAND
-                {(int) CommandEnum.NewFileCommand,new NewFileCommand(m_modal)},
+                 {(int) CommandEnum.NewFileCommand,new NewFileCommand(m_modal)},
+                {(int) CommandEnum.GetConfigCommand,new GetConfigCommand(m_modal)},
+                {(int) CommandEnum.LogCommand,new LogCommand(m_modal)},
+                {(int) CommandEnum.CloseCommand,new CloseCommand(m_modal)}
             };
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
