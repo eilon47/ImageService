@@ -171,7 +171,7 @@ namespace ImageService.Modal
         public string GetLog(string path, out bool result)
         {
             result = true;
-            return "log";
+            return "Log";
         }
         public string CloseHandler(string path, out bool result)
         {
@@ -180,6 +180,7 @@ namespace ImageService.Modal
         }
         public string GetConfig(string path, out bool result)
         {
+            File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in get config at modal" + Environment.NewLine);
             try
             {
                 JObject j = new JObject();
@@ -189,7 +190,11 @@ namespace ImageService.Modal
                 j["Handler"] = ConfigurationManager.AppSettings["Handler"];
                 j["OutputDir"] = ConfigurationManager.AppSettings["OutputDir"];
                 result = true;
-                return j.ToString();
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "config string: " + j.ToString() + Environment.NewLine);
+                string ret = "Config " + j.ToString().Replace(Environment.NewLine, " ");
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "ret is: " + ret + Environment.NewLine);
+
+                return ret;
             }
             catch (Exception e)
             {

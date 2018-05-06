@@ -25,7 +25,7 @@ namespace SettingsView
 
         public LogViewModel()
         {
-            this.logModel = new LogModel(new ServiceTelnetClient());
+            this.logModel = new LogModel();
             InitializeComponent();
             this.DataContext = logModel;
         }

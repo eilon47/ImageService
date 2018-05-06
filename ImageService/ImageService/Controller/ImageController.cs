@@ -41,12 +41,19 @@ namespace ImageService.Controller
                 //Make new task to do it in another thread.
                 Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
                  {
+                     File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in Controller command is : " + commandID.ToString() + Environment.NewLine);
+                     File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in Controller command exists? " + IsCommand(commandID).ToString() + Environment.NewLine);
+
                      string path = commands[commandID].Execute(args, out bool res);
+                     File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in Controller path result is: " + path + Environment.NewLine);
+
                      return Tuple.Create(path, res);
                  });
                 //start the task.
                 task.Start();
                 resultSuccesful = task.Result.Item2;
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in Controller task result 2: " + resultSuccesful + "result : " + task.Result.Item1  + Environment.NewLine);
+
                 return task.Result.Item1;
                 
             }

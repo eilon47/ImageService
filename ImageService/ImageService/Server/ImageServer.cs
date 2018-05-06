@@ -99,21 +99,21 @@ namespace ImageService.Server
             new Task(() =>
             {
                 using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (StreamReader reader = new StreamReader(stream, ASCIIEncoding.UTF8))
+                using (StreamWriter writer = new StreamWriter(stream, ASCIIEncoding.UTF8))
                 {
-                    string commandLine = string.Empty;
-                    while (!commandLine.Equals("stop"))
-                    {
-                        commandLine = reader.ReadLine();
-                        //CommandRecievedEventArgs command == get command from string;
+                    string commandLine = reader.ReadLine();
+                    File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "in handle client readline = "+ commandLine + Environment.NewLine);
 
-                        Console.WriteLine("Got command: {0}", commandLine);
-                        //this.m_controller.ExecuteCommand(CREA);
-                        writer.Write("wow got here..");
-                    }
-                    client.Close();
+                    CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
+                    
+                    Console.WriteLine("Got command: {0}", commandLine);
+                    bool result;
+                    string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
+                    File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt","Client handler result = " + res + Environment.NewLine);
+                    writer.Write(res);
                 }
+                client.Close();
             }).Start();
         }
     }

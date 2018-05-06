@@ -26,8 +26,9 @@ namespace SettingsView
         private ObservableCollection<string> handlers = new ObservableCollection<string>();
         public ConfigViewModel()
         {
-            this.configModel = new ConfigModel(new ServiceTelnetClient());
+            this.configModel = new ConfigModel();
             this.DataContext = configModel;
+            
             InitializeComponent();
             //adds the NotifyPropertyChanged to the model.
             configModel.PropertyChanged +=
@@ -35,8 +36,7 @@ namespace SettingsView
                 {
                     NotifyPropertyChanged(args.PropertyName);
                 };
-            handlers.Add("hey");
-            handlers.Add("bye");
+           
 
             //pointing the data context to the model as source.
             handlerView.ItemsSource = handlers;
@@ -52,7 +52,6 @@ namespace SettingsView
 
         private void RmvBtn_Click(object sender, RoutedEventArgs e)
         {
-            OutPutDir.Text = "hey did you really tried pressing remove??";
             if (handlerView.SelectedItem != null)
                 handlers.Remove(handlerView.SelectedItem as string);
         }

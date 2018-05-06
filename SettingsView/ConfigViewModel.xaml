@@ -27,7 +27,7 @@
                 </Style>
             </Grid.Resources>
         <TextBlock>Output Directory:</TextBlock>
-        <TextBlock x:Name="OutPutDir" Grid.Row="0" Grid.Column="2" Text="{Binding OutPutDir}"></TextBlock>
+        <TextBlock x:Name="OutputDir" Grid.Row="0" Grid.Column="2" Text="{Binding OutputDir}"></TextBlock>
         <TextBlock Grid.Row="1">Source Name:</TextBlock>
         <TextBlock x:Name="SourceName" Grid.Row="1" Grid.Column="2" Text="{Binding SourceName}"></TextBlock>
         <TextBlock Grid.Row="2">Log Name:</TextBlock>

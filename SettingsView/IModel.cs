@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Modal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,8 +10,7 @@ namespace SettingsView
 {
     interface IModel : INotifyPropertyChanged
     {
-        void Connect(string ip, int port);
-        void Disconnect();
-        void Start();
+        void SendCommandToService();
+        void GetMessageFromClient(object sender, string message);
     }
 }

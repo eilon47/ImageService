@@ -25,14 +25,18 @@ namespace ImageService.Modal
         }
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            JObject jStr = new JObject();
+            jStr["CommandID"] = CommandID;
+            jStr["RequestDirPath"] = RequestDirPath;
+            jStr["Args"] = new JArray(Args);
+            return jStr.ToString().Replace(Environment.NewLine, " ");
         }
         public static CommandRecievedEventArgs FromJson(string jStr)
         {
-            JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
+            JObject jObject = JObject.Parse(jStr);
             int id = (int)jObject["CommandID"];
-            var args = jObject["Args"];
-            string[] argsArr = args.ToObject<string[]>();
+            JArray args = (JArray) jObject["Args"];
+            string[] argsArr = args.Select(c => (string)c).ToArray();
             string path = (string)jObject["RequestDirPath"];
             return new CommandRecievedEventArgs(id, argsArr, path);
         }

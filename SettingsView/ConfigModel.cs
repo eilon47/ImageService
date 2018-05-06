@@ -1,6 +1,11 @@
-﻿using System;
+﻿using ImageService.Infrastructure.Enums;
+using ImageService.Modal;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,62 +15,45 @@ namespace SettingsView
 {
     class ConfigModel : IModel
     {
-        ITelnetClient telnetClient;
-        //volatile Boolean stop;
+
+        private ServiceTelnetClient client;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public ConfigModel(ITelnetClient telnetClient)
+        public ConfigModel()
         {
-            this.telnetClient = telnetClient;
-            //this.stop = false;
-            OutPutDir = "hey hey hey";
-            Connect("127.0.0.0.1", 8000);
+            this.client = ServiceTelnetClient.ClientServiceIns;
+            this.client.MessageRecieved += GetMessageFromClient;
+            SendCommandToService();
         }
-
-        public void Connect(string ip, int port)
+        public void GetMessageFromClient(object sender, string message)
         {
-            try
-            {
-                this.telnetClient.Connect(ip, port);
-                OutPutDir = "connected";
-            } catch (Exception e) { OutPutDir = e.ToString(); }
-
-            Start();
+            if (message.Contains("Config ")) { 
+                message = message.Replace("Config ", "");
+                JObject json = JObject.Parse(message);
+                OutputDir = (string)json["OutputDir"];
+                SourceName = (string)json["SourceName"];
+                ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
+                LogName = (string)json["LogName"];
+                string[] handlersArray = ((string)json["Handler"]).Split(';');
+                Handlers = handlersArray.ToList<string>();
+            }
         }
-
-        public void Start()
+        public void SendCommandToService()
         {
-            new Thread(delegate () {
-                //while (!this.stop)
-                {
-                    telnetClient.Write("getConfig");
-                    Thread.Sleep(5000);
-                    OutPutDir = "sent command";
-                    Thread.Sleep(5000);
-                    OutPutDir = telnetClient.Read();
-                    Thread.Sleep(5000);
-                    OutPutDir = " recieved outputdir";
-                    SourceName = telnetClient.Read();
-                    LogName = telnetClient.Read();
-                    ThumbnailSize = int.Parse(telnetClient.Read());
-                    Handlers =  new List<string>(telnetClient.Read().Split(';'));
-                }
-            }).Start();
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null);
+            string jCommand = command.ToJson();
+            client.Write(jCommand);
         }
+        
 
-        public void Disconnect()
-        {
-            //this.stop = true;
-            this.telnetClient.Disconnect();
-        }
+        
 
         private string outputDir;
-        public string OutPutDir
+        public string OutputDir
         {
             get { return this.outputDir; }
             set {
                 this.outputDir = value;
-                NotifyPropertyChanged("OutPutDir");
+                NotifyPropertyChanged("OutputDir");
             }
         }
         private string sourceName;

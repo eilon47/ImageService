@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ImageService.Infrastructure.Enums;
+using ImageService.Modal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,42 +12,28 @@ namespace SettingsView
 {
     class LogModel : IModel
     {
-        private ITelnetClient telnetClient;
+        private ServiceTelnetClient client;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public LogModel(ITelnetClient client)
+        public LogModel()
         {
-            this.telnetClient = client;
+            this.client = ServiceTelnetClient.ClientServiceIns;
+            this.client.MessageRecieved += GetMessageFromClient;
         }
 
-        public void NotifyPropertyChanged(string propName)
+        public void GetMessageFromClient(object sender, string message)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
-        //connect to service.
-        public void Connect(string ip, int port)
-        {
-            try
+            //If message if log - handle and notify, else ignore.
+            if (message.Contains("Log"))
             {
-                this.telnetClient.Connect(ip, port);
             }
-            catch (Exception e) { }
-            Start();
         }
-        //start comuunicate with service
-        public void Start()
-        {
-            new Thread(delegate () {
-                //while (!this.stop)
-               
-               
-                
-            }).Start();
+        public void SendCommandToService() {
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null);
+            string jCommand = command.ToJson();
+            client.Write(jCommand);
         }
-        //disconnect from service
-        public void Disconnect()
-        {
-            this.telnetClient.Disconnect();
-        }
+       
+        
+      
     }
 }
