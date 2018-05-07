@@ -15,7 +15,6 @@ using ImageService.Server;
 using System.Configuration;
 using ImageService.Logging.Modal;
 
-
 using System.IO;
 
 namespace ImageService
@@ -33,7 +32,6 @@ namespace ImageService
         private IImageServiceModal imageModal;
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
-
         /// <summary>
         /// Constructor.
         /// </summary>

@@ -45,12 +45,6 @@ C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\SettingsView.csp
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\SettingsView.csproj.CopyComplete
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\SettingsView.exe
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\SettingsView.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe.config
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\SettingsView.csprojResolveAssemblyReference.cache
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\ConfigViewModel.g.cs
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\LogViewModel.g.cs
@@ -59,6 +53,12 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\SettingsView_MarkupCompile.cache
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\SettingsView_MarkupCompile.lref
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe.config
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.pdb
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.pdb
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\ConfigViewModel.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\LogViewModel.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\MainWindow.baml
