@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Communication.Client
 {
-    class ISClient : IISClient 
+    public class ISClient : IISClient 
     {
         public event EventHandler<string> MessageRecieved;
         //Propeties
@@ -35,7 +35,7 @@ namespace Communication.Client
             {
                 if (clientService == null)
                 {
-                    clientService = new ISClient("127.0.0.1", 8000);
+                    clientService = new ISClient("127.0.0.1", 9000);
                 }
                 return clientService;
             }

@@ -1,4 +1,5 @@
-﻿using ImageService.Infrastructure.Enums;
+﻿using Communication.Client;
+using ImageService.Infrastructure.Enums;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace SettingsView
 {
     class LogModel : IModel
     {
-        private ServiceTelnetClient client;
+        private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
         public LogModel()
         {
-            this.client = ServiceTelnetClient.ClientServiceIns;
+            this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
         }
 

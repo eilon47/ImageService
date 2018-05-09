@@ -12,7 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using StreamJsonRpc;
 using System.Threading.Tasks;
-
+using Communication.Server;
 
 namespace ImageService.Server
 {
@@ -20,7 +20,7 @@ namespace ImageService.Server
     /// ImageServer . Server for the Service - Creating Directory handlers for each directory.
     /// Connecting between the service and the handlers.
     /// </summary>
-    public class ImageServer : IClientHandler
+    public class ImageServer : IISClientHandler
     {
         #region Members
         private IImageController m_controller;

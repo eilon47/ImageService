@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Communication.Server
 {
-    class ISServer : IISServer
+    public class ISServer : IISServer
     {
         private int port;
         private TcpListener listener;
@@ -21,9 +22,10 @@ namespace Communication.Server
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
         public ISServer(IISClientHandler ch)
         {
-            this.ip = ConfigurationManager.AppSettings["IP"];
-            this.port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+            this.ip = "127.0.0.1";
+            this.port = 9000;// int.Parse(ConfigurationManager.AppSettings["Port"]);
             this.ch = ch;
+            ServerConfig();
         }
         public void Start()
         {
@@ -33,15 +35,18 @@ namespace Communication.Server
             Console.WriteLine("Waiting for connections...");
             Task task = new Task(() =>//creating a listening thread that keeps running.
             {
-                try
+                while (true)
                 {
-                    TcpClient client = listener.AcceptTcpClient(); //recieve new client
-                    Console.WriteLine("Got new connection");
-                    ch.HandleClient(client); //handle the player through the client handler
-                }
-                catch (SocketException)
-                {
-                        
+                    try
+                    {
+                        TcpClient client = listener.AcceptTcpClient(); //recieve new client
+                        Console.WriteLine("Got new connection");
+                        ch.HandleClient(client); //handle the player through the client handler
+                    }
+                    catch (SocketException)
+                    {
+                        break;
+                    }
                 }
             });
             task.Start();
@@ -49,6 +54,25 @@ namespace Communication.Server
         public void Stop()
         {
             listener.Stop();
+        }
+
+        private void ServerConfig()
+        {
+            try
+            {
+
+              
+                string ippp = ConfigurationManager.AppSettings["IP"];
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", " ip : " + ip+Environment.NewLine );
+                string portttt = ConfigurationManager.AppSettings["portNumber"];
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "port : " + portttt + Environment.NewLine);
+
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "got exception =  " + e.ToString());
+
+            }
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Communication.Client
 {
-    interface IISClient
+    public interface IISClient
     {
+        event EventHandler<string> MessageRecieved;
         void Write(string command);
         void Read(); // blocking call
         void Disconnect();

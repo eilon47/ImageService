@@ -1,4 +1,5 @@
-﻿using ImageService.Infrastructure.Enums;
+﻿using Communication.Client;
+using ImageService.Infrastructure.Enums;
 using ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,11 +17,11 @@ namespace SettingsView
     class ConfigModel : IModel
     {
 
-        private ServiceTelnetClient client;
+        private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigModel()
         {
-            this.client = ServiceTelnetClient.ClientServiceIns;
+            this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
             SendCommandToService();
         }

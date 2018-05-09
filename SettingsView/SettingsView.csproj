@@ -133,6 +133,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Communication\Communication.csproj">
+      <Project>{3aaa1910-e25f-4d73-81cd-4f3e93f92f0b}</Project>
+      <Name>Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageService\ImageService.csproj">
       <Project>{80fca2b6-e52d-44ea-bc85-ccf393001419}</Project>
       <Name>ImageService</Name>

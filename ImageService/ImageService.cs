@@ -16,6 +16,7 @@ using System.Configuration;
 using ImageService.Logging.Modal;
 
 using System.IO;
+using Communication.Server;
 
 namespace ImageService
 {
@@ -27,7 +28,7 @@ namespace ImageService
         private int eventId = 1;
         private IImageController imageController;
         private ImageServer imageServer;
-        private GuiServer guiServer;
+        private IISServer server;
         private ILoggingService loggingService;
         private IImageServiceModal imageModal;
         [DllImport("advapi32.dll", SetLastError = true)]
@@ -46,9 +47,11 @@ namespace ImageService
                 ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"])
 
             };
+
             this.imageController = new ImageController(this.imageModal, this.loggingService);
             this.imageServer = new ImageServer(loggingService, imageController);
-            this.guiServer = new GuiServer(8000, imageServer);
+            this.server = new ISServer(imageServer);
+            //this.guiServer = new GuiServer(8000, imageServer);
             string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
             string logName = ConfigurationManager.AppSettings["LogName"];
             if (args.Count() > 0)
@@ -76,7 +79,8 @@ namespace ImageService
         protected override void OnStart(string[] args)
         {
             ImageServiceLog.WriteEntry("In onStart.");
-            this.guiServer.Start();
+            this.server.Start();
+            //this.guiServer.Start();
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 6000000; // 10 mins  
@@ -99,7 +103,8 @@ namespace ImageService
             ImageServiceLog.WriteEntry("In onStop.");
             //Closing the server.
             this.imageServer.OnClose();
-            this.guiServer.Stop();
+            this.server.Stop();
+            //this.guiServer.Stop();
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;

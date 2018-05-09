@@ -1,4 +1,5 @@
-﻿using ImageService.Server;
+﻿using Communication.Server;
+using ImageService.Server;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,13 +15,13 @@ namespace ImageService.Server
     {
         private int port;
         private TcpListener listener;
-        private IClientHandler imageServer;
+        private IISClientHandler imageServer;
         private string ip;
-        public IClientHandler ClientHandler { get { return imageServer; } set { this.imageServer = value; } }
+        public IISClientHandler ClientHandler { get { return imageServer; } set { this.imageServer = value; } }
         public string IP { get { return ip; } set { this.ip = value; } }
         public int Port { get { return port; } set { this.port = value; } }
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
-        public GuiServer(int port, IClientHandler imageServer)
+        public GuiServer(int port, IISClientHandler imageServer)
         {
             this.ip = "127.0.0.1";
             this.port = port;

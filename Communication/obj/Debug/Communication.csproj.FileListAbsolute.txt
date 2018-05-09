@@ -4,3 +4,4 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\Communication\obj\Debug\Communication.csproj.CoreCompileInputs.cache
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\Communication\obj\Debug\Communication.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\Communication\obj\Debug\Communication.pdb
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\Communication\obj\Debug\Communication.csprojResolveAssemblyReference.cache

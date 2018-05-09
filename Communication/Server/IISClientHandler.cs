@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Communication.Server
 {
-    interface IISClientHandler
+    public interface IISClientHandler
     {
         void HandleClient(TcpClient client);
     }

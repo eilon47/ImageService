@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace Communication.Server
 {
-    interface IISServer
+    public interface IISServer
     {
-        void Start();
-        void Stop();
         IISClientHandler ClientHandler { get; set; }
         string IP { get; set; }
         int Port { get; set; }
         TcpListener Listener { get; set; }
+
+        void Start();
+        void Stop();
+        
     }
 }

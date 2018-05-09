@@ -90,7 +90,6 @@
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Controller\ImageController.cs" />
     <Compile Include="ImageService\Modal\SettingsObject.cs" />
-    <Compile Include="ImageService\Server\IClientHandler.cs" />
     <Compile Include="ImageService\Server\ImageServer.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
