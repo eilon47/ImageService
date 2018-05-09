@@ -23,10 +23,6 @@ C:\Users\green\OneDrive\Documents\Visual Studio 2017\Projects\SettingsView\Setti
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\SettingsView.exe.config
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\SettingsView.exe
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\SettingsView.pdb
-C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\ImageService.exe
-C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\ImageService.pdb
-C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\ImageService.exe.config
-C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Newtonsoft.Json.xml
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\SettingsView.csprojResolveAssemblyReference.cache
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\ConfigViewModel.g.cs
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\LogViewModel.g.cs
@@ -75,3 +71,12 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\ConfigView.g.cs
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\LogView.g.cs
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\MainWindow.g.cs
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\ConfigView.g.cs
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\LogView.g.cs
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\MainWindow.g.cs
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.exe
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.pdb
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.exe.config
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\ConfigView.baml
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\LogView.baml
+C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\MainWindow.baml

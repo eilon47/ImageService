@@ -22,8 +22,6 @@ namespace Communication.Server
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
         public ISServer(IISClientHandler ch)
         {
-            this.ip = "127.0.0.1";
-            this.port = 9000;// int.Parse(ConfigurationManager.AppSettings["Port"]);
             this.ch = ch;
             ServerConfig();
         }
@@ -58,14 +56,8 @@ namespace Communication.Server
 
         private void ServerConfig()
         {
-            try
-            {              
-                string ippp = ConfigurationManager.AppSettings["IP"];
-                string portttt = ConfigurationManager.AppSettings["portNumber"];
-            }
-            catch (Exception e)
-            {
-            }
+            Port = ComSettings.Default.Port;
+            IP = ComSettings.Default.IP;
         }
     }
 }

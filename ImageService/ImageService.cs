@@ -41,7 +41,7 @@ namespace ImageService
         {
             InitializeComponent();
             this.loggingService = new LoggingService();
-            this.imageModal = new ImageServiceModal()
+            this.imageModal = new ImageServiceModal(loggingService)
             {
                 OutputFolder = ConfigurationManager.AppSettings["OutputDir"],
                 ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"])

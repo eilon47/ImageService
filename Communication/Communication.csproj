@@ -45,6 +45,11 @@
   <ItemGroup>
     <Compile Include="Client\IISClient.cs" />
     <Compile Include="Client\ISClient.cs" />
+    <Compile Include="ComSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ComSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\CommandEnum.cs" />
     <Compile Include="Infrastructure\CommandMessage.cs" />
     <Compile Include="Infrastructure\LogInfoEnum.cs" />
@@ -57,6 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ComSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ComSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

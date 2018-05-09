@@ -1,7 +1,5 @@
 ﻿using Communication.Client;
 using Communication.Infrastructure;
-using ImageService.Infrastructure.Enums;
-using ImageService.Modal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
