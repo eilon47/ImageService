@@ -1,16 +1,16 @@
-﻿using ImageService.Modal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace SettingsView
+using Communication.Infrastructure;
+namespace SettingsView.Model
 {
     interface IModel : INotifyPropertyChanged
     {
-        void SendCommandToService();
+        event PropertyChangedEventHandler PropertyChanged;
+        void SendCommandToService(CommandMessage command);
         void GetMessageFromClient(object sender, string message);
     }
 }

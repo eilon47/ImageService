@@ -13,6 +13,7 @@ using System.Text;
 using StreamJsonRpc;
 using System.Threading.Tasks;
 using Communication.Server;
+using Communication.Infrastructure;
 
 namespace ImageService.Server
 {
@@ -103,14 +104,13 @@ namespace ImageService.Server
                 using (StreamWriter writer = new StreamWriter(stream, ASCIIEncoding.UTF8))
                 {
                     string commandLine = reader.ReadLine();
-                    File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "in handle client readline = "+ commandLine + Environment.NewLine);
-
-                    CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
-                    
+                    CommandMessage message = CommandMessage.FromString(commandLine);
+                    string[] args= new string[1];
+                    args[0] = message.Message;
+                    CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int) message.CommandID, args , null);
                     Console.WriteLine("Got command: {0}", commandLine);
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                    File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt","Client handler result = " + res + Environment.NewLine);
                     writer.Write(res);
                 }
                 client.Close();

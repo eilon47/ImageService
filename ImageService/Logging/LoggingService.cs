@@ -7,25 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using Communication.Infrastructure;
 
 namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
-        private Queue<Tuple<MessageTypeEnum, string>> logQueue;
-        public Queue<Tuple<MessageTypeEnum, string>> LogQueue
+        private List<LogItem> logList;
+        public List<LogItem> LogList
         {
-            get { return logQueue; }
+            get { return logList; }
         }
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         public LoggingService()
         {
-            logQueue = new Queue<Tuple<MessageTypeEnum, string>>();
+            logList = new List<LogItem>();
         }
         public void Log(string message, MessageTypeEnum type)
         {
-            LogQueue.Enqueue(new Tuple<MessageTypeEnum, string>(type, message));
+            logList.Add(new LogItem((LogInfoEnum)((int) type), message));
             MessageRecievedEventArgs eventArgs = new MessageRecievedEventArgs((int)type,message);
             MessageRecieved?.Invoke(this, eventArgs);
         }

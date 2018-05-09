@@ -45,6 +45,10 @@
   <ItemGroup>
     <Compile Include="Client\IISClient.cs" />
     <Compile Include="Client\ISClient.cs" />
+    <Compile Include="Infrastructure\CommandEnum.cs" />
+    <Compile Include="Infrastructure\CommandMessage.cs" />
+    <Compile Include="Infrastructure\LogInfoEnum.cs" />
+    <Compile Include="Infrastructure\LogItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IISClientHandler.cs" />
@@ -54,8 +58,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

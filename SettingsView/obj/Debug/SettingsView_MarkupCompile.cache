@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\App.xaml
-31187297150
+6-12586844
 
-132011088115
+15-832327140
 161010854348
-ConfigViewModel.xaml;LogViewModel.xaml;MainWindow.xaml;
+ConfigViewModel.xaml;LogViewModel.xaml;MainWindow.xaml;View\ConfigView.xaml;View\LogView.xaml;View\MainWindow.xaml;
 
-False
+True
 

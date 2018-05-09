@@ -59,19 +59,12 @@ namespace Communication.Server
         private void ServerConfig()
         {
             try
-            {
-
-              
+            {              
                 string ippp = ConfigurationManager.AppSettings["IP"];
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", " ip : " + ip+Environment.NewLine );
                 string portttt = ConfigurationManager.AppSettings["portNumber"];
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "port : " + portttt + Environment.NewLine);
-
             }
             catch (Exception e)
             {
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\file.txt", "got exception =  " + e.ToString());
-
             }
         }
     }

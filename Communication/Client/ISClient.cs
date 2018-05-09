@@ -81,7 +81,6 @@ namespace Communication.Client
             string result = streamReader.ReadLine();
             if (result == null)
             {
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\gui.txt", "Result = " + result);
             }
             //לשלוח לכל מי שנרשם לאיוונט
             MessageRecieved?.Invoke(this, result);

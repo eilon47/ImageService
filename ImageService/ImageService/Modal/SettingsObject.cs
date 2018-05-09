@@ -58,7 +58,7 @@ namespace ImageService.Modal
                 ConfigurationManager.AppSettings["Handlers"] = handlersAsString;
             }
         }
-
+        
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);

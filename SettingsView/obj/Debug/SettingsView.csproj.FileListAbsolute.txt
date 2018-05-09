@@ -72,3 +72,6 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\Communication.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\Communication.pdb
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\Communication.exe.config
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\ConfigView.g.cs
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\LogView.g.cs
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\MainWindow.g.cs

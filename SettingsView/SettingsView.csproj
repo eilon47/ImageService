@@ -72,18 +72,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConfigModel.cs" />
     <Compile Include="ConfigViewModel.xaml.cs">
       <DependentUpon>ConfigViewModel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IModel.cs" />
-    <Compile Include="ITelnetClient.cs" />
-    <Compile Include="LogModel.cs" />
     <Compile Include="LogViewModel.xaml.cs">
       <DependentUpon>LogViewModel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ServiceTelnetClient.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="Model\ConfigModel.cs" />
+    <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\LogModel.cs" />
+    <Compile Include="View\ConfigView.xaml.cs">
+      <DependentUpon>ConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VM\ConfigVM.cs" />
+    <Compile Include="VM\LogVM.cs" />
     <Page Include="ConfigViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +112,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -136,10 +156,6 @@
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{3aaa1910-e25f-4d73-81cd-4f3e93f92f0b}</Project>
       <Name>Communication</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ImageService\ImageService.csproj">
-      <Project>{80fca2b6-e52d-44ea-bc85-ccf393001419}</Project>
-      <Name>ImageService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

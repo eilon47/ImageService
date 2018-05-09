@@ -93,7 +93,6 @@
     <Compile Include="ImageService\Server\ImageServer.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
-    <Compile Include="ImageService\Server\GuiServer.cs" />
     <Compile Include="Infrastructure\Enum\CommandEnum.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />

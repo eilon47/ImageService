@@ -1,18 +1,13 @@
 ﻿using Communication.Client;
-using ImageService.Infrastructure.Enums;
-using ImageService.Modal;
-using Newtonsoft.Json;
+using Communication.Infrastructure;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-
-namespace SettingsView
+namespace SettingsView.Model
 {
     class ConfigModel : IModel
     {
@@ -23,11 +18,16 @@ namespace SettingsView
         {
             this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
-            SendCommandToService();
+            SendCommandToService(new CommandMessage(CommandEnum.GetConfigCommand, null));
+        }
+        public void GetChangeFromVM(object sender, PropertyChangedEventArgs e)
+        {
+            
         }
         public void GetMessageFromClient(object sender, string message)
         {
-            if (message.Contains("Config ")) { 
+            if (message.Contains("Config "))
+            {
                 message = message.Replace("Config ", "");
                 JObject json = JObject.Parse(message);
                 OutputDir = (string)json["OutputDir"];
@@ -38,21 +38,21 @@ namespace SettingsView
                 Handlers = handlersArray.ToList<string>();
             }
         }
-        public void SendCommandToService()
+        public void SendCommandToService(CommandMessage command)
         {
-            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null);
-            string jCommand = command.ToJson();
-            client.Write(jCommand);
+           
+            client.Write(command.ToString());
         }
-        
 
-        
+
+
 
         private string outputDir;
         public string OutputDir
         {
             get { return this.outputDir; }
-            set {
+            set
+            {
                 this.outputDir = value;
                 NotifyPropertyChanged("OutputDir");
             }
@@ -96,7 +96,7 @@ namespace SettingsView
                 this.handlers = value;
                 NotifyPropertyChanged("Handlers");
             }
-        } 
+        }
 
 
         public void NotifyPropertyChanged(string propName)

@@ -1,4 +1,7 @@
 ﻿//using ImageService.Infrastructure;
+using Communication.Infrastructure;
+using ImageService.Logging;
+using ImageService.Logging.Modal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -25,9 +28,14 @@ namespace ImageService.Modal
             set { m_thumbnailSize = value; }
         }
         #endregion
+        private ILoggingService logging;
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
 
+        public ImageServiceModal(ILoggingService logging)
+        {
+            this.logging = logging;
+        }
         public string AddFile(string path, out bool result)
         {
             try
@@ -170,8 +178,13 @@ namespace ImageService.Modal
 
         public string GetLog(string path, out bool result)
         {
+            StringBuilder sb = new StringBuilder();
+            foreach(LogItem item in logging.LogList)
+            {
+                sb.Append(item.ToString() + ";");
+            }
             result = true;
-            return "Log";
+            return "Log " + sb.ToString();
         }
         public string CloseHandler(string path, out bool result)
         {
@@ -180,7 +193,6 @@ namespace ImageService.Modal
         }
         public string GetConfig(string path, out bool result)
         {
-            File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "in get config at modal" + Environment.NewLine);
             try
             {
                 JObject j = new JObject();
@@ -190,10 +202,7 @@ namespace ImageService.Modal
                 j["Handler"] = ConfigurationManager.AppSettings["Handler"];
                 j["OutputDir"] = ConfigurationManager.AppSettings["OutputDir"];
                 result = true;
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "config string: " + j.ToString() + Environment.NewLine);
                 string ret = "Config " + j.ToString().Replace(Environment.NewLine, " ");
-                File.AppendAllText(@"C:\Users\eilon\Desktop\אילון\handle.txt", "ret is: " + ret + Environment.NewLine);
-
                 return ret;
             }
             catch (Exception e)
