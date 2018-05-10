@@ -27,7 +27,7 @@ namespace SettingsView.VM
             PropertyChangedEventArgs p = new PropertyChangedEventArgs(propName);
             PropertyChanged?.Invoke(this, p);
         }
-        public ObservableCollection<LogItem> LogsList 
+        public ObservableCollection<MessageRecievedEventArgs> LogsList 
         {
             get { return model.Logs; }
         }

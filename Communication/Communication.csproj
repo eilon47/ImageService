@@ -54,9 +54,9 @@
       <DependentUpon>ComSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CommandEnum.cs" />
+    <Compile Include="Infrastructure\CommandRecievedEventArgs.cs" />
     <Compile Include="Infrastructure\MessageRecievedEventArgs.cs" />
-    <Compile Include="Infrastructure\LogInfoEnum.cs" />
-    <Compile Include="Infrastructure\LogItem.cs" />
+    <Compile Include="Infrastructure\MessageTypeEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IISClientHandler.cs" />
