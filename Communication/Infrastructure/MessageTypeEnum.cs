@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Communication.Infrastructure
 {
-    public enum LogInfoEnum : int
+    public enum MessageTypeEnum : int
     {
         INFO,
         WARNING,

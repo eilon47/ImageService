@@ -12,6 +12,7 @@ using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using ImageService.Commands;
 using ImageService.Server;
+using Communication.Infrastructure;
 
 namespace ImageService.Controller.Handlers
 {

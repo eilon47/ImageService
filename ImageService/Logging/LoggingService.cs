@@ -1,5 +1,4 @@
 ﻿
-using ImageService.Logging.Modal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,20 +12,20 @@ namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
-        private List<LogItem> logList;
-        public List<LogItem> LogList
+        private List<MessageRecievedEventArgs> logList;
+        public List<MessageRecievedEventArgs> LogList
         {
             get { return logList; }
         }
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         public LoggingService()
         {
-            logList = new List<LogItem>();
+            logList = new List<MessageRecievedEventArgs>();
         }
         public void Log(string message, MessageTypeEnum type)
         {
-            logList.Add(new LogItem((LogInfoEnum)((int) type), message));
             MessageRecievedEventArgs eventArgs = new MessageRecievedEventArgs((int)type,message);
+            logList.Add(eventArgs);
             MessageRecieved?.Invoke(this, eventArgs);
         }
     }

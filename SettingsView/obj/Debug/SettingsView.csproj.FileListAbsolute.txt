@@ -52,9 +52,6 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\SettingsView.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\bin\Debug\ImageService.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\ConfigViewModel.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\LogViewModel.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\MainWindow.baml
@@ -80,3 +77,6 @@ C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.ex
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\ConfigView.baml
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\LogView.baml
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\MainWindow.baml
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\ConfigView.baml
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\LogView.baml
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\MainWindow.baml

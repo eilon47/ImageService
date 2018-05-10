@@ -1,5 +1,4 @@
 ﻿using Communication.Infrastructure;
-using ImageService.Logging.Modal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +20,6 @@ namespace ImageService.Logging
         /// <param name="message">Message</param>
         /// <param name="type">type</param>
         void Log(string message, MessageTypeEnum type);           // Logging the Message
-        List<LogItem> LogList { get; }
+        List<MessageRecievedEventArgs> LogList { get; }
     }
 }

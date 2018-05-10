@@ -179,9 +179,9 @@ namespace ImageService.Modal
         public string GetLog(string path, out bool result)
         {
             StringBuilder sb = new StringBuilder();
-            foreach(LogItem item in logging.LogList)
+            foreach(MessageRecievedEventArgs item in logging.LogList)
             {
-                sb.Append(item.ToString() + ";");
+                sb.Append(item.ToJson() + ";");
             }
             result = true;
             return "Log " + sb.ToString();

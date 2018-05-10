@@ -1,6 +1,7 @@
 ﻿using SettingsView.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -67,8 +68,8 @@ namespace SettingsView.VM
                 NotifyPropertyChanged("ThumbnailSize");
             }
         }
-        private List<string> handlers;
-        public List<string> VM_Handlers
+        private ObservableCollection<string> handlers;
+        public ObservableCollection<string> VM_Handlers
         {
             get { return model.Handlers; }
             set

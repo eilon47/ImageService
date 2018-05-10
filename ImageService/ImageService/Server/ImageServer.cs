@@ -1,6 +1,5 @@
 ﻿using ImageService.Controller;
 using ImageService.Controller.Handlers;
-using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Modal;
 using System;
@@ -59,12 +58,12 @@ namespace ImageService.Server
         /// <param name="dirPath"></param>
         public void CreateHandler(string dirPath)
         {
-            m_logging.Log("In create handler", Logging.Modal.MessageTypeEnum.INFO);
+            m_logging.Log("In create handler", MessageTypeEnum.INFO);
             IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
             CommandRecieved += dirHandler.OnCommandRecieved;
             CloseEvent += dirHandler.CloseHandler;
             dirHandler.StartHandleDirectory(dirPath);
-            this.m_logging.Log("Created handler for: " + dirPath, Logging.Modal.MessageTypeEnum.INFO);
+            this.m_logging.Log("Created handler for: " + dirPath, MessageTypeEnum.INFO);
         }
         /// <summary>
         /// InvokeCommand 
@@ -81,14 +80,14 @@ namespace ImageService.Server
         {
             try
             {
-                m_logging.Log("Server closing the handlers", Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log("Server closing the handlers", MessageTypeEnum.INFO);
                 CloseEvent?.Invoke(this, new DirectoryCloseEventArgs("", ""));
-                m_logging.Log("Server finished closing the handlers", Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log("Server finished closing the handlers", MessageTypeEnum.INFO);
             }
             catch (Exception e)
             {
                 e.ToString();
-                m_logging.Log("Error in closing the handlers", Logging.Modal.MessageTypeEnum.FAIL);
+                m_logging.Log("Error in closing the handlers", MessageTypeEnum.FAIL);
             }
             //IDirectoryHandler dirHandler = (IDirectoryHandler)o;
             //CommandRecieved -= dirHandler.OnCommandRecieved;
@@ -104,10 +103,7 @@ namespace ImageService.Server
                 using (StreamWriter writer = new StreamWriter(stream, ASCIIEncoding.UTF8))
                 {
                     string commandLine = reader.ReadLine();
-                    CommandMessage message = CommandMessage.FromString(commandLine);
-                    string[] args= new string[1];
-                    args[0] = message.Message;
-                    CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int) message.CommandID, args , null);
+                    CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
                     Console.WriteLine("Got command: {0}", commandLine);
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);

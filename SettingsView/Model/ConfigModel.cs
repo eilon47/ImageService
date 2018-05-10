@@ -3,6 +3,7 @@ using Communication.Infrastructure;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,9 @@ namespace SettingsView.Model
         {
             this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
-            SendCommandToService(new CommandMessage(CommandEnum.GetConfigCommand, null));
+            SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null));
         }
-        public void GetChangeFromVM(object sender, PropertyChangedEventArgs e)
-        {
-            
-        }
+       
         public void GetMessageFromClient(object sender, string message)
         {
             if (message.Contains("Config "))
@@ -35,13 +33,16 @@ namespace SettingsView.Model
                 ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
                 LogName = (string)json["LogName"];
                 string[] handlersArray = ((string)json["Handler"]).Split(';');
-                Handlers = handlersArray.ToList<string>();
+                Handlers = new ObservableCollection<string>(handlersArray);
+            }
+            if(message.Contains("Close ")){
+                string[] newHandlers = message.Split(';');
+                Handlers = new ObservableCollection<string>(newHandlers);
             }
         }
-        public void SendCommandToService(CommandMessage command)
+        public void SendCommandToService(CommandRecievedEventArgs command)
         {
-           
-            client.Write(command.ToString());
+            client.Write(command.ToJson());
         }
 
 
@@ -87,8 +88,8 @@ namespace SettingsView.Model
                 NotifyPropertyChanged("ThumbnailSize");
             }
         }
-        private List<string> handlers;
-        public List<string> Handlers
+        private ObservableCollection<string> handlers;
+        public ObservableCollection<string> Handlers
         {
             get { return this.handlers; }
             set

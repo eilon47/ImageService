@@ -1,6 +1,5 @@
-﻿using ImageService.Commands;
-using ImageService.Infrastructure;
-using ImageService.Infrastructure.Enums;
+﻿using Communication.Infrastructure;
+using ImageService.Commands;
 using ImageService.Logging;
 using ImageService.Modal;
 using System;
@@ -53,7 +52,7 @@ namespace ImageService.Controller
             else
             {
                 resultSuccesful = false;
-                loggingService.Log("ErrorMesssage", Logging.Modal.MessageTypeEnum.FAIL);
+                loggingService.Log("ErrorMesssage", MessageTypeEnum.FAIL);
                 return "ErrorMesssage";
             }
         }

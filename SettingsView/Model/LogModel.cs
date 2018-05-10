@@ -2,6 +2,7 @@
 using Communication.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,9 @@ namespace SettingsView.Model
     {
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
-        List<LogItem> logs;
-        public List<LogItem> Logs
+         
+        private ObservableCollection<MessageRecievedEventArgs> logs;
+        public ObservableCollection<MessageRecievedEventArgs> Logs
         {
             get { return logs; }
         }
@@ -23,7 +25,7 @@ namespace SettingsView.Model
         {
             this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
-            SendCommandToService(new CommandMessage(CommandEnum.LogCommand, null));
+            SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null));
         }
 
         public void GetMessageFromClient(object sender, string message)
@@ -31,17 +33,18 @@ namespace SettingsView.Model
             //If message if log - handle and notify, else ignore.
             if (message.Contains("Log "))
             {
+                logs = new ObservableCollection<MessageRecievedEventArgs>();
                 message = message.Replace("Log", "");
                 string[] logsStrings = message.Split(';');
                 foreach(string s in logsStrings)
                 {
-                    logs.Add(LogItem.FromString(s));
+                    logs.Add(MessageRecievedEventArgs.FromJson(s));
                 }
             }
         }
-        public void SendCommandToService(CommandMessage command)
+        public void SendCommandToService(CommandRecievedEventArgs command)
         {
-            client.Write(command.ToString());
+            client.Write(command.ToJson());
         }
 
 

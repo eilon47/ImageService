@@ -10,7 +10,7 @@ namespace SettingsView.Model
     interface IModel : INotifyPropertyChanged
     {
         event PropertyChangedEventHandler PropertyChanged;
-        void SendCommandToService(CommandMessage command);
+        void SendCommandToService(CommandRecievedEventArgs command);
         void GetMessageFromClient(object sender, string message);
     }
 }

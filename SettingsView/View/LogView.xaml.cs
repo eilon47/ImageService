@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using SettingsView.VM;
 namespace SettingsView.View
 {
     /// <summary>
@@ -20,9 +20,13 @@ namespace SettingsView.View
     /// </summary>
     public partial class LogView : UserControl
     {
+        private LogVM vm;
         public LogView()
         {
             InitializeComponent();
+            this.vm = new LogVM();
+            DataContext = vm;
+
         }
     }
 }

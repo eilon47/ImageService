@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Communication.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,10 @@ namespace SettingsView.View
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public bool Connection
+        {
+            get { return ISClient.ClientServiceIns.Connection; }
         }
     }
 }

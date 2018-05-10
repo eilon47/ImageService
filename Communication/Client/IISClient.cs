@@ -12,5 +12,6 @@ namespace Communication.Client
         void Write(string command);
         void Read(); // blocking call
         void Disconnect();
+        bool Connection { get; }
     }
 }
