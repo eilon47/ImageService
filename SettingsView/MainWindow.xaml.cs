@@ -23,7 +23,6 @@ namespace SettingsView
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:SettingsView"
+        xmlns:controls="clr-namespace:SettingsView.View"
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800">
     <TabControl>
@@ -13,7 +13,7 @@
                     <TextBlock Text="Settings" Foreground="Blue" />
                 </StackPanel>
             </TabItem.Header>
-            <controls:ConfigViewModel x:Name="configView" />
+            <controls:ConfigView> </controls:ConfigView>
         </TabItem>
         <TabItem>
             <TabItem.Header>
@@ -21,7 +21,7 @@
                     <TextBlock Text="Logs" Foreground="Blue" />
                 </StackPanel>
             </TabItem.Header>
-            <controls:LogViewModel x:Name="View" />
+            <controls:LogView> </controls:LogView>
         </TabItem>
         <TabItem Background="Gray" Width="auto" Margin="-2.2,-2,-528.4,0" />
     </TabControl>

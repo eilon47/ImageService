@@ -5,10 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ImageService.Infrastructure;
-using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using ImageService.Commands;
 using ImageService.Server;
@@ -54,21 +51,23 @@ namespace ImageService.Controller.Handlers
 
         public void InitializeWatcher(string dirPath)
         {
-                m_dirWatcher.Path = dirPath;
-                m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                       | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-                m_dirWatcher.Filter = "*.*";
-                m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
-                //m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
-                //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
-                //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-                m_dirWatcher.EnableRaisingEvents = true;
-                //this.m_dirWatcher.Created += onChanged;
+            m_dirWatcher.Path = dirPath;
+            m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            m_dirWatcher.Filter = "*.*";
+            m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
+            //m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
+            //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
+            //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+            m_dirWatcher.EnableRaisingEvents = true;
+            //this.m_dirWatcher.Created += onChanged;
+            m_logging.Log("filesystemwatcher was created for :" + dirPath, MessageTypeEnum.INFO);
         }
 
         private void OnChanged(object source, FileSystemEventArgs comArgs)
         {
             string filEx = Path.GetExtension(comArgs.FullPath);
+            m_logging.Log("in on change for dir" + this.m_path + "with file : " + comArgs.FullPath , MessageTypeEnum.INFO);
             //Checks the extension is relevant.
             if (extensionsToListen.Contains(filEx))
             {

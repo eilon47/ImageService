@@ -1,7 +1,6 @@
 ﻿//using ImageService.Infrastructure;
 using Communication.Infrastructure;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -77,7 +76,7 @@ namespace ImageService.Modal
                     }
                     //File.Create(dstFile);
                     File.Move(path, dstFile);
-
+                    logging.Log("Added file " + name, MessageTypeEnum.INFO);
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
                     Image thumbImage = Image.FromFile(dstFile);
@@ -90,6 +89,8 @@ namespace ImageService.Modal
                 }
                 else
                 {
+
+                    logging.Log("Could not add file ", MessageTypeEnum.FAIL);
                     result = false;
                     return "Image does not exist!";
                 }
@@ -120,11 +121,13 @@ namespace ImageService.Modal
                     string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                     DateTime dt = DateTime.Parse(dateTaken);
                     myImage.Dispose();
+                    logging.Log("got date from file: " + path + " Date is " + dt.ToString(), MessageTypeEnum.INFO);
                     return dt;
                 }
             }
             catch (Exception e)
             {
+                logging.Log("Could not take date from file: " + path, MessageTypeEnum.FAIL);
                 e.ToString();
                 return File.GetCreationTime(path);
 
@@ -178,18 +181,25 @@ namespace ImageService.Modal
 
         public string GetLog(string path, out bool result)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach(MessageRecievedEventArgs item in logging.LogList)
+            try
             {
-                sb.Append(item.ToJson() + ";");
+                StringBuilder sb = new StringBuilder();
+                foreach (MessageRecievedEventArgs item in logging.LogList)
+                {
+                    sb.Append(item.ToJson() + " ; ");
+                }
+                result = true;
+                return "Log " + sb.ToString();
+            } catch (Exception e)
+            {
+                result = false;
+                return e.ToString();
             }
-            result = true;
-            return "Log " + sb.ToString();
         }
         public string CloseHandler(string path, out bool result)
         {
             result = true;
-            return "Closed";
+            return "Closed ";
         }
         public string GetConfig(string path, out bool result)
         {

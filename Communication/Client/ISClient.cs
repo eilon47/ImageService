@@ -5,22 +5,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Communication.Client
 {
     public class ISClient : IISClient 
     {
+        private static Mutex readerMutex = new Mutex();
+        private static Mutex writerMutex = new Mutex();
         public event EventHandler<string> MessageRecieved;
         //Propeties
-        private bool connection;
-        public bool Connection { get { return connection; } set { connection = value; } }
-        private NetworkStream stream;
-        //public NetworkStream Stream { get { return stream; } set { stream = value; } }
-        private StreamReader streamReader;
-        //public StreamReader ReaderProp { get { return streamReader; } set { streamReader = value; } }
-        private StreamWriter streamWriter;
-        //public StreamWriter WriterProp { get { return streamWriter; } set { streamWriter = value; } }
+        public bool Connection { get { return client.Connected; } }
         private TcpClient client;
         //public TcpClient TcpClient { get { return client; } set { client = value; } }
         private IPEndPoint ep;
@@ -28,6 +24,7 @@ namespace Communication.Client
         private int portNumber;
         //Singleton!
         private static ISClient clientService;
+        
         //instance
         public static ISClient ClientServiceIns
         {
@@ -35,7 +32,7 @@ namespace Communication.Client
             {
                 if (clientService == null)
                 {
-                    clientService = new ISClient("127.0.0.1", 9000);
+                    clientService = new ISClient(ComSettings.Default.IP, ComSettings.Default.Port);
                 }
                 return clientService;
             }
@@ -51,39 +48,53 @@ namespace Communication.Client
         {
             this.client = new TcpClient();
             client.Connect(this.ep);//connect to the server
-            this.stream = client.GetStream();
-            streamReader = new StreamReader(this.stream);
-            streamWriter = new StreamWriter(this.stream);
-            streamWriter.AutoFlush = true;
             Console.WriteLine("you are connected ");
-            connection = true;
+            Read();
         }
 
 
         public void Write(string command)
         {
-            if (!Connection)
-            {
-                CreateANewConnection();
-            }
-            streamWriter.WriteLine(command);
-            streamWriter.Flush();
-            //Get result from server.
-            Read();
+           new Task(() =>
+            { 
+                if (!Connection)
+                {
+                    CreateANewConnection();
+                }
+                NetworkStream stream = client.GetStream();
+                BinaryWriter writer = new BinaryWriter(stream);
+                Console.WriteLine("got command " + command);
+                writerMutex.WaitOne();
+                writer.Write(command);
+                writer.Flush();
+                writerMutex.ReleaseMutex();
+                //Get result from server.
+            }).Start();
         }
 
         public void Read()
         {
-            if (!Connection)
+            new Task(() =>
             {
-                CreateANewConnection();
-            }
-            string result = streamReader.ReadLine();
-            if (result == null)
-            {
-            }
-            //לשלוח לכל מי שנרשם לאיוונט
-            MessageRecieved?.Invoke(this, result);
+                try
+                {
+                    while (Connection)
+                    {
+                        NetworkStream stream = client.GetStream();
+                        BinaryReader reader = new BinaryReader(stream);
+                        string result = reader.ReadString();
+                        Console.WriteLine(result);
+                        if (result == null)
+                        {
+                            return;
+                        }
+                        MessageRecieved?.Invoke(this, result);
+                    }
+                } catch(Exception e)
+                {
+
+                }
+            }).Start();
         }
 
         public void Disconnect()

@@ -25,7 +25,7 @@ namespace Communication {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8500")]
         public int Port {
             get {
                 return ((int)(this["Port"]));

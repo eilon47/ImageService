@@ -13,6 +13,7 @@ using StreamJsonRpc;
 using System.Threading.Tasks;
 using Communication.Server;
 using Communication.Infrastructure;
+using System.Threading;
 
 namespace ImageService.Server
 {
@@ -43,10 +44,12 @@ namespace ImageService.Server
             this.m_logging = loggingService;
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             //Creates the direcory handlers for each directory path recieved.
+            m_logging.Log("Image server was created, making handlers now", MessageTypeEnum.INFO);
             foreach (string path in dirPaths)
             {
                 if (Directory.Exists(path))
                 {
+                    m_logging.Log("Creating handler for :" + path, MessageTypeEnum.INFO);
                     this.CreateHandler(path);
                 }
             }
@@ -94,23 +97,29 @@ namespace ImageService.Server
             //string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
             //m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
         }
+        private static Mutex clientsMutex = new Mutex();
         public void HandleClient(TcpClient client)
         {
             new Task(() =>
             {
-                using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream, ASCIIEncoding.UTF8))
-                using (StreamWriter writer = new StreamWriter(stream, ASCIIEncoding.UTF8))
+                NetworkStream stream = client.GetStream();
+                BinaryReader reader = new BinaryReader(stream);
+                BinaryWriter writer = new BinaryWriter(stream);
+                while (client.Connected)
                 {
-                    string commandLine = reader.ReadLine();
+                    string commandLine = reader.ReadString();
+                    if (commandLine == null)
+                        continue;
                     CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
-                    Console.WriteLine("Got command: {0}", commandLine);
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
+                    clientsMutex.WaitOne();
                     writer.Write(res);
+                    clientsMutex.ReleaseMutex();
+                    res = string.Empty;
                 }
-                client.Close();
             }).Start();
         }
     }
+
 }

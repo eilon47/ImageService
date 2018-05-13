@@ -37,6 +37,7 @@ namespace ImageService.Controller
             //Checks if the id is of a existing command.
             if (IsCommand(commandID))
             {
+                this.loggingService.Log("Controller got commnad " + ((CommandEnum)commandID).ToString() + " " + args[0], MessageTypeEnum.INFO);
                 //Make new task to do it in another thread.
                 Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
                  {
@@ -46,6 +47,14 @@ namespace ImageService.Controller
                 //start the task.
                 task.Start();
                 resultSuccesful = task.Result.Item2;
+                if(resultSuccesful)
+                {
+                    this.loggingService.Log("command " + (CommandEnum)commandID + " was successful ", MessageTypeEnum.INFO);
+                } else
+                {
+
+                    this.loggingService.Log("command " + (CommandEnum)commandID + "was unsuccessful", MessageTypeEnum.FAIL);
+                }
                 return task.Result.Item1;
                 
             }

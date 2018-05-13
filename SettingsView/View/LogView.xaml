@@ -3,7 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SettingsView.VM"
+             xmlns:local="clr-namespace:SettingsView.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical" Background="White">
+        <Label HorizontalAlignment="Stretch" Height="100" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Blue"> Log</Label>
+            <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
+                          AutoGenerateColumns="False" IsHitTestVisible="False" Focusable="False" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Visible"
+                          RowHeight="50" ColumnWidth="100" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Status}" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+    </StackPanel>
 </UserControl>

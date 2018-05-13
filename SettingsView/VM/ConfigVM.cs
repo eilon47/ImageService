@@ -20,12 +20,31 @@ namespace SettingsView.VM
             {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
-            
-           
+
+
         }
         
         public void NotifyPropertyChanged(string propName) {
-            
+            if (propName.Equals("VM_OutputDir"))
+            {
+                VM_OutputDir = model.OutputDir;
+            }
+            if (propName.Equals("VM_ThumbnailSize"))
+            {
+                VM_ThumbnailSize = model.ThumbnailSize;
+            }
+            if (propName.Equals("VM_SourceName"))
+            {
+                VM_SourceName = model.SourceName;
+            }
+            if (propName.Equals("VM_LogName"))
+            {
+                VM_LogName = model.LogName;
+            }
+            if (propName.Equals("VM_Handlers"))
+            {
+                VM_Handlers = model.Handlers;
+            }
         }
         private string outputDir;
         public string  VM_OutputDir

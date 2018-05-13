@@ -21,14 +21,21 @@ namespace Communication.Infrastructure
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            //One string with no new lines.
+            return JsonConvert.SerializeObject(this).Replace(Environment.NewLine, " ");
         }
         public static MessageRecievedEventArgs FromJson(string jStr)
         {
-            JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
-            int messageType = (int)jObject["Status"];
-            string message = (string)jObject["Message"];
-            return new MessageRecievedEventArgs(messageType, message);
+            try
+            {
+                JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
+                int messageType = (int)jObject["Status"];
+                string message = (string)jObject["Message"];
+                return new MessageRecievedEventArgs(messageType, message);
+            }catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

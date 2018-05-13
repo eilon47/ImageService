@@ -64,3 +64,10 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\Communication.exe
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\Communication.pdb
 C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\Communication.exe.config
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Communication.exe
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Newtonsoft.Json.dll
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\StreamJsonRpc.dll
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Communication.pdb
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Communication.exe.config
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Newtonsoft.Json.xml
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete

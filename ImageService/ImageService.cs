@@ -13,10 +13,10 @@ using ImageService.Modal;
 using ImageService.Logging;
 using ImageService.Server;
 using System.Configuration;
-using ImageService.Logging.Modal;
 
 using System.IO;
 using Communication.Server;
+using Communication.Infrastructure;
 
 namespace ImageService
 {
@@ -41,13 +41,13 @@ namespace ImageService
         {
             InitializeComponent();
             this.loggingService = new LoggingService();
+            this.loggingService.Log("Logger created", MessageTypeEnum.INFO);
             this.imageModal = new ImageServiceModal(loggingService)
             {
                 OutputFolder = ConfigurationManager.AppSettings["OutputDir"],
                 ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"])
 
             };
-
             this.imageController = new ImageController(this.imageModal, this.loggingService);
             this.imageServer = new ImageServer(loggingService, imageController);
             this.server = new ISServer(imageServer);
@@ -70,6 +70,7 @@ namespace ImageService
             }
             ImageServiceLog.Source = eventSourceName;
             ImageServiceLog.Log = logName;
+            
             this.loggingService.MessageRecieved += this.WriteEntryToLog;
         }
         /// <summary>
@@ -78,7 +79,8 @@ namespace ImageService
         /// <param name="args"> arguments for the service </param>
         protected override void OnStart(string[] args)
         {
-            ImageServiceLog.WriteEntry("In onStart.");
+
+            this.loggingService.Log("In OnStart", MessageTypeEnum.INFO);
             this.server.Start();
             //this.guiServer.Start();
             // Set up a timer to trigger every minute.  
@@ -100,7 +102,7 @@ namespace ImageService
         /// </summary>
         protected override void OnStop()
         {
-            ImageServiceLog.WriteEntry("In onStop.");
+            this.loggingService.Log("In OnStop", MessageTypeEnum.INFO);
             //Closing the server.
             this.imageServer.OnClose();
             this.server.Stop();

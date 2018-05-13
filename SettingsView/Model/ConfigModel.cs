@@ -17,16 +17,18 @@ namespace SettingsView.Model
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigModel()
         {
-            this.client = ISClient.ClientServiceIns;
+           this.client = ISClient.ClientServiceIns;
             this.client.MessageRecieved += GetMessageFromClient;
             SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null));
         }
        
         public void GetMessageFromClient(object sender, string message)
         {
+            Console.WriteLine("config model got message : " + message);
             if (message.Contains("Config "))
             {
-                message = message.Replace("Config ", "");
+                int i = message.IndexOf(" ") + 1;
+                message = message.Substring(i);
                 JObject json = JObject.Parse(message);
                 OutputDir = (string)json["OutputDir"];
                 SourceName = (string)json["SourceName"];
@@ -35,9 +37,13 @@ namespace SettingsView.Model
                 string[] handlersArray = ((string)json["Handler"]).Split(';');
                 Handlers = new ObservableCollection<string>(handlersArray);
             }
-            if(message.Contains("Close ")){
+            else if (message.Contains("Close "))
+            {
                 string[] newHandlers = message.Split(';');
                 Handlers = new ObservableCollection<string>(newHandlers);
+            } else
+            {
+                Console.WriteLine("Config model ignored message = " + message);
             }
         }
         public void SendCommandToService(CommandRecievedEventArgs command)
@@ -84,6 +90,7 @@ namespace SettingsView.Model
             get { return this.thumbnailSize; }
             set
             {
+
                 this.thumbnailSize = value;
                 NotifyPropertyChanged("ThumbnailSize");
             }

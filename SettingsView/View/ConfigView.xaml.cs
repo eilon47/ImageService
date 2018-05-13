@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SettingsView.VM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace SettingsView.View
     /// </summary>
     public partial class ConfigView : UserControl
     {
+        //private ConfigVM vm;
         public ConfigView()
         {
             InitializeComponent();
+            //this.vm = new ConfigVM();
+            this.DataContext = new ConfigVM();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SettingsView.VM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SettingsView.VM;
+
 namespace SettingsView.View
 {
     /// <summary>
@@ -25,8 +26,7 @@ namespace SettingsView.View
         {
             InitializeComponent();
             this.vm = new LogVM();
-            DataContext = vm;
-
+            this.DataContext = vm;
         }
     }
 }

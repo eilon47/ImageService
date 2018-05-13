@@ -34,12 +34,27 @@ namespace SettingsView.Model
             if (message.Contains("Log "))
             {
                 logs = new ObservableCollection<MessageRecievedEventArgs>();
-                message = message.Replace("Log", "");
+                int i = message.IndexOf(" ") + 1;
+                message = message.Substring(i);
                 string[] logsStrings = message.Split(';');
                 foreach(string s in logsStrings)
                 {
-                    logs.Add(MessageRecievedEventArgs.FromJson(s));
+                    if (s.Contains("Status") && s.Contains("Message"))
+                    {
+                        try
+                        {
+                            MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(s);
+                            logs.Add(m);
+                        } catch (Exception e)
+                        {
+                            continue;
+                        }
+                        
+                    }
                 }
+            } else
+            {
+                Console.WriteLine("Log model ignored message = " + message);
             }
         }
         public void SendCommandToService(CommandRecievedEventArgs command)

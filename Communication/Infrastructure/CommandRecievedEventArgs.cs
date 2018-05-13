@@ -29,12 +29,18 @@ namespace Communication.Infrastructure
         }
         public static CommandRecievedEventArgs FromJson(string jStr)
         {
-            JObject jObject = JObject.Parse(jStr);
-            int id = (int)jObject["CommandID"];
-            JArray args = (JArray)jObject["Args"];
-            string[] argsArr = args.Select(c => (string)c).ToArray();
-            string path = (string)jObject["RequestDirPath"];
-            return new CommandRecievedEventArgs(id, argsArr, path);
+            try
+            {
+                JObject jObject = JObject.Parse(jStr);
+                int id = (int)jObject["CommandID"];
+                JArray args = (JArray)jObject["Args"];
+                string[] argsArr = args.Select(c => (string)c).ToArray();
+                string path = (string)jObject["RequestDirPath"];
+                return new CommandRecievedEventArgs(id, argsArr, path);
+            } catch (Exception e)
+            {
+                throw e;
+            }
         }
 
     }
