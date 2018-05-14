@@ -17,19 +17,22 @@ namespace SettingsView.VM
         public LogVM()
         {
             model = new LogModel();
-            model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
-            {
-                NotifyPropertyChanged("VM_" + e.PropertyName);
-            };
+            model.PropertyChanged += this.NotifyPropertyChanged;
         }
-        public void NotifyPropertyChanged(string propName)
+        public void NotifyPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChangedEventArgs p = new PropertyChangedEventArgs(propName);
+            PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" +e.PropertyName);
+            if (e.PropertyName.Equals("Logs"))
+            {
+               VM_Logs = model.Logs;
+            }
             PropertyChanged?.Invoke(this, p);
         }
+        ObservableCollection<MessageRecievedEventArgs> logs;
         public ObservableCollection<MessageRecievedEventArgs> VM_Logs 
         {
             get { return model.Logs; } 
+            set { logs = value; }
         }
     }
 }

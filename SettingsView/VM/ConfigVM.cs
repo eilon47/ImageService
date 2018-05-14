@@ -16,35 +16,35 @@ namespace SettingsView.VM
         public ConfigVM()
         {
             model = new ConfigModel();
-            model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
-            {
-                NotifyPropertyChanged("VM_" + e.PropertyName);
-            };
+            model.PropertyChanged += NotifyPropertyChanged;
 
 
         }
         
-        public void NotifyPropertyChanged(string propName) {
-            if (propName.Equals("VM_OutputDir"))
+        public void NotifyPropertyChanged(object sender, PropertyChangedEventArgs e) {
+            string propName = e.PropertyName;
+            if (propName.Equals("OutputDir"))
             {
                 VM_OutputDir = model.OutputDir;
             }
-            if (propName.Equals("VM_ThumbnailSize"))
+            if (propName.Equals("ThumbnailSize"))
             {
                 VM_ThumbnailSize = model.ThumbnailSize;
             }
-            if (propName.Equals("VM_SourceName"))
+            if (propName.Equals("SourceName"))
             {
                 VM_SourceName = model.SourceName;
             }
-            if (propName.Equals("VM_LogName"))
+            if (propName.Equals("LogName"))
             {
                 VM_LogName = model.LogName;
             }
-            if (propName.Equals("VM_Handlers"))
+            if (propName.Equals("Handlers"))
             {
                 VM_Handlers = model.Handlers;
             }
+            PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" + e.PropertyName);
+            PropertyChanged?.Invoke(this, p);
         }
         private string outputDir;
         public string  VM_OutputDir
@@ -53,7 +53,6 @@ namespace SettingsView.VM
             set
             {
                 outputDir = value;
-                NotifyPropertyChanged("OutputDir");
             }
            
         }
@@ -64,7 +63,6 @@ namespace SettingsView.VM
             set
             {
                 this.sourceName = value;
-                NotifyPropertyChanged("SourceName");
             }
         }
         private string logName;
@@ -74,7 +72,6 @@ namespace SettingsView.VM
             set
             {
                 this.logName = value;
-                NotifyPropertyChanged("LogName");
             }
         }
         private int thumbnailSize;
@@ -84,7 +81,6 @@ namespace SettingsView.VM
             set
             {
                 this.thumbnailSize = value;
-                NotifyPropertyChanged("ThumbnailSize");
             }
         }
         private ObservableCollection<string> handlers;
@@ -94,7 +90,6 @@ namespace SettingsView.VM
             set
             {
                 this.handlers = value;
-                NotifyPropertyChanged("Handlers");
             }
         }
     }

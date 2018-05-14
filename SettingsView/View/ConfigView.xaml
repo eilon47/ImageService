@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:SettingsView.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel>
+    <Grid Background="White">
+       <StackPanel>
             <Grid TextBlock.FontSize="14" Height="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -37,7 +37,7 @@
                 <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="2" Text="{Binding VM_ThumbnailSize}"></TextBlock>
             </Grid>
             <Button Content="Remove"/>
-            <ListBox Height="100"/>
+            <ListBox Height="100" ItemsSource="{Binding VM_Handlers}"/>
 
         </StackPanel>
 

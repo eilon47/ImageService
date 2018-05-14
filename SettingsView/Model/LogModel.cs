@@ -19,6 +19,11 @@ namespace SettingsView.Model
         private ObservableCollection<MessageRecievedEventArgs> logs;
         public ObservableCollection<MessageRecievedEventArgs> Logs
         {
+            set
+            {
+                logs = value;
+                NotifyPropertyChanged("Logs");
+            }
             get { return logs; }
         }
         public LogModel()
@@ -33,7 +38,8 @@ namespace SettingsView.Model
             //If message if log - handle and notify, else ignore.
             if (message.Contains("Log "))
             {
-                logs = new ObservableCollection<MessageRecievedEventArgs>();
+                Console.WriteLine("Working on Log..");
+                ObservableCollection<MessageRecievedEventArgs> list = new ObservableCollection<MessageRecievedEventArgs>();
                 int i = message.IndexOf(" ") + 1;
                 message = message.Substring(i);
                 string[] logsStrings = message.Split(';');
@@ -44,7 +50,7 @@ namespace SettingsView.Model
                         try
                         {
                             MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(s);
-                            logs.Add(m);
+                            list.Add(m);
                         } catch (Exception e)
                         {
                             continue;
@@ -52,6 +58,8 @@ namespace SettingsView.Model
                         
                     }
                 }
+                Logs = list;
+                Console.WriteLine("Done working on log!");
             } else
             {
                 Console.WriteLine("Log model ignored message = " + message);
@@ -62,7 +70,10 @@ namespace SettingsView.Model
             client.Write(command.ToJson());
         }
 
-
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
 
     }
 }

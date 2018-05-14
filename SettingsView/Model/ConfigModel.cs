@@ -24,9 +24,9 @@ namespace SettingsView.Model
        
         public void GetMessageFromClient(object sender, string message)
         {
-            Console.WriteLine("config model got message : " + message);
             if (message.Contains("Config "))
             {
+                Console.WriteLine("Working on config...");
                 int i = message.IndexOf(" ") + 1;
                 message = message.Substring(i);
                 JObject json = JObject.Parse(message);
@@ -36,6 +36,7 @@ namespace SettingsView.Model
                 LogName = (string)json["LogName"];
                 string[] handlersArray = ((string)json["Handler"]).Split(';');
                 Handlers = new ObservableCollection<string>(handlersArray);
+                Console.WriteLine("Done!");
             }
             else if (message.Contains("Close "))
             {

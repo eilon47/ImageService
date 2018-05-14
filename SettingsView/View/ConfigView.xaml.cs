@@ -21,12 +21,12 @@ namespace SettingsView.View
     /// </summary>
     public partial class ConfigView : UserControl
     {
-        //private ConfigVM vm;
+        private ConfigVM vm;
         public ConfigView()
         {
             InitializeComponent();
-            //this.vm = new ConfigVM();
-            this.DataContext = new ConfigVM();
+            this.vm = new ConfigVM();
+            this.DataContext = vm;
         }
     }
 }

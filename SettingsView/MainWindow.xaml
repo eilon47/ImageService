@@ -23,6 +23,6 @@
             </TabItem.Header>
             <controls:LogView> </controls:LogView>
         </TabItem>
-        <TabItem Background="Gray" Width="auto" Margin="-2.2,-2,-528.4,0" />
+        
     </TabControl>
 </Window>
