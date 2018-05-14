@@ -189,7 +189,7 @@ namespace ImageService.Modal
                     sb.Append(item.ToJson() + " ; ");
                 }
                 result = true;
-                return "Log " + sb.ToString();
+                return "GetLog " + sb.ToString();
             } catch (Exception e)
             {
                 result = false;

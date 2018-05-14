@@ -23,7 +23,7 @@ namespace SettingsView
     /// </summary>
     public partial class ConfigViewModel : UserControl,INotifyPropertyChanged
     {
-        private IModel configModel;
+        private IConfigModel configModel;
         private ObservableCollection<string> handlers = new ObservableCollection<string>();
         public ConfigViewModel()
         {

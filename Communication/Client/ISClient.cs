@@ -32,7 +32,13 @@ namespace Communication.Client
             {
                 if (clientService == null)
                 {
-                    clientService = new ISClient(ComSettings.Default.IP, ComSettings.Default.Port);
+                    try
+                    {
+                        clientService = new ISClient(ComSettings.Default.IP, ComSettings.Default.Port);
+                    } catch(Exception e)
+                    {
+                        throw e;
+                    }
                 }
                 return clientService;
             }
@@ -46,8 +52,14 @@ namespace Communication.Client
         }
         private void CreateANewConnection()
         {
-            this.client = new TcpClient();
-            client.Connect(this.ep);//connect to the server
+            try
+            {
+                this.client = new TcpClient();
+                client.Connect(this.ep);//connect to the server
+            } catch (Exception e)
+            {
+                throw e;
+            }
             Console.WriteLine("you are connected ");
             Read();
         }

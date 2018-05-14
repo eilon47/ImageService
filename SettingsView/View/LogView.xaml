@@ -13,6 +13,7 @@
     <StackPanel Orientation="Vertical" Background="White">
         <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="Blue"> Log</TextBlock>
         <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                  CanUserSortColumns="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                   VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Width="Auto" Height="300" Margin="0,0,0,10" RowHeight="30">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Type" Binding="{Binding Status}" Width="Auto">

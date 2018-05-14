@@ -10,18 +10,31 @@ using System.Text;
 using System.Threading.Tasks;
 namespace SettingsView.Model
 {
-    class ConfigModel : IModel
+    class ConfigModel : IConfigModel
     {
 
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigModel()
         {
-           this.client = ISClient.ClientServiceIns;
-            this.client.MessageRecieved += GetMessageFromClient;
-            SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null));
+            try
+            {
+                this.client = ISClient.ClientServiceIns;
+                this.client.MessageRecieved += GetMessageFromClient;
+                SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null));
+            } catch (Exception e)
+            {
+                NotConnectedValues();
+            }
         }
-       
+        public void NotConnectedValues()
+        {
+            OutputDir = "Not connected to server!";
+            SourceName = null;
+            ThumbnailSize = 0;
+            LogName = null;
+            Handlers = null;
+        }
         public void GetMessageFromClient(object sender, string message)
         {
             if (message.Contains("Config "))

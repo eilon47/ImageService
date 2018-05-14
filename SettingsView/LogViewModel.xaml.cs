@@ -22,7 +22,7 @@ namespace SettingsView
     /// </summary>
     public partial class LogViewModel : UserControl, INotifyPropertyChanged
     {
-        private IModel logModel;
+        private ILogModel logModel;
 
         public LogViewModel()
         {

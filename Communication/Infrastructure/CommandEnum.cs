@@ -10,7 +10,8 @@ namespace Communication.Infrastructure
     {
         NewFileCommand,
         GetConfigCommand,
+        LogCommand,
         CloseCommand,
-        LogCommand
+        WindowClosedCommand
     }
 }

@@ -7,18 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-       <StackPanel>
+        <StackPanel>
             <Grid TextBlock.FontSize="14" Height="200">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition  Height="*"/>
-                        <RowDefinition  Height="*"/>
-                        <RowDefinition  Height="*"/>
-                    </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="Padding" Value="3" />
@@ -37,9 +37,8 @@
                 <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="2" Text="{Binding VM_ThumbnailSize}"></TextBlock>
             </Grid>
             <Button Height="20" Content="Remove"/>
-            <ListBox Height="230" ItemsSource="{Binding VM_Handlers}"/>
-
+            <ListBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
+                     TextBlock.TextAlignment="Center" Height="200" ItemsSource="{Binding VM_Handlers}"/>
         </StackPanel>
-
     </Grid>
 </UserControl>

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Communication.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Communication.Infrastructure;
+
 namespace SettingsView.Model
 {
-    interface IModel : INotifyPropertyChanged
+    public interface IConfigModel
     {
         event PropertyChangedEventHandler PropertyChanged;
         void SendCommandToService(CommandRecievedEventArgs command);

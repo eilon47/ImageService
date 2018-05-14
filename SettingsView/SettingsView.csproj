@@ -79,8 +79,10 @@
       <DependentUpon>LogViewModel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ConfigModel.cs" />
-    <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\IConfigModel.cs" />
+    <Compile Include="Model\ILogModel.cs" />
     <Compile Include="Model\LogModel.cs" />
+    <Compile Include="Resources\ConnectionBackgroundCoverter.cs" />
     <Compile Include="Resources\TypeBackgroundConverter.cs" />
     <Compile Include="View\ConfigView.xaml.cs">
       <DependentUpon>ConfigView.xaml</DependentUpon>
@@ -90,6 +92,7 @@
     </Compile>
     <Compile Include="VM\ConfigVM.cs" />
     <Compile Include="VM\LogVM.cs" />
+    <Compile Include="VM\MainWindowVM.cs" />
     <Page Include="ConfigViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

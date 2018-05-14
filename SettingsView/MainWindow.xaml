@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:SettingsView.View"
+        xmlns:resources="clr-namespace:SettingsView.Resources"
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800">
-    <TabControl>
+    <Window.Resources>
+        <resources:ConnectionBackgroundCoverter x:Key="ConnectionConverter"></resources:ConnectionBackgroundCoverter>
+    </Window.Resources>
+    <Grid Background="{Binding IsConnected, Converter={StaticResource ConnectionConverter}}">
+        <TabControl>
         <TabItem>
             <TabItem.Header>
                 <StackPanel Orientation="Horizontal">
@@ -15,14 +20,14 @@
             </TabItem.Header>
             <controls:ConfigView> </controls:ConfigView>
         </TabItem>
-        <TabItem>
-            <TabItem.Header>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Logs" Foreground="Blue" />
-                </StackPanel>
-            </TabItem.Header>
-            <controls:LogView> </controls:LogView>
-        </TabItem>
-        
-    </TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Logs" Foreground="Blue" />
+                    </StackPanel>
+                </TabItem.Header>
+                <controls:LogView></controls:LogView>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

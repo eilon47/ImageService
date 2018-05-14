@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SettingsView.Model
 {
-    class LogModel : IModel
+    class LogModel : ILogModel
     {
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,15 +28,21 @@ namespace SettingsView.Model
         }
         public LogModel()
         {
-            this.client = ISClient.ClientServiceIns;
-            this.client.MessageRecieved += GetMessageFromClient;
-            SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null));
+            try
+            {
+                this.client = ISClient.ClientServiceIns;
+                this.client.MessageRecieved += GetMessageFromClient;
+                SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null));
+            } catch(Exception e)
+            {
+                this.Logs = null;
+            }
         }
 
         public void GetMessageFromClient(object sender, string message)
         {
             //If message if log - handle and notify, else ignore.
-            if (message.Contains("Log "))
+            if (message.Contains("GetLog "))
             {
                 Console.WriteLine("Working on Log..");
                 ObservableCollection<MessageRecievedEventArgs> list = new ObservableCollection<MessageRecievedEventArgs>();
@@ -60,7 +66,16 @@ namespace SettingsView.Model
                 }
                 Logs = list;
                 Console.WriteLine("Done working on log!");
-            } else
+            }
+            //else if (message.Contains("AddLogEntry "))
+            //{
+            //    int i = message.IndexOf(" ") + 1;
+            //    message = message.Substring(i);
+            //    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
+            //    Logs.Add(m);
+            //    NotifyPropertyChanged("Logs");
+            //}
+            else
             {
                 Console.WriteLine("Log model ignored message = " + message);
             }
