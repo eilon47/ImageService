@@ -36,8 +36,8 @@
                 <TextBlock Grid.Row="3">Thumbnails Size:</TextBlock>
                 <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="2" Text="{Binding VM_ThumbnailSize}"></TextBlock>
             </Grid>
-            <Button Content="Remove"/>
-            <ListBox Height="100" ItemsSource="{Binding VM_Handlers}"/>
+            <Button Height="20" Content="Remove"/>
+            <ListBox Height="230" ItemsSource="{Binding VM_Handlers}"/>
 
         </StackPanel>
 

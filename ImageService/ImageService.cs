@@ -42,6 +42,9 @@ namespace ImageService
             InitializeComponent();
             this.loggingService = new LoggingService();
             this.loggingService.Log("Logger created", MessageTypeEnum.INFO);
+            this.loggingService.Log("Test background info", MessageTypeEnum.INFO);
+            this.loggingService.Log("Test background fail", MessageTypeEnum.FAIL);
+            this.loggingService.Log("Test background warning", MessageTypeEnum.WARNING);
             this.imageModal = new ImageServiceModal(loggingService)
             {
                 OutputFolder = ConfigurationManager.AppSettings["OutputDir"],

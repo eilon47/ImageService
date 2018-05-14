@@ -28,5 +28,6 @@ namespace SettingsView.View
             this.vm = new LogVM();
             this.DataContext = vm;
         }
+
     }
 }

@@ -36,6 +36,7 @@ namespace SettingsView.Model
                 LogName = (string)json["LogName"];
                 string[] handlersArray = ((string)json["Handler"]).Split(';');
                 Handlers = new ObservableCollection<string>(handlersArray);
+                
                 Console.WriteLine("Done!");
             }
             else if (message.Contains("Close "))

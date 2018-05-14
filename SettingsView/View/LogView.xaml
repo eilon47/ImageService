@@ -4,19 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SettingsView.View"
+             xmlns:resources="clr-namespace:SettingsView.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <resources:TypeBackgroundConverter x:Key="TypeBackgroundConverter"></resources:TypeBackgroundConverter>
+    </UserControl.Resources>
     <StackPanel Orientation="Vertical" Background="White">
-        <Label HorizontalAlignment="Stretch" Height="100" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Blue"> Log</Label>
-            <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
-                          AutoGenerateColumns="False" IsHitTestVisible="False" Focusable="False" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Visible"
-                          RowHeight="50" ColumnWidth="100" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Type" Binding="{Binding Status}" Width="Auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"></DataGridTextColumn>
-                </DataGrid.Columns>
-
-            </DataGrid>
+        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="Blue"> Log</TextBlock>
+        <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                  VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Width="Auto" Height="300" Margin="0,0,0,10" RowHeight="30">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" Binding="{Binding Status}" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background" Value="{Binding Status, Converter={StaticResource TypeBackgroundConverter}}"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="TextAlignment" Value="Center"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </StackPanel>
 </UserControl>
