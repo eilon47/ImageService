@@ -26,6 +26,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
+        private List<TcpClient> m_clientsList;
         #endregion
 
         #region Properties
@@ -42,6 +43,7 @@ namespace ImageService.Server
         {
             this.m_controller = imageController;
             this.m_logging = loggingService;
+            this.m_clientsList = new List<TcpClient>();
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             //Creates the direcory handlers for each directory path recieved.
             m_logging.Log("Image server was created, making handlers now", MessageTypeEnum.INFO);
@@ -97,9 +99,11 @@ namespace ImageService.Server
             //string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
             //m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
         }
-        private static Mutex clientsMutex = new Mutex();
+        private static Mutex writeMutex = new Mutex();
+        private static Mutex removeMutex = new Mutex();
         public void HandleClient(TcpClient client)
         {
+            this.m_clientsList.Add(client);
             new Task(() =>
             {
                 NetworkStream stream = client.GetStream();
@@ -113,13 +117,15 @@ namespace ImageService.Server
                     CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                    clientsMutex.WaitOne();
+                    writeMutex.WaitOne();
                     writer.Write(res);
-                    clientsMutex.ReleaseMutex();
+                    writeMutex.ReleaseMutex();
                     res = string.Empty;
                 }
             }).Start();
         }
+
     }
+
 
 }

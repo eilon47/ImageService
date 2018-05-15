@@ -67,14 +67,21 @@ namespace SettingsView.Model
                 Logs = list;
                 Console.WriteLine("Done working on log!");
             }
-            //else if (message.Contains("AddLogEntry "))
-            //{
-            //    int i = message.IndexOf(" ") + 1;
-            //    message = message.Substring(i);
-            //    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
-            //    Logs.Add(m);
-            //    NotifyPropertyChanged("Logs");
-            //}
+            else if (message.Contains("NewLogEntry "))
+            {
+                //int i = message.IndexOf(" ") + 1;
+                //message = message.Substring(i);
+                //try
+                //{
+                //    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
+                //    ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
+                //    tempList.Add(m);
+                //    this.Logs = tempList;
+                //} catch(Exception e)
+                //{
+                //    Console.WriteLine(e.ToString());
+                //}
+            }
             else
             {
                 Console.WriteLine("Log model ignored message = " + message);

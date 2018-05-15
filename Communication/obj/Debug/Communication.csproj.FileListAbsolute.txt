@@ -21,3 +21,4 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communicat
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\obj\Debug\Communication.csproj.CopyComplete
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\obj\Debug\Communication.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\obj\Debug\Communication.pdb
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\obj\Debug\Communication.csprojResolveAssemblyReference.cache

@@ -1,4 +1,5 @@
 ﻿using Communication.Client;
+using SettingsView.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,22 +12,14 @@ namespace SettingsView.VM
     public class MainWindowVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private IISClient client;
-        private bool connection;
+        private IMainWindowModel model;
         public bool IsConnected
         {
-            get { return connection; }
-            private set { connection = value; }
+            get { return model.IsConnected; }
         }
         public MainWindowVM()
         {
-            try
-            {
-                client = ISClient.ClientServiceIns;
-                connection = client.Connection;
-            } catch(Exception e) {
-                connection = false;
-            }
+            this.model = new MainWindowModel();
         }
     }
 

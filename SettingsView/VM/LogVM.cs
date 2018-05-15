@@ -12,7 +12,7 @@ namespace SettingsView.VM
 {
     public class LogVM : INotifyPropertyChanged
     {
-        private LogModel model;
+        private ILogModel model;
         public event PropertyChangedEventHandler PropertyChanged;
         public LogVM()
         {

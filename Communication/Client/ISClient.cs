@@ -15,13 +15,12 @@ namespace Communication.Client
         private static Mutex readerMutex = new Mutex();
         private static Mutex writerMutex = new Mutex();
         public event EventHandler<string> MessageRecieved;
+        private TcpClient client;
+        private IPEndPoint ep;
+        private int portNumber;
         //Propeties
         public bool Connection { get { return client.Connected; } }
-        private TcpClient client;
-        //public TcpClient TcpClient { get { return client; } set { client = value; } }
-        private IPEndPoint ep;
-        //public IPEndPoint IpEndPoint { get { return ep; } set { ep = value; } }
-        private int portNumber;
+       
         //Singleton!
         private static ISClient clientService;
         
@@ -53,8 +52,7 @@ namespace Communication.Client
         private void CreateANewConnection()
         {
             try
-            {
-                this.client = new TcpClient();
+            { 
                 client.Connect(this.ep);//connect to the server
             } catch (Exception e)
             {
@@ -75,12 +73,10 @@ namespace Communication.Client
                 }
                 NetworkStream stream = client.GetStream();
                 BinaryWriter writer = new BinaryWriter(stream);
-                Console.WriteLine("got command " + command);
                 writerMutex.WaitOne();
                 writer.Write(command);
                 writer.Flush();
                 writerMutex.ReleaseMutex();
-                //Get result from server.
             }).Start();
         }
 
@@ -111,7 +107,12 @@ namespace Communication.Client
 
         public void Disconnect()
         {
-            client.Close();
+            if (client != null)
+            {
+                client.GetStream().Close();
+                client.Close();
+                client = null;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SettingsView.VM
 {
     class ConfigVM : INotifyPropertyChanged
     {
-        private ConfigModel model;
+        private IConfigModel model;
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigVM()
         {
