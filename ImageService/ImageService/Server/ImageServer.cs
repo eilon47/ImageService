@@ -26,7 +26,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
-        private List<TcpClient> m_clientsList;
+        private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
         #endregion
 
         #region Properties
@@ -43,7 +43,8 @@ namespace ImageService.Server
         {
             this.m_controller = imageController;
             this.m_logging = loggingService;
-            this.m_clientsList = new List<TcpClient>();
+            this.clientsReadyForNewLogs = new Dictionary<TcpClient, bool>();
+            this.m_logging.MessageRecieved += this.NewLogEntry;
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             //Creates the direcory handlers for each directory path recieved.
             m_logging.Log("Image server was created, making handlers now", MessageTypeEnum.INFO);
@@ -103,7 +104,7 @@ namespace ImageService.Server
         private static Mutex removeMutex = new Mutex();
         public void HandleClient(TcpClient client)
         {
-            this.m_clientsList.Add(client);
+            this.clientsReadyForNewLogs.Add(client, false);
             new Task(() =>
             {
                 NetworkStream stream = client.GetStream();
@@ -120,11 +121,41 @@ namespace ImageService.Server
                     writeMutex.WaitOne();
                     writer.Write(res);
                     writeMutex.ReleaseMutex();
+                    if(crea.CommandID == (int)CommandEnum.GetConfigCommand)
+                    {
+                        //Ready to get new logs entries
+                        clientsReadyForNewLogs[client] = true;
+                    }
                     res = string.Empty;
                 }
             }).Start();
         }
+        public void NewLogEntry(object sender, MessageRecievedEventArgs m)
+        {
+            if (clientsReadyForNewLogs.Keys.Count == 0)
+                return;
+            new Task(() =>
+            {
+                foreach (TcpClient client in clientsReadyForNewLogs.Keys)
+                {
 
+                    if (client.Connected)
+                    {
+                        if (clientsReadyForNewLogs[client])
+                        {
+                            NetworkStream stream = client.GetStream();
+                            BinaryWriter writer = new BinaryWriter(stream);
+                            writer.Write("NewLogEntry " + m.ToJson());
+                        }
+                    }
+                    else
+                    {
+                        clientsReadyForNewLogs.Remove(client);
+                    }
+                    
+                }
+            }).Start();
+        }
     }
 
 

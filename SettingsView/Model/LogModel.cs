@@ -69,18 +69,19 @@ namespace SettingsView.Model
             }
             else if (message.Contains("NewLogEntry "))
             {
-                //int i = message.IndexOf(" ") + 1;
-                //message = message.Substring(i);
-                //try
-                //{
-                //    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
-                //    ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
-                //    tempList.Add(m);
-                //    this.Logs = tempList;
-                //} catch(Exception e)
-                //{
-                //    Console.WriteLine(e.ToString());
-                //}
+                int i = message.IndexOf(" ") + 1;
+                message = message.Substring(i);
+                try
+                {
+                    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
+                    ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
+                    tempList.Add(m);
+                    this.Logs = tempList;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
             }
             else
             {
