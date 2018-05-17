@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ImageService" GeneratedClassName="ImageServiceSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Handler" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\green\Desktop\handle2;C:\Users\green\Desktop\handle1</Value>
+    </Setting>
+    <Setting Name="OutputDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\green\Desktop\outputDir</Value>
+    </Setting>
+    <Setting Name="LogName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ImageServiceLog</Value>
+    </Setting>
+    <Setting Name="SourceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ImageServiceSource</Value>
+    </Setting>
+    <Setting Name="ThumbnailsSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

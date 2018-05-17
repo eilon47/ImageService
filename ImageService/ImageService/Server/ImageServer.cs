@@ -134,6 +134,9 @@ namespace ImageService.Server
         {
             if (clientsReadyForNewLogs.Keys.Count == 0)
                 return;
+            string[] args = new string[1];
+            args[0] = m.ToJson();
+            CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.NewLogEntryCommand, args, null);
             new Task(() =>
             {
                 foreach (TcpClient client in clientsReadyForNewLogs.Keys)
@@ -145,7 +148,7 @@ namespace ImageService.Server
                         {
                             NetworkStream stream = client.GetStream();
                             BinaryWriter writer = new BinaryWriter(stream);
-                            writer.Write("NewLogEntry " + m.ToJson());
+                            writer.Write(c.ToJson());
                         }
                     }
                     else

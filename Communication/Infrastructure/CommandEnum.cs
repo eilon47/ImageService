@@ -12,6 +12,8 @@ namespace Communication.Infrastructure
         GetConfigCommand,
         LogCommand,
         CloseCommand,
-        WindowClosedCommand
+        WindowClosedCommand,
+        NewLogEntryCommand
+
     }
 }

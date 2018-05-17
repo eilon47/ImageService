@@ -1,4 +1,5 @@
-﻿using SettingsView.Model;
+﻿using Communication.Infrastructure;
+using SettingsView.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,6 +47,14 @@ namespace SettingsView.VM
             PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" + e.PropertyName);
             PropertyChanged?.Invoke(this, p);
         }
+
+        public void rmvHandler(string handlerToRmv)
+        {
+            string[] args = new string[1];
+            args[0] = handlerToRmv;
+            model.SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, null));
+        }
+
         private string outputDir;
         public string  VM_OutputDir
         {

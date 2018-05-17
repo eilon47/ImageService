@@ -9,72 +9,83 @@ using System.Threading.Tasks;
 
 namespace ImageService.Modal
 {
-    class SettingsObject
+    public class SettingsObject
     {
+        private static SettingsObject instance = null;
+        private SettingsObject()
+        {
+            OutPutDir = ConfigurationManager.AppSettings["OutPutDir"];
+            SourceName = ConfigurationManager.AppSettings["SourceName"];
+            LogName = ConfigurationManager.AppSettings["LogName"];
+            ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            Handlers = ConfigurationManager.AppSettings["Handler"];
+            
+        }
+        public static SettingsObject GetInstance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SettingsObject();
+                }
+                return instance;
+            }
+        }
+        private string outputDir;
         public string OutPutDir
         {
-            get { return ConfigurationManager.AppSettings["OutPutDir"]; }
-            set
-            {
-                ConfigurationManager.AppSettings["OutPutDir"] = value;
-            }
+            get { return outputDir; }
+            set { outputDir = value; }
         }
+        private string sourceName;
         public string SourceName
         {
-            get { return ConfigurationManager.AppSettings["SourceName"]; }
-            set
-            {
-                ConfigurationManager.AppSettings["SourceName"] = value;
-            }
+            get { return sourceName; }
+            set { sourceName = value; }
         }
+        private string logName;
         public string LogName
         {
-            get { return ConfigurationManager.AppSettings["LogName"]; }
-            set
-            {
-                ConfigurationManager.AppSettings["LogName"] = value;
-            }
+            get { return logName; }
+            set { logName = value; }
         }
+        private int thumbnailSize;
         public int ThumbnailSize
         {
-            get { return int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]); }
-            set
-            {
-                ConfigurationManager.AppSettings["ThumbnailSize"] = value.ToString();
-            }
+            get { return thumbnailSize; }
+            set { thumbnailSize = value; }
         }
-        //private List<string> handlers;
-        public string[] Handlers
+        private string handlers;
+        public string Handlers
         {
-            get { return ConfigurationManager.AppSettings["Handlers"].Split(';'); }
+            get { return handlers; }
             set
             {
-                List<string> handlers = new List<string>();
-                foreach (string handle in value)
-                {
-                    handlers.Add(handle);
-                }
-                string handlersAsString = string.Join(";", handlers.ToArray());
-                ConfigurationManager.AppSettings["Handlers"] = handlersAsString;
+                handlers = value;
             }
         }
         
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            JObject j = new JObject();
+            j["OutputDir"] = OutPutDir;
+            j["SourceName"] = SourceName;
+            j["ThumbnailSize"] = ThumbnailSize.ToString();
+            j["LogName"] = LogName;
+            j["Handler"] = Handlers;
+            return j.ToString();
         }
-        public static SettingsObject FromJson(string jStr)
+        public bool RemoveHandler(string path)
         {
-            SettingsObject sO = new SettingsObject();
-            JObject jObject = (JObject)JsonConvert.DeserializeObject(jStr);
-
-            sO.OutPutDir = (string)jObject["OutPutDir"];
-            sO.SourceName = (string)jObject["SourceName"];
-            sO.LogName = (string)jObject["LogName"];
-            sO.ThumbnailSize = (int)jObject["ThumbnailSize"];
-            var h = jObject["Handlers"];
-            sO.Handlers  = h.ToObject<string[]>();
-            return sO;
+            if (Handlers.Contains(path))
+            {
+                Handlers.Replace(path, "");
+                Handlers.Replace(";;", ";");
+                return true;
+                // Remove From app config
+            }
+            return false;
         }
 
 

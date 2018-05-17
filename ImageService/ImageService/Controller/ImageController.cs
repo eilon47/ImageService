@@ -42,6 +42,7 @@ namespace ImageService.Controller
                 Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
                  {
                    string path = commands[commandID].Execute(args, out bool res);
+                     this.loggingService.Log(ImageServiceSettings.Default.Handler, MessageTypeEnum.INFO);
                    return Tuple.Create(path, res);
                  });
                 //start the task.

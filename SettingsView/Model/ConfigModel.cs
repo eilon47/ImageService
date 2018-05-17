@@ -37,25 +37,29 @@ namespace SettingsView.Model
         }
         public void GetMessageFromClient(object sender, string message)
         {
-            if (message.Contains("Config "))
+            Console.WriteLine("########################################################");
+            Console.WriteLine(message);
+            Console.WriteLine("########################################################");
+            CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
+            if (command.CommandID == (int) CommandEnum.GetConfigCommand)
             {
                 Console.WriteLine("Working on config...");
-                int i = message.IndexOf(" ") + 1;
-                message = message.Substring(i);
-                JObject json = JObject.Parse(message);
+                string m = command.Args[0];
+                JObject json = JObject.Parse(m);
                 OutputDir = (string)json["OutputDir"];
                 SourceName = (string)json["SourceName"];
                 ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
                 LogName = (string)json["LogName"];
                 string[] handlersArray = ((string)json["Handler"]).Split(';');
                 Handlers = new ObservableCollection<string>(handlersArray);
-                
+
                 Console.WriteLine("Done!");
             }
-            else if (message.Contains("Close "))
+            else if (command.CommandID == (int) CommandEnum.CloseCommand) 
             {
-                string[] newHandlers = message.Split(';');
-                Handlers = new ObservableCollection<string>(newHandlers);
+                string m = command.Args[0];
+                string[] result = m.Split(';');
+                Handlers = new ObservableCollection<string>(result);
             } else
             {
                 Console.WriteLine("Config model ignored message = " + message);
@@ -65,10 +69,6 @@ namespace SettingsView.Model
         {
             client.Write(command.ToJson());
         }
-
-
-
-
         private string outputDir;
         public string OutputDir
         {

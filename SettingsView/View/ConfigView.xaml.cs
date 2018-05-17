@@ -1,6 +1,7 @@
 ﻿using SettingsView.VM;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,14 @@ namespace SettingsView.View
             InitializeComponent();
             this.vm = new ConfigVM();
             this.DataContext = vm;
+        }
+
+        private void rmv_btn(object sender, RoutedEventArgs e)
+        {
+            if(handlersList.SelectedItem != null)
+            {
+                vm.rmvHandler(handlersList.SelectedItem as string);
+            }
         }
     }
 }

@@ -36,8 +36,10 @@
                 <TextBlock Grid.Row="3">Thumbnails Size:</TextBlock>
                 <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="2" Text="{Binding VM_ThumbnailSize}"></TextBlock>
             </Grid>
-            <Button Height="20" Content="Remove"/>
-            <ListBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
+            <Button Height="20" Content="Remove" Click="rmv_btn">
+                
+            </Button>
+            <ListBox x:Name="handlersList" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
                      TextBlock.TextAlignment="Center" Height="200" ItemsSource="{Binding VM_Handlers}"/>
         </StackPanel>
     </Grid>

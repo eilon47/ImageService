@@ -70,13 +70,11 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\MainWindow.g.cs
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\ConfigView.g.cs
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\LogView.g.cs
-C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\MainWindow.g.cs
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.exe
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.pdb
 C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Communication.exe.config
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\ConfigView.baml
 C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\LogView.baml
-C:\Users\green\Source\Repos\ImageService\SettingsView\obj\Debug\View\MainWindow.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\ConfigView.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\LogView.baml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\SettingsView\obj\Debug\View\MainWindow.baml

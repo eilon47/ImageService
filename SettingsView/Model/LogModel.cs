@@ -42,13 +42,13 @@ namespace SettingsView.Model
         public void GetMessageFromClient(object sender, string message)
         {
             //If message if log - handle and notify, else ignore.
-            if (message.Contains("GetLog "))
+            CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
+            if (command.CommandID == (int)CommandEnum.LogCommand)
             {
                 Console.WriteLine("Working on Log..");
                 ObservableCollection<MessageRecievedEventArgs> list = new ObservableCollection<MessageRecievedEventArgs>();
-                int i = message.IndexOf(" ") + 1;
-                message = message.Substring(i);
-                string[] logsStrings = message.Split(';');
+               
+                string[] logsStrings = command.Args[0].Split(';');
                 foreach(string s in logsStrings)
                 {
                     if (s.Contains("Status") && s.Contains("Message"))
@@ -67,13 +67,11 @@ namespace SettingsView.Model
                 Logs = list;
                 Console.WriteLine("Done working on log!");
             }
-            else if (message.Contains("NewLogEntry "))
+            else if (command.CommandID == (int)CommandEnum.NewLogEntryCommand)
             {
-                int i = message.IndexOf(" ") + 1;
-                message = message.Substring(i);
                 try
                 {
-                    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(message);
+                    MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(command.Args[0]);
                     ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
                     tempList.Add(m);
                     this.Logs = tempList;

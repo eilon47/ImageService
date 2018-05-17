@@ -189,7 +189,10 @@ namespace ImageService.Modal
                     sb.Append(item.ToJson() + " ; ");
                 }
                 result = true;
-                return "GetLog " + sb.ToString();
+                string[] args = new string[1];
+                args[0] = sb.ToString();
+                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, args, null);
+                return c.ToJson();
             } catch (Exception e)
             {
                 result = false;
@@ -198,22 +201,32 @@ namespace ImageService.Modal
         }
         public string CloseHandler(string path, out bool result)
         {
-            result = true;
-            return "Closed ";
+            try
+            {
+                SettingsObject settings = SettingsObject.GetInstance;
+                result = settings.RemoveHandler(path);
+                string[] args = new string[1];
+                args[0] = settings.Handlers;
+                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, null);
+                return c.ToJson();
+            } catch (Exception e)
+            {
+                result = false;
+                return e.ToString();
+            }
         }
         public string GetConfig(string path, out bool result)
         {
+           
             try
             {
-                JObject j = new JObject();
-                j["SourceName"] = ConfigurationManager.AppSettings["SourceName"];
-                j["ThumbnailSize"] = ConfigurationManager.AppSettings["ThumbnailSize"];
-                j["LogName"] = ConfigurationManager.AppSettings["LogName"];
-                j["Handler"] = ConfigurationManager.AppSettings["Handler"];
-                j["OutputDir"] = ConfigurationManager.AppSettings["OutputDir"];
+
+                SettingsObject settings = SettingsObject.GetInstance;
+                string[] args = new string[1];
+                args[0] = settings.ToJson();
+                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, args, null);
                 result = true;
-                string ret = "Config " + j.ToString().Replace(Environment.NewLine, " ");
-                return ret;
+                return c.ToJson();
             }
             catch (Exception e)
             {
