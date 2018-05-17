@@ -59,6 +59,10 @@ namespace SettingsView.Model
             {
                 string m = command.Args[0];
                 string[] result = m.Split(';');
+                Console.Out.WriteLine("------------------");
+                Console.Out.WriteLine(m);
+                Console.Out.WriteLine("------------------"); 
+
                 Handlers = new ObservableCollection<string>(result);
             } else
             {

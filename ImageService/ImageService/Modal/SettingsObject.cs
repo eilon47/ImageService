@@ -78,16 +78,16 @@ namespace ImageService.Modal
         }
         public bool RemoveHandler(string path)
         {
-            if (Handlers.Contains(path))
+            string[] s = Handlers.Split(';');
+            List<string> hand = new List<string>(s);
+            if (hand.Contains(path))
             {
-                Handlers.Replace(path, "");
-                Handlers.Replace(";;", ";");
+                hand.Remove(path);
+                Handlers = string.Join(";", hand.ToArray());
                 return true;
-                // Remove From app config
             }
             return false;
         }
-
 
     }
 }
