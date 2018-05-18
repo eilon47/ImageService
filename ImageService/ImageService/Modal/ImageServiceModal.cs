@@ -68,6 +68,7 @@ namespace ImageService.Modal
                     string dstFile = System.IO.Path.Combine(loc, name);
                     if (File.Exists(dstFile))
                     {
+                        logging.Log("renaming file  " + name, MessageTypeEnum.WARNING);
                         name = RenameFile(loc, name);
                         dstFile = Path.Combine(loc, name);
                         //File.Delete(path);
@@ -176,63 +177,6 @@ namespace ImageService.Modal
             }
 
             return newName;
-
-        }
-
-        public string GetLog(string path, out bool result)
-        {
-            try
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (MessageRecievedEventArgs item in logging.LogList)
-                {
-                    sb.Append(item.ToJson() + " ; ");
-                }
-                result = true;
-                string[] args = new string[1];
-                args[0] = sb.ToString();
-                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, args, null);
-                return c.ToJson();
-            } catch (Exception e)
-            {
-                result = false;
-                return e.ToString();
-            }
-        }
-        public string CloseHandler(string path, out bool result)
-        {
-            try
-            {
-                SettingsObject settings = SettingsObject.GetInstance;
-                result = settings.RemoveHandler(path);
-                string[] args = new string[1];
-                args[0] = settings.Handlers;
-                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, null);
-                return c.ToJson();
-            } catch (Exception e)
-            {
-                result = false;
-                return e.ToString();
-            }
-        }
-        public string GetConfig(string path, out bool result)
-        {
-           
-            try
-            {
-
-                SettingsObject settings = SettingsObject.GetInstance;
-                string[] args = new string[1];
-                args[0] = settings.ToJson();
-                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, args, null);
-                result = true;
-                return c.ToJson();
-            }
-            catch (Exception e)
-            {
-                result = false;
-                return e.ToString();
-            }
 
         }
     }

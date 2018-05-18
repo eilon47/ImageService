@@ -1,4 +1,6 @@
-﻿using ImageService.Commands;
+﻿using Communication.Infrastructure;
+using ImageService.Commands;
+using ImageService.Logging;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;
@@ -11,21 +13,37 @@ namespace ImageService.Commands
     class LogCommand : ICommand
     {
         //Members
-        private IImageServiceModal m_modal;
+        private ILoggingService m_logging;
 
         /// <summary>
         /// Constructors.
         /// </summary>
         /// <param name="modal">Service Modal</param>
-        public LogCommand(IImageServiceModal modal)
+        public LogCommand(ILoggingService logging)
         {
-            m_modal = modal;            // Storing the Modal
+            m_logging = logging;            // Storing the Modal
         }
         public string Execute(string[] args, out bool result)
         {
             // The String Will Return the New Path if result = true, and will return the error message
-
-            return this.m_modal.GetLog(args[0], out result);
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (MessageRecievedEventArgs item in m_logging.LogList)
+                {
+                    sb.Append(item.ToJson() + " ; ");
+                }
+                result = true;
+                string[] arguments = new string[1];
+                arguments[0] = sb.ToString();
+                CommandRecievedEventArgs c = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, arguments, null);
+                return c.ToJson();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                return e.ToString();
+            }
 
         }
     }
