@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageService.Modal
@@ -76,17 +77,21 @@ namespace ImageService.Modal
             j["Handler"] = Handlers;
             return j.ToString();
         }
+        Mutex mutex = new Mutex();
         public bool RemoveHandler(string path)
         {
+            mutex.WaitOne();
+            bool result = false;
             string[] s = Handlers.Split(';');
             List<string> hand = new List<string>(s);
             if (hand.Contains(path))
             {
                 hand.Remove(path);
                 Handlers = string.Join(";", hand.ToArray());
-                return true;
+                result =  true;
             }
-            return false;
+            mutex.ReleaseMutex();
+            return result;
         }
 
     }

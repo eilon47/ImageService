@@ -37,40 +37,38 @@ namespace SettingsView.Model
         }
         public void GetMessageFromClient(object sender, string message)
         {
-            Console.WriteLine("########################################################");
-            Console.WriteLine(message);
-            Console.WriteLine("########################################################");
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
             if (command.CommandID == (int) CommandEnum.GetConfigCommand)
             {
-                Console.WriteLine("Working on config...");
                 string m = command.Args[0];
                 JObject json = JObject.Parse(m);
                 OutputDir = (string)json["OutputDir"];
                 SourceName = (string)json["SourceName"];
                 ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
                 LogName = (string)json["LogName"];
-                string[] handlersArray = ((string)json["Handler"]).Split(';');
-                Handlers = new ObservableCollection<string>(handlersArray);
-
-                Console.WriteLine("Done!");
+                UpdateHandlersFromString((string)json["Handler"]);
             }
             else if (command.CommandID == (int) CommandEnum.CloseCommand) 
             {
-                string m = command.Args[0];
-                string[] result = m.Split(';');
-                Console.Out.WriteLine("------------------");
-                Console.Out.WriteLine(m);
-                Console.Out.WriteLine("------------------"); 
-
-                Handlers = new ObservableCollection<string>(result);
-            } else
+                UpdateHandlersFromString(command.Args[0]);
+            }
+        }
+        public void UpdateHandlersFromString(string handlers)
+        {
+            string[] result = handlers.Split(';');
+            if (handlers == "" || handlers == null || handlers == string.Empty || handlers == ";")
             {
-                Console.WriteLine("Config model ignored message = " + message);
+                Handlers = new ObservableCollection<string>();
+
+            }
+            else
+            {
+                Handlers = new ObservableCollection<string>(result);
             }
         }
         public void SendCommandToService(CommandRecievedEventArgs command)
         {
+
             client.Write(command.ToJson());
         }
         private string outputDir;

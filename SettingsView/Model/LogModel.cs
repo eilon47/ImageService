@@ -45,9 +45,7 @@ namespace SettingsView.Model
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
             if (command.CommandID == (int)CommandEnum.LogCommand)
             {
-                Console.WriteLine("Working on Log..");
                 ObservableCollection<MessageRecievedEventArgs> list = new ObservableCollection<MessageRecievedEventArgs>();
-               
                 string[] logsStrings = command.Args[0].Split(';');
                 foreach(string s in logsStrings)
                 {
@@ -65,7 +63,6 @@ namespace SettingsView.Model
                     }
                 }
                 Logs = list;
-                Console.WriteLine("Done working on log!");
             }
             else if (command.CommandID == (int)CommandEnum.NewLogEntryCommand)
             {
@@ -80,10 +77,6 @@ namespace SettingsView.Model
                 {
                     Console.WriteLine(e.ToString());
                 }
-            }
-            else
-            {
-                Console.WriteLine("Log model ignored message = " + message);
             }
         }
         public void SendCommandToService(CommandRecievedEventArgs command)

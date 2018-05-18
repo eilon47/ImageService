@@ -7,63 +7,25 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
+using System.Windows.Controls;
+using Prism.Commands;
 namespace SettingsView.VM
 {
     class ConfigVM : INotifyPropertyChanged
     {
+        #region Members, Properties , Events
         private IConfigModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        public ConfigVM()
-        {
-            model = new ConfigModel();
-            model.PropertyChanged += NotifyPropertyChanged;
-
-
-        }
-        
-        public void NotifyPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            string propName = e.PropertyName;
-            if (propName.Equals("OutputDir"))
-            {
-                VM_OutputDir = model.OutputDir;
-            }
-            if (propName.Equals("ThumbnailSize"))
-            {
-                VM_ThumbnailSize = model.ThumbnailSize;
-            }
-            if (propName.Equals("SourceName"))
-            {
-                VM_SourceName = model.SourceName;
-            }
-            if (propName.Equals("LogName"))
-            {
-                VM_LogName = model.LogName;
-            }
-            if (propName.Equals("Handlers"))
-            {
-                VM_Handlers = model.Handlers;
-            }
-            PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" + e.PropertyName);
-            PropertyChanged?.Invoke(this, p);
-        }
-
-        public void rmvHandler(string handlerToRmv)
-        {
-            string[] args = new string[1];
-            args[0] = handlerToRmv;
-            model.SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, null));
-        }
-
         private string outputDir;
-        public string  VM_OutputDir
+        public string VM_OutputDir
         {
             get { return model.OutputDir; }
             set
             {
                 outputDir = value;
             }
-           
+
         }
         private string sourceName;
         public string VM_SourceName
@@ -101,5 +63,68 @@ namespace SettingsView.VM
                 this.handlers = value;
             }
         }
+        #endregion
+        public ICommand RemoveButtonCmd { get; set; }
+        public bool CanRemove
+        {
+            get
+            {
+                return (SelectedHandler != null);
+            }
+        }
+        private string selectedHandler;
+        public string SelectedHandler
+        {
+            get { return selectedHandler; }
+            set
+            {
+                selectedHandler = value;
+                var command = this.RemoveButtonCmd as DelegateCommand;
+                command.RaiseCanExecuteChanged();
+            }
+        }
+
+        #region Methods
+        public ConfigVM()
+        {
+            model = new ConfigModel();
+            model.PropertyChanged += NotifyPropertyChanged;
+            this.RemoveButtonCmd = new DelegateCommand(RemoveHandler, () => { return CanRemove; });
+        }
+
+        public void NotifyPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            string propName = e.PropertyName;
+            if (propName.Equals("OutputDir"))
+            {
+                VM_OutputDir = model.OutputDir;
+            }
+            if (propName.Equals("ThumbnailSize"))
+            {
+                VM_ThumbnailSize = model.ThumbnailSize;
+            }
+            if (propName.Equals("SourceName"))
+            {
+                VM_SourceName = model.SourceName;
+            }
+            if (propName.Equals("LogName"))
+            {
+                VM_LogName = model.LogName;
+            }
+            if (propName.Equals("Handlers"))
+            {
+                VM_Handlers = model.Handlers;
+            }
+            PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" + e.PropertyName);
+            PropertyChanged?.Invoke(this, p);
+        }
+
+        public void RemoveHandler()
+        {
+            string[] args = new string[1];
+            args[0] = SelectedHandler;
+            model.SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, null));
+        }
+        #endregion
     }
 }

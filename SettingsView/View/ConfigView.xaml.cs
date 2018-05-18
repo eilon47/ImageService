@@ -29,13 +29,5 @@ namespace SettingsView.View
             this.vm = new ConfigVM();
             this.DataContext = vm;
         }
-
-        private void rmv_btn(object sender, RoutedEventArgs e)
-        {
-            if(handlersList.SelectedItem != null)
-            {
-                vm.rmvHandler(handlersList.SelectedItem as string);
-            }
-        }
     }
 }

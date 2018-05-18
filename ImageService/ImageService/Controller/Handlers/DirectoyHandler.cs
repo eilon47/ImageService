@@ -100,17 +100,20 @@ namespace ImageService.Controller.Handlers
         }
         public void CloseHandler(object sender, DirectoryCloseEventArgs dirArgs)
         {
-            try
+            if (this.m_path.Equals(dirArgs.DirectoryPath))
             {
-                //Make the watcher enable to raise events.
-                this.m_dirWatcher.EnableRaisingEvents = false;
-                //Remove this handler from getting commands.
-                ((ImageServer)sender).CommandRecieved -= this.OnCommandRecieved;
-                this.m_logging.Log("Closed Directory handler for directory: " + m_path + " ", MessageTypeEnum.INFO);
-            }
-            catch (Exception e)
-            {
-                this.m_logging.Log("Could not close Directory handler for directory: " + m_path + " Reason: " + e.Message.ToString(), MessageTypeEnum.FAIL);
+                try
+                {
+                    //Make the watcher enable to raise events.
+                    this.m_dirWatcher.EnableRaisingEvents = false;
+                    //Remove this handler from getting commands.
+                    ((ImageServer)sender).CommandRecieved -= this.OnCommandRecieved;
+                    this.m_logging.Log("Closed Directory handler for directory: " + m_path + " ", MessageTypeEnum.INFO);
+                }
+                catch (Exception e)
+                {
+                    this.m_logging.Log("Could not close Directory handler for directory: " + m_path + " Reason: " + e.Message.ToString(), MessageTypeEnum.FAIL);
+                }
             }
         }
     }

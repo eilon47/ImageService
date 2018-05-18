@@ -27,6 +27,7 @@ namespace ImageService.Server
         private IImageController m_controller;
         private ILoggingService m_logging;
         private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
+        private List<string> dirPaths;
         #endregion
 
         #region Properties
@@ -45,7 +46,8 @@ namespace ImageService.Server
             this.m_logging = loggingService;
             this.clientsReadyForNewLogs = new Dictionary<TcpClient, bool>();
             this.m_logging.MessageRecieved += this.NewLogEntry;
-            string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
+            string[] arr = ConfigurationManager.AppSettings["Handler"].Split(';');
+            dirPaths = new List<string>(arr);
             //Creates the direcory handlers for each directory path recieved.
             m_logging.Log("Image server was created, making handlers now", MessageTypeEnum.INFO);
             foreach (string path in dirPaths)
@@ -86,19 +88,16 @@ namespace ImageService.Server
         {
             try
             {
-                m_logging.Log("Server closing the handlers", MessageTypeEnum.INFO);
-                CloseEvent?.Invoke(this, new DirectoryCloseEventArgs("", ""));
-                m_logging.Log("Server finished closing the handlers", MessageTypeEnum.INFO);
+                foreach(string path in dirPaths)
+                {
+                    CloseDirectoryHandler(path);
+                }
             }
             catch (Exception e)
             {
                 e.ToString();
                 m_logging.Log("Error in closing the handlers", MessageTypeEnum.FAIL);
             }
-            //IDirectoryHandler dirHandler = (IDirectoryHandler)o;
-            //CommandRecieved -= dirHandler.OnCommandRecieved;
-            //string closingMessage = "the dir: " + dirArgs.DirectoryPath + "was closed";
-            //m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
         }
         private static Mutex writeMutex = new Mutex();
         private static Mutex removeMutex = new Mutex();
@@ -109,7 +108,6 @@ namespace ImageService.Server
             {
                 NetworkStream stream = client.GetStream();
                 BinaryReader reader = new BinaryReader(stream);
-                BinaryWriter writer = new BinaryWriter(stream);
                 while (client.Connected)
                 {
                     string commandLine = reader.ReadString();
@@ -118,17 +116,27 @@ namespace ImageService.Server
                     CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                    writeMutex.WaitOne();
-                    writer.Write(res);
-                    writeMutex.ReleaseMutex();
-                    if(crea.CommandID == (int)CommandEnum.GetConfigCommand)
+                    MutexedWriter(client, res);
+                    res = string.Empty;
+                    if (crea.CommandID == (int)CommandEnum.GetConfigCommand)
                     {
                         //Ready to get new logs entries
                         clientsReadyForNewLogs[client] = true;
                     }
-                    res = string.Empty;
+                    if(crea.CommandID == (int)CommandEnum.CloseCommand)
+                    {
+                        CloseDirectoryHandler(crea.Args[0]);
+                    }
                 }
             }).Start();
+        }
+        private void MutexedWriter(TcpClient client, string message)
+        {
+            NetworkStream stream = client.GetStream();
+            BinaryWriter writer = new BinaryWriter(stream);
+            writeMutex.WaitOne();
+            writer.Write(message);
+            writeMutex.ReleaseMutex();
         }
         public void NewLogEntry(object sender, MessageRecievedEventArgs m)
         {
@@ -146,9 +154,7 @@ namespace ImageService.Server
                     {
                         if (clientsReadyForNewLogs[client])
                         {
-                            NetworkStream stream = client.GetStream();
-                            BinaryWriter writer = new BinaryWriter(stream);
-                            writer.Write(c.ToJson());
+                            MutexedWriter(client, c.ToJson());
                         }
                     }
                     else
@@ -158,6 +164,11 @@ namespace ImageService.Server
                     
                 }
             }).Start();
+        }
+        private void CloseDirectoryHandler(string path) {
+            m_logging.Log("Server closing the handler: " + path, MessageTypeEnum.INFO);
+            CloseEvent?.Invoke(this, new DirectoryCloseEventArgs(path, null));
+            this.dirPaths.Remove(path);
         }
     }
 

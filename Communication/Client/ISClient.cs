@@ -74,6 +74,7 @@ namespace Communication.Client
                 NetworkStream stream = client.GetStream();
                 BinaryWriter writer = new BinaryWriter(stream);
                 writerMutex.WaitOne();
+                Console.WriteLine("Writing : " + command);
                 writer.Write(command);
                 writer.Flush();
                 writerMutex.ReleaseMutex();
@@ -91,12 +92,13 @@ namespace Communication.Client
                         NetworkStream stream = client.GetStream();
                         BinaryReader reader = new BinaryReader(stream);
                         string result = reader.ReadString();
-                        Console.WriteLine(result);
+                        Console.WriteLine("Recieved " + result);
                         if (result == null)
                         {
                             return;
                         }
                         MessageRecieved?.Invoke(this, result);
+                        result = string.Empty;
                     }
                 } catch(Exception e)
                 {
