@@ -11,10 +11,13 @@ namespace SettingsView.Model
 {
     public interface ILogModel
     {
+        #region methods
+
         event PropertyChangedEventHandler PropertyChanged;
         void SendCommandToService(CommandRecievedEventArgs command);
         void GetMessageFromClient(object sender, string message);
         void NotifyPropertyChanged(string propName);
         ObservableCollection<MessageRecievedEventArgs> Logs { get; set; }
+        #endregion
     }
 }

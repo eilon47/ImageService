@@ -7,11 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-        <StackPanel>
-            <Grid TextBlock.FontSize="14" Height="200">
+        <StackPanel Margin="0">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#4CFFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -21,24 +28,57 @@
                 </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Padding" Value="3" />
-                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="Padding" Value="8" />
+                        <Setter Property="Margin" Value="4"/>
                         <Setter Property="FontFamily" Value="Georgia"/>
-                        <Setter Property="FontSize" Value="17"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Opacity" Value="0.9"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect RenderingBias="Performance" ShadowDepth="4" BlurRadius="4" Color="#FFCADFD2"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontStyle" Value="Normal"/>
+                        <Setter Property="TextDecorations" Value="{x:Null}"/>
                     </Style>
                 </Grid.Resources>
-                <TextBlock Grid.Row="0">Output Dir:</TextBlock>
-                <TextBlock x:Name="OutputDir" Grid.Row="0" Grid.Column="2" Text="{Binding VM_OutputDir}"></TextBlock>
-                <TextBlock Grid.Row="1">Source Name:</TextBlock>
-                <TextBlock x:Name="SourceName" Grid.Row="1" Grid.Column="2" Text="{Binding VM_SourceName}"></TextBlock>
-                <TextBlock Grid.Row="2">Log Name:</TextBlock>
-                <TextBlock x:Name="LogName" Grid.Row="2" Grid.Column="2" Text="{Binding VM_LogName}"></TextBlock>
-                <TextBlock Grid.Row="3">Thumbnails Size:</TextBlock>
-                <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="2" Text="{Binding VM_ThumbnailSize}"></TextBlock>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FFF2AB9F" Offset="0.156"/>
+                        <GradientStop Color="#FFE7E7E7" Offset="0.688"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Grid.Row="0" Margin="3,3,2.667,2.667">Output Dir:</TextBlock>
+                <TextBlock x:Name="OutputDir" Grid.Row="0" Grid.Column="1" Text="{Binding VM_OutputDir}" Margin="2.333,3,3,2.667"></TextBlock>
+                <TextBlock Grid.Row="1" Margin="3,2.333,2.667,2.333">Source Name:</TextBlock>
+                <TextBlock x:Name="SourceName" Grid.Row="1" Grid.Column="1" Text="{Binding VM_SourceName}" Margin="2.333,2.333,3,2.333"></TextBlock>
+                <TextBlock Grid.Row="2" Margin="3,3.667,2.667,2">Log Name:</TextBlock>
+                <TextBlock x:Name="LogName" Grid.Row="2" Grid.Column="1" Text="{Binding VM_LogName}" Margin="2.333,3.667,3,2"></TextBlock>
+                <TextBlock Grid.Row="3" Margin="3,3,2.667,2.667">Thumbnails Size:</TextBlock>
+                <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="1" Text="{Binding VM_ThumbnailSize}" Margin="2.333,3,3,2.667"></TextBlock>
             </Grid>
-            <Button Height="20" Content="Remove" Command="{Binding RemoveButtonCmd}"/>
-            <ListBox x:Name="handlersList" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
-                     TextBlock.TextAlignment="Center" Height="200" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}"/>
+            <Button Height="28" Content="Remove" Command="{Binding RemoveButtonCmd}" BorderBrush="#FF300606" Foreground="#FF713636" FontSize="16" FontWeight="SemiBold">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FFF6F6F6" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <ListBox x:Name="handlersList" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
+                     TextBlock.TextAlignment="Center" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Height="350">
+                <ListBox.Effect>
+                    <DropShadowEffect ShadowDepth="4" BlurRadius="4" RenderingBias="Quality"/>
+                </ListBox.Effect>
+                <ListBox.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE5DEEC" Offset="0.201"/>
+                        <GradientStop Color="#FFF56A6F" Offset="0.828"/>
+
+                    </LinearGradientBrush>
+                </ListBox.Background>
+            </ListBox>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -13,6 +13,8 @@ namespace SettingsView.VM
 {
     public class MainWindowVM : INotifyPropertyChanged
     {
+        #region Members, Properties, constructor
+
         public event PropertyChangedEventHandler PropertyChanged;
         private IMainWindowModel model;
         public ICommand WindowCloseCommand { get; set; }
@@ -20,6 +22,7 @@ namespace SettingsView.VM
         {
             get { return model.IsConnected; }
         }
+
         public MainWindowVM()
         {
             this.model = new MainWindowModel();
@@ -30,6 +33,7 @@ namespace SettingsView.VM
             );
 
         }
+        #endregion
 
     }
 

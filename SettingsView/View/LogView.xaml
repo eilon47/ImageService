@@ -11,7 +11,17 @@
         <resources:TypeBackgroundConverter x:Key="TypeBackgroundConverter"></resources:TypeBackgroundConverter>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical" Background="White">
-        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="Blue"> Log</TextBlock>
+        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="#FF006E71"
+                   Opacity="0.9" FontStyle="Oblique" FontWeight="Bold" FontFamily="Palatino Linotype" TextDecorations="{x:Null}" Text="Image-Service Log">
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="6" ShadowDepth="6"/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE7E7E7" Offset="0.648"/>
+                    <GradientStop Color="#FFF04040" Offset="0.103"/>
+                </LinearGradientBrush>
+            </TextBlock.Background></TextBlock>
         <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
                   CanUserSortColumns="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                   VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Width="Auto" Height="300" Margin="0,0,0,10" RowHeight="30">
@@ -20,6 +30,8 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Background" Value="{Binding Status, Converter={StaticResource TypeBackgroundConverter}}"></Setter>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontFamily" Value="Kristen ITC"/>
                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                             <Setter Property="TextAlignment" Value="Center"></Setter>
                         </Style>

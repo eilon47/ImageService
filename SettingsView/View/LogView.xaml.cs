@@ -21,6 +21,7 @@ namespace SettingsView.View
     /// </summary>
     public partial class LogView : UserControl
     {
+        #region members, constructor
         private LogVM vm;
         public LogView()
         {
@@ -28,6 +29,7 @@ namespace SettingsView.View
             this.vm = new LogVM();
             this.DataContext = vm;
         }
+        #endregion
 
     }
 }

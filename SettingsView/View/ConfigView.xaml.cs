@@ -22,6 +22,7 @@ namespace SettingsView.View
     /// </summary>
     public partial class ConfigView : UserControl
     {
+        #region members, constructor
         private ConfigVM vm;
         public ConfigView()
         {
@@ -29,5 +30,6 @@ namespace SettingsView.View
             this.vm = new ConfigVM();
             this.DataContext = vm;
         }
+        #endregion
     }
 }

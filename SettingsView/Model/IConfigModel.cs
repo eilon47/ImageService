@@ -11,6 +11,8 @@ namespace SettingsView.Model
 {
     public interface IConfigModel
     {
+        #region methods
+
         event PropertyChangedEventHandler PropertyChanged;
         void SendCommandToService(CommandRecievedEventArgs command);
         void GetMessageFromClient(object sender, string message);
@@ -20,5 +22,6 @@ namespace SettingsView.Model
         string LogName { get; set; }
         int ThumbnailSize { get; set; }
         ObservableCollection<string> Handlers { get; set; }
+        #endregion
     }
 }

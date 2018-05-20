@@ -11,6 +11,7 @@ namespace SettingsView.Resources
 {
     public class ConnectionBackgroundCoverter: IValueConverter
     {
+        #region methods
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(Brush))
@@ -31,5 +32,6 @@ namespace SettingsView.Resources
             }
             return Brushes.White;
         }
+        #endregion
     }
 }

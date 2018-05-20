@@ -12,7 +12,7 @@ namespace SettingsView.Model
 {
     class ConfigModel : IConfigModel
     {
-
+        #region members, constructor
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigModel()
@@ -27,14 +27,8 @@ namespace SettingsView.Model
                 NotConnectedValues();
             }
         }
-        public void NotConnectedValues()
-        {
-            OutputDir = "Not connected to server!";
-            SourceName = null;
-            ThumbnailSize = 0;
-            LogName = null;
-            Handlers = null;
-        }
+        #endregion
+        #region write/read
         public void GetMessageFromClient(object sender, string message)
         {
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
@@ -53,24 +47,13 @@ namespace SettingsView.Model
                 UpdateHandlersFromString(command.Args[0]);
             }
         }
-        public void UpdateHandlersFromString(string handlers)
-        {
-            string[] result = handlers.Split(';');
-            if (handlers == "" || handlers == null || handlers == string.Empty || handlers == ";")
-            {
-                Handlers = new ObservableCollection<string>();
-
-            }
-            else
-            {
-                Handlers = new ObservableCollection<string>(result);
-            }
-        }
         public void SendCommandToService(CommandRecievedEventArgs command)
         {
 
             client.Write(command.ToJson());
         }
+        #endregion
+        #region properties
         private string outputDir;
         public string OutputDir
         {
@@ -122,11 +105,33 @@ namespace SettingsView.Model
                 NotifyPropertyChanged("Handlers");
             }
         }
-
-
+        #endregion
+        #region methods
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
+        public void UpdateHandlersFromString(string handlers)
+        {
+            string[] result = handlers.Split(';');
+            if (handlers == "" || handlers == null || handlers == string.Empty || handlers == ";")
+            {
+                Handlers = new ObservableCollection<string>();
+
+            }
+            else
+            {
+                Handlers = new ObservableCollection<string>(result);
+            }
+        }
+        public void NotConnectedValues()
+        {
+            OutputDir = "Not connected to server!";
+            SourceName = null;
+            ThumbnailSize = 0;
+            LogName = null;
+            Handlers = null;
+        }
+        #endregion
     }
 }

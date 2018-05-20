@@ -12,6 +12,7 @@ namespace SettingsView.Resources
 {
     public class TypeBackgroundConverter : IValueConverter
     {
+        #region methods
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(Brush))
@@ -37,5 +38,6 @@ namespace SettingsView.Resources
                 throw new InvalidOperationException("Must convert to a brush!");
             return value;
         }
+        #endregion
     }
 }

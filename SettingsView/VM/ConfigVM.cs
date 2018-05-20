@@ -64,6 +64,7 @@ namespace SettingsView.VM
             }
         }
         #endregion
+        #region remove handler
         public ICommand RemoveButtonCmd { get; set; }
         public bool CanRemove
         {
@@ -83,7 +84,7 @@ namespace SettingsView.VM
                 command.RaiseCanExecuteChanged();
             }
         }
-
+        #endregion
         #region Methods
         public ConfigVM()
         {

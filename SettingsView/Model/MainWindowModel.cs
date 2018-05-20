@@ -11,8 +11,24 @@ namespace SettingsView.Model
 {
     public class MainWindowModel : IMainWindowModel
     {
+        #region constructor
+        public MainWindowModel()
+        {
+            try
+            {
+                client = ISClient.ClientServiceIns;
+                connection = client.Connection;
+            }
+            catch (Exception e)
+            {
+                connection = false;
+            }
+        }
+        #endregion
+        #region members, properties, 
         public event PropertyChangedEventHandler PropertyChanged;
         private IISClient client;
+
         private bool connection;
         public bool IsConnected {
             get
@@ -25,17 +41,8 @@ namespace SettingsView.Model
                 NotifyPropertyChanged("IsConnected");
             }
         }
-        public MainWindowModel()
-        {
-            try
-            {
-                client = ISClient.ClientServiceIns;
-                connection = client.Connection;
-            } catch(Exception e)
-            {
-                connection = false;
-            }
-        }
+        #endregion
+        #region methods
         public void SendCloseCommandToService()
         {
             //Need to restart the log list
@@ -46,5 +53,6 @@ namespace SettingsView.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
+        #endregion
     }
 }

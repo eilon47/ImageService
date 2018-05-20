@@ -21,6 +21,7 @@ namespace SettingsView
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region memebers, constructor
         private MainWindowVM vm;
         public MainWindow()
         {
@@ -28,5 +29,7 @@ namespace SettingsView
             this.vm = new MainWindowVM();
             this.DataContext = vm;
         }
+        #endregion
+
     }
 }
