@@ -67,7 +67,7 @@ namespace Communication.Client
         {
            new Task(() =>
             { 
-                if (!Connection)
+                if (!Connection && clientService != null)
                 {
                     CreateANewConnection();
                 }
@@ -111,6 +111,7 @@ namespace Communication.Client
         {
             if (client != null)
             {
+
                 client.GetStream().Close();
                 client.Close();
                 client = null;

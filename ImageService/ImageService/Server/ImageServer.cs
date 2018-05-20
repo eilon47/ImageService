@@ -114,6 +114,13 @@ namespace ImageService.Server
                     if (commandLine == null)
                         continue;
                     CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
+                    if(crea.CommandID == (int) CommandEnum.WindowClosedCommand)
+                    {
+                        m_logging.Log("in close window command", MessageTypeEnum.WARNING);
+                        client.GetStream().Close();
+                        client.Close();
+                        break;
+                    }
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
                     MutexedWriter(client, res);

@@ -122,3 +122,19 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\SettingsVi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\SettingsView\bin\Debug\Prism.xml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\SettingsView\bin\Debug\Prism.Unity.Wpf.xml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\SettingsView\bin\Debug\Prism.Wpf.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.Unity.Wpf.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.Wpf.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.Unity.Wpf.xml
+C:\Users\green\Source\Repos\ImageService\SettingsView\bin\Debug\Prism.Wpf.xml
