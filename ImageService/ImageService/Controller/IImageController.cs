@@ -11,6 +11,8 @@ namespace ImageService.Controller
     /// </summary>
     public interface IImageController
     {
+        #region methods
+
         /// <summary>
         /// Executes commands that the controller recive.
         /// </summary>
@@ -19,5 +21,6 @@ namespace ImageService.Controller
         /// <param name="result"></param>
         /// <returns></returns>
         string ExecuteCommand(int commandID, string[] args, out bool result);
+        #endregion
     }
 }

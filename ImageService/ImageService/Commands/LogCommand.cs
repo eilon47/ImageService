@@ -12,7 +12,7 @@ namespace ImageService.Commands
 {
     class LogCommand : ICommand
     {
-        //Members
+        #region members, constructor
         private ILoggingService m_logging;
 
         /// <summary>
@@ -23,6 +23,9 @@ namespace ImageService.Commands
         {
             m_logging = logging;            // Storing the Modal
         }
+        #endregion
+        #region methods
+
         public string Execute(string[] args, out bool result)
         {
             // The String Will Return the New Path if result = true, and will return the error message
@@ -46,6 +49,7 @@ namespace ImageService.Commands
             }
 
         }
+        #endregion
     }
 
 }

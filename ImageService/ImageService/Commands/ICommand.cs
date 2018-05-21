@@ -11,12 +11,15 @@ namespace ImageService.Commands
     /// </summary>
     public interface ICommand
     {
+        #region methods
+
         /// <summary>
         /// Execute - executes the command.
         /// </summary>
         /// <param name="args"> arguments for the command</param>
         /// <param name="result"> boolean result </param>
         /// <returns></returns>
-        string Execute(string[] args, out bool result);          
+        string Execute(string[] args, out bool result);
+        #endregion
     }
 }

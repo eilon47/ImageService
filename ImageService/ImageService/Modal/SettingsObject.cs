@@ -12,6 +12,7 @@ namespace ImageService.Modal
 {
     public class SettingsObject
     {
+        #region constructor, singelton method
         private static SettingsObject instance = null;
         private SettingsObject()
         {
@@ -33,6 +34,8 @@ namespace ImageService.Modal
                 return instance;
             }
         }
+        #endregion
+        #region members, properties
         private string outputDir;
         public string OutPutDir
         {
@@ -66,7 +69,9 @@ namespace ImageService.Modal
                 handlers = value;
             }
         }
-        
+        #endregion
+        #region methods
+
         public string ToJson()
         {
             JObject j = new JObject();
@@ -93,6 +98,7 @@ namespace ImageService.Modal
             mutex.ReleaseMutex();
             return result;
         }
+        #endregion
 
     }
 }

@@ -13,6 +13,7 @@ namespace ImageService.Controller.Handlers
     /// </summary>
     public interface IDirectoryHandler
     {
+        #region methods
         /// <summary>
         /// The Event That Notifies that the Directory is being closed
         /// </summary>
@@ -34,5 +35,6 @@ namespace ImageService.Controller.Handlers
         /// <param name="sender">sender</param>
         /// <param name="dirArgs">args</param>
         void CloseHandler(object sender, DirectoryCloseEventArgs dirArgs);
+        #endregion
     }
 }

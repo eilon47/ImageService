@@ -23,17 +23,13 @@ namespace ImageService.Server
     /// </summary>
     public class ImageServer : IISClientHandler
     {
-        #region Members
+        #region Members, constructor
         private IImageController m_controller;
         private ILoggingService m_logging;
         private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
         private List<string> dirPaths;
-        #endregion
-
-        #region Properties
-        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
-        public event EventHandler<DirectoryCloseEventArgs> CloseEvent;
-        #endregion
+        private static Mutex writeMutex = new Mutex();
+        private static Mutex removeMutex = new Mutex();
 
         /// <summary>
         /// Constructor.
@@ -59,6 +55,13 @@ namespace ImageService.Server
                 }
             }
         }
+
+        #endregion
+        #region Properties
+        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
+        public event EventHandler<DirectoryCloseEventArgs> CloseEvent;
+        #endregion
+        #region methods
         /// <summary>
         /// CreateHandler :
         /// creates the handler for a given directory's path.
@@ -99,8 +102,7 @@ namespace ImageService.Server
                 m_logging.Log("Error in closing the handlers", MessageTypeEnum.FAIL);
             }
         }
-        private static Mutex writeMutex = new Mutex();
-        private static Mutex removeMutex = new Mutex();
+       
         public void HandleClient(TcpClient client)
         {
             this.clientsReadyForNewLogs.Add(client, false);
@@ -177,6 +179,7 @@ namespace ImageService.Server
             CloseEvent?.Invoke(this, new DirectoryCloseEventArgs(path, null));
             this.dirPaths.Remove(path);
         }
+        #endregion
     }
 
 

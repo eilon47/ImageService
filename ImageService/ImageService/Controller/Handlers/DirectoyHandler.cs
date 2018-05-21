@@ -23,7 +23,7 @@ namespace ImageService.Controller.Handlers
         private string[] extensionsToListen = { ".bmp", ".jpg", ".png", ".gif" };   // List for valid extensions.
 
         #endregion
-
+        #region constructor, events
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
         /// <summary>
@@ -40,7 +40,8 @@ namespace ImageService.Controller.Handlers
             this.m_path = dirPath;
         }
 
-
+        #endregion
+        #region methods
         public void StartHandleDirectory(string dirPath)
         {
             string startMessage = "Handeling directory: " + dirPath;
@@ -56,11 +57,7 @@ namespace ImageService.Controller.Handlers
                                     | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             m_dirWatcher.Filter = "*.*";
             m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
-            //m_dirWatcher.Changed += new FileSystemEventHandler(OnChanged);
-            //m_dirWatcher.Deleted += new FileSystemEventHandler(OnChanged);
-            //m_dirWatcher.Renamed += new RenamedEventHandler(OnRenamed);
             m_dirWatcher.EnableRaisingEvents = true;
-            //this.m_dirWatcher.Created += onChanged;
             m_logging.Log("filesystemwatcher was created for :" + dirPath, MessageTypeEnum.INFO);
         }
 
@@ -116,5 +113,6 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
+        #endregion
     }
 }

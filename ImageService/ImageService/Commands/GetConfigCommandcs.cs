@@ -12,13 +12,14 @@ namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
     {
-        //Members
+        #region methods
+
 
         /// <summary>
         /// Constructors.
         /// </summary>
         /// <param name="modal">Service Modal</param>
-      
+
         public string Execute(string[] args, out bool result)
         {
             try
@@ -37,5 +38,6 @@ namespace ImageService.Commands
             }
 
         }
+        #endregion
     }
 }

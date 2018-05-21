@@ -13,6 +13,7 @@ namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
+        #region members, constructor
         //Members.
         private IImageServiceModal m_modal;                      // The Modal Object
         private Dictionary<int, ICommand> commands;
@@ -32,6 +33,8 @@ namespace ImageService.Controller
                 {(int) CommandEnum.CloseCommand,new CloseCommand()}
             };
         }
+        #endregion
+        #region methods
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             //Checks if the id is of a existing command.
@@ -70,5 +73,6 @@ namespace ImageService.Controller
         {
             return this.commands.ContainsKey(commandID);
         }
+        #endregion
     }
 }

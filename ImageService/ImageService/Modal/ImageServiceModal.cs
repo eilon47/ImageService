@@ -15,7 +15,7 @@ namespace ImageService.Modal
 {
     public class ImageServiceModal : IImageServiceModal
     {
-        #region Members
+        #region Members, properties, constructor
         public string OutputFolder
         {
             get { return m_OutputFolder; }
@@ -26,7 +26,6 @@ namespace ImageService.Modal
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
         }
-        #endregion
         private ILoggingService logging;
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
@@ -35,6 +34,8 @@ namespace ImageService.Modal
         {
             this.logging = logging;
         }
+        #endregion
+        #region methods
         public string AddFile(string path, out bool result)
         {
             try
@@ -180,5 +181,6 @@ namespace ImageService.Modal
 
         }
     }
-  
+    #endregion
+
 }

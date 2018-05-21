@@ -12,7 +12,12 @@ namespace ImageService.Logging
     /// </summary>
     public interface ILoggingService
     {
+        #region properties,events
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
+        List<MessageRecievedEventArgs> LogList { get; }
+
+        #endregion
+        #region methods
         /// <summary>
         /// Log : 
         /// write entrys for the service's eventsLog.
@@ -20,6 +25,6 @@ namespace ImageService.Logging
         /// <param name="message">Message</param>
         /// <param name="type">type</param>
         void Log(string message, MessageTypeEnum type);           // Logging the Message
-        List<MessageRecievedEventArgs> LogList { get; }
+        #endregion
     }
 }

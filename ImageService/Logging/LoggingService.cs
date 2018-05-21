@@ -12,6 +12,7 @@ namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
+        #region members, properties, events
         private List<MessageRecievedEventArgs> logList;
         public List<MessageRecievedEventArgs> LogList
         {
@@ -22,6 +23,9 @@ namespace ImageService.Logging
         {
             logList = new List<MessageRecievedEventArgs>();
         }
+        #endregion
+        #region methods
+
         public void Log(string message, MessageTypeEnum type)
         {
             if (message == null)
@@ -30,5 +34,6 @@ namespace ImageService.Logging
             logList.Add(eventArgs);
             MessageRecieved?.Invoke(this, eventArgs);
         }
+        #endregion
     }
 }
