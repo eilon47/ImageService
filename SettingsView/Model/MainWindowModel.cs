@@ -25,6 +25,7 @@ namespace SettingsView.Model
             }
         }
         #endregion
+
         #region members, properties, 
         public event PropertyChangedEventHandler PropertyChanged;
         private IISClient client;
