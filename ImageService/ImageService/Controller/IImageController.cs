@@ -11,7 +11,7 @@ namespace ImageService.Controller
     /// </summary>
     public interface IImageController
     {
-        #region methods
+        #region Methods
 
         /// <summary>
         /// Executes commands that the controller recive.

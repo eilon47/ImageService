@@ -12,7 +12,7 @@ namespace ImageService.Modal
 {
     public class SettingsObject
     {
-        #region constructor, singelton method
+        #region Constructor, Singelton method
         private static SettingsObject instance = null;
         private SettingsObject()
         {
@@ -35,7 +35,7 @@ namespace ImageService.Modal
             }
         }
         #endregion
-        #region members, properties
+        #region Members, Properties
         private string outputDir;
         public string OutPutDir
         {
@@ -70,8 +70,11 @@ namespace ImageService.Modal
             }
         }
         #endregion
-        #region methods
-
+        #region Methods
+        /// <summary>
+        /// Converts this object to json string
+        /// </summary>
+        /// <returns></returns>
         public string ToJson()
         {
             JObject j = new JObject();
@@ -83,6 +86,11 @@ namespace ImageService.Modal
             return j.ToString();
         }
         Mutex mutex = new Mutex();
+        /// <summary>
+        /// Removes handler from list
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public bool RemoveHandler(string path)
         {
             mutex.WaitOne();

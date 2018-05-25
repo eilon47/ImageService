@@ -11,7 +11,7 @@ namespace ImageService.Commands
     /// </summary>
     public interface ICommand
     {
-        #region methods
+        #region Methods
 
         /// <summary>
         /// Execute - executes the command.

@@ -12,14 +12,7 @@ namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
     {
-        #region methods
-
-
-        /// <summary>
-        /// Constructors.
-        /// </summary>
-        /// <param name="modal">Service Modal</param>
-
+        #region Methods
         public string Execute(string[] args, out bool result)
         {
             try

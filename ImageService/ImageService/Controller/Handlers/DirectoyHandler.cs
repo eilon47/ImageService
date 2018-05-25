@@ -23,7 +23,7 @@ namespace ImageService.Controller.Handlers
         private string[] extensionsToListen = { ".bmp", ".jpg", ".png", ".gif" };   // List for valid extensions.
 
         #endregion
-        #region constructor, events
+        #region Constructor, Events
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
         /// <summary>
@@ -41,7 +41,11 @@ namespace ImageService.Controller.Handlers
         }
 
         #endregion
-        #region methods
+        #region Methods
+        /// <summary>
+        /// Start handling directory to given dir path
+        /// </summary>
+        /// <param name="dirPath"></param>
         public void StartHandleDirectory(string dirPath)
         {
             string startMessage = "Handeling directory: " + dirPath;
@@ -49,7 +53,10 @@ namespace ImageService.Controller.Handlers
             InitializeWatcher(dirPath);
         }
 
-
+        /// <summary>
+        /// Initialize watcher for given dir path
+        /// </summary>
+        /// <param name="dirPath"></param>
         public void InitializeWatcher(string dirPath)
         {
             m_dirWatcher.Path = dirPath;
@@ -60,7 +67,11 @@ namespace ImageService.Controller.Handlers
             m_dirWatcher.EnableRaisingEvents = true;
             m_logging.Log("filesystemwatcher was created for :" + dirPath, MessageTypeEnum.INFO);
         }
-
+        /// <summary>
+        /// On change event handler
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="comArgs"></param>
         private void OnChanged(object source, FileSystemEventArgs comArgs)
         {
             string filEx = Path.GetExtension(comArgs.FullPath);
@@ -75,7 +86,11 @@ namespace ImageService.Controller.Handlers
             }
         }
 
-
+        /// <summary>
+        /// on command recieved event handler
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         public void OnCommandRecieved(object o, CommandRecievedEventArgs e)
         {
 
@@ -95,6 +110,11 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
+        /// <summary>
+        /// Close handler event function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="dirArgs"></param>
         public void CloseHandler(object sender, DirectoryCloseEventArgs dirArgs)
         {
             if (this.m_path.Equals(dirArgs.DirectoryPath))

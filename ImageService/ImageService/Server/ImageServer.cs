@@ -23,7 +23,7 @@ namespace ImageService.Server
     /// </summary>
     public class ImageServer : IISClientHandler
     {
-        #region Members, constructor
+        #region Members, Constructor
         private IImageController m_controller;
         private ILoggingService m_logging;
         private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
@@ -61,7 +61,7 @@ namespace ImageService.Server
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
         public event EventHandler<DirectoryCloseEventArgs> CloseEvent;
         #endregion
-        #region methods
+        #region Methods
         /// <summary>
         /// CreateHandler :
         /// creates the handler for a given directory's path.
@@ -102,7 +102,10 @@ namespace ImageService.Server
                 m_logging.Log("Error in closing the handlers", MessageTypeEnum.FAIL);
             }
         }
-       
+       /// <summary>
+       /// Handle client
+       /// </summary>
+       /// <param name="client"></param>
         public void HandleClient(TcpClient client)
         {
             this.clientsReadyForNewLogs.Add(client, false);
@@ -139,6 +142,11 @@ namespace ImageService.Server
                 }
             }).Start();
         }
+        /// <summary>
+        /// Mutexed writer
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="message"></param>
         private void MutexedWriter(TcpClient client, string message)
         {
             NetworkStream stream = client.GetStream();
@@ -147,6 +155,11 @@ namespace ImageService.Server
             writer.Write(message);
             writeMutex.ReleaseMutex();
         }
+        /// <summary>
+        /// Notify for new log entry
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="m"></param>
         public void NewLogEntry(object sender, MessageRecievedEventArgs m)
         {
             if (clientsReadyForNewLogs.Keys.Count == 0)

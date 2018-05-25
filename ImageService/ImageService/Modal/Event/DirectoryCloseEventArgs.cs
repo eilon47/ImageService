@@ -11,12 +11,11 @@ namespace ImageService.Modal
     /// </summary>
     public class DirectoryCloseEventArgs : EventArgs
     {
-        #region properties
+        #region Properties
         public string DirectoryPath { get; set; }
-
         public string Message { get; set; }             // The Message That goes to the logger
         #endregion
-        #region constructor
+        #region Constructor
         public DirectoryCloseEventArgs(string dirPath, string message)
         {
             DirectoryPath = dirPath;                    // Setting the Directory Name

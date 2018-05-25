@@ -11,7 +11,7 @@ namespace ImageService.Modal
     /// </summary>
     public interface IImageServiceModal
     {
-        #region methods
+        #region Methods
         /// <summary>
         /// The Function Addes A file to the system
         /// </summary>

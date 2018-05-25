@@ -12,7 +12,7 @@ namespace ImageService.Commands
     /// </summary>
     public class NewFileCommand : ICommand
     {
-        #region members, constructor
+        #region Members, Constructor
         private IImageServiceModal m_modal;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ImageService.Commands
             m_modal = modal;            // Storing the Modal
         }
         #endregion
-        #region methods
+        #region Methods
 
         public string Execute(string[] args, out bool result)
         {

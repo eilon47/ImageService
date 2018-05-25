@@ -11,7 +11,7 @@ namespace ImageService.Commands
 {
     class CloseCommand : ICommand
     {
-        #region methods
+        #region Methods
 
         public string Execute(string[] args, out bool result)
         {

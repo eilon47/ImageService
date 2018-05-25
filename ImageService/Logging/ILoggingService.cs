@@ -12,12 +12,12 @@ namespace ImageService.Logging
     /// </summary>
     public interface ILoggingService
     {
-        #region properties,events
+        #region Properties,Events
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         List<MessageRecievedEventArgs> LogList { get; }
 
         #endregion
-        #region methods
+        #region Methods
         /// <summary>
         /// Log : 
         /// write entrys for the service's eventsLog.

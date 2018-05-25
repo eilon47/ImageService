@@ -13,7 +13,7 @@ namespace ImageService.Controller.Handlers
     /// </summary>
     public interface IDirectoryHandler
     {
-        #region methods
+        #region Methods
         /// <summary>
         /// The Event That Notifies that the Directory is being closed
         /// </summary>

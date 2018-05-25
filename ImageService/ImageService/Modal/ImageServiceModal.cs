@@ -15,7 +15,7 @@ namespace ImageService.Modal
 {
     public class ImageServiceModal : IImageServiceModal
     {
-        #region Members, properties, constructor
+        #region Members, Properties, Constructor
         public string OutputFolder
         {
             get { return m_OutputFolder; }
@@ -35,7 +35,13 @@ namespace ImageService.Modal
             this.logging = logging;
         }
         #endregion
-        #region methods
+        #region Methods
+        /// <summary>
+        /// Handling new file in directory
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public string AddFile(string path, out bool result)
         {
             try

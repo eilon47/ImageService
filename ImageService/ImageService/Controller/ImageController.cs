@@ -13,7 +13,7 @@ namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
-        #region members, constructor
+        #region Members, Constructor
         //Members.
         private IImageServiceModal m_modal;                      // The Modal Object
         private Dictionary<int, ICommand> commands;
@@ -34,7 +34,14 @@ namespace ImageService.Controller
             };
         }
         #endregion
-        #region methods
+        #region Methods
+        /// <summary>
+        /// Execute command
+        /// </summary>
+        /// <param name="commandID"></param>
+        /// <param name="args"></param>
+        /// <param name="resultSuccesful"></param>
+        /// <returns></returns>
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             //Checks if the id is of a existing command.
@@ -68,7 +75,11 @@ namespace ImageService.Controller
                 return "ErrorMesssage";
             }
         }
-
+        /// <summary>
+        /// Checks if given int is mapped to a command
+        /// </summary>
+        /// <param name="commandID"></param>
+        /// <returns></returns>
         public bool IsCommand(int commandID)
         {
             return this.commands.ContainsKey(commandID);

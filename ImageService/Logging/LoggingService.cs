@@ -12,7 +12,7 @@ namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
-        #region members, properties, events
+        #region Members, Properties, Events
         private List<MessageRecievedEventArgs> logList;
         public List<MessageRecievedEventArgs> LogList
         {
@@ -24,7 +24,7 @@ namespace ImageService.Logging
             logList = new List<MessageRecievedEventArgs>();
         }
         #endregion
-        #region methods
+        #region Methods
 
         public void Log(string message, MessageTypeEnum type)
         {
