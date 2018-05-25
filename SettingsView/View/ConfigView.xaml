@@ -36,7 +36,7 @@
                         <Setter Property="Padding" Value="8" />
                         <Setter Property="Margin" Value="4"/>
                         <Setter Property="FontFamily" Value="Georgia"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="16"/>
                         <Setter Property="Opacity" Value="0.9"/>
                         <Setter Property="Effect">
                             <Setter.Value>
@@ -67,7 +67,7 @@
                 </Button.Background>
             </Button>
             <ListBox x:Name="handlersList" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="14" 
-                     TextBlock.TextAlignment="Center" Height="90" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Background="Transparent">
+                     TextBlock.TextAlignment="Center" Height="110" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Background="Transparent">
                 <ListBox.Effect>
                     <DropShadowEffect ShadowDepth="4" BlurRadius="4" RenderingBias="Quality"/>
                 </ListBox.Effect>
