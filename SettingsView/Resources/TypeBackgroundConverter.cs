@@ -24,7 +24,7 @@ namespace SettingsView.Resources
             }
             else if (val == MessageTypeEnum.WARNING)
             {
-                return Brushes.LightYellow;
+                return Brushes.Yellow;
             }
             else if (val == MessageTypeEnum.INFO)
             {

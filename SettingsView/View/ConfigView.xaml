@@ -48,7 +48,6 @@
                         <Setter Property="TextDecorations" Value="{x:Null}"/>
                     </Style>
                 </Grid.Resources>
-
                 <TextBlock Grid.Row="0" Margin="3,3,2.667,2.667">Output Dir:</TextBlock>
                 <TextBlock x:Name="OutputDir" Grid.Row="0" Grid.Column="1" Text="{Binding VM_OutputDir}" Margin="2.333,3,3,2.667"></TextBlock>
                 <TextBlock Grid.Row="1" Margin="3,2.333,2.667,2.333">Source Name:</TextBlock>
@@ -67,7 +66,7 @@
                 </Button.Background>
             </Button>
             <ListBox x:Name="handlersList" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="14" 
-                     TextBlock.TextAlignment="Center" Height="110" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Background="Transparent">
+                     TextBlock.TextAlignment="Center" Height="110"  ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Background="Transparent">
                 <ListBox.Effect>
                     <DropShadowEffect ShadowDepth="4" BlurRadius="4" RenderingBias="Quality"/>
                 </ListBox.Effect>
