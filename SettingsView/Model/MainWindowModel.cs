@@ -46,9 +46,12 @@ namespace SettingsView.Model
         #region Methods
         public void SendCloseCommandToService()
         {
-            //Need to restart the log list
-            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.WindowClosedCommand, null , null);
-            client.Write(command.ToJson());
+            if (IsConnected)
+            {
+                //Need to restart the log list
+                CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.WindowClosedCommand, null, null);
+                client.Write(command.ToJson());
+            }
         }
         public void NotifyPropertyChanged(string propName)
         {
