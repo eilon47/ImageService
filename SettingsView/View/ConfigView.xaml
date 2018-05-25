@@ -4,17 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SettingsView.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <StackPanel Margin="0">
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#4CFFFFFF" Offset="1"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
-            <Grid>
+             mc:Ignorable="d" >
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color ="SkyBlue" Offset="0"/>
+                <GradientStop Color="LightGray" Offset="1.5"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <StackPanel Margin="0" Background="Transparent">
+            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="Black"
+                   Opacity="0.9" FontStyle="Oblique" FontWeight="Bold" FontFamily="Palatino Linotype" TextDecorations="{x:Null}" Text="Configurations">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="6" ShadowDepth="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -43,12 +48,7 @@
                         <Setter Property="TextDecorations" Value="{x:Null}"/>
                     </Style>
                 </Grid.Resources>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FFF2AB9F" Offset="0.156"/>
-                        <GradientStop Color="#FFE7E7E7" Offset="0.688"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
+
                 <TextBlock Grid.Row="0" Margin="3,3,2.667,2.667">Output Dir:</TextBlock>
                 <TextBlock x:Name="OutputDir" Grid.Row="0" Grid.Column="1" Text="{Binding VM_OutputDir}" Margin="2.333,3,3,2.667"></TextBlock>
                 <TextBlock Grid.Row="1" Margin="3,2.333,2.667,2.333">Source Name:</TextBlock>
@@ -58,7 +58,7 @@
                 <TextBlock Grid.Row="3" Margin="3,3,2.667,2.667">Thumbnails Size:</TextBlock>
                 <TextBlock x:Name="ThumbnailsSize" Grid.Row ="3" Grid.Column="1" Text="{Binding VM_ThumbnailSize}" Margin="2.333,3,3,2.667"></TextBlock>
             </Grid>
-            <Button Height="28" Content="Remove" Command="{Binding RemoveButtonCmd}" BorderBrush="#FF300606" Foreground="#FF713636" FontSize="16" FontWeight="SemiBold">
+            <Button Height="24" Content="Remove" Command="{Binding RemoveButtonCmd}" BorderBrush="#FF300606" Foreground="#FF713636" FontSize="16" FontWeight="SemiBold">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -66,18 +66,11 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <ListBox x:Name="handlersList" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="17" 
-                     TextBlock.TextAlignment="Center" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Height="350">
+            <ListBox x:Name="handlersList" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" TextBlock.FontSize="14" 
+                     TextBlock.TextAlignment="Center" Height="90" ItemsSource="{Binding VM_Handlers}" SelectedItem="{Binding SelectedHandler}" Background="Transparent">
                 <ListBox.Effect>
                     <DropShadowEffect ShadowDepth="4" BlurRadius="4" RenderingBias="Quality"/>
                 </ListBox.Effect>
-                <ListBox.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FFE5DEEC" Offset="0.201"/>
-                        <GradientStop Color="#FFF56A6F" Offset="0.828"/>
-
-                    </LinearGradientBrush>
-                </ListBox.Background>
             </ListBox>
         </StackPanel>
     </Grid>

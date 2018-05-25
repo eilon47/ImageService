@@ -5,39 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SettingsView.View"
              xmlns:resources="clr-namespace:SettingsView.Resources"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
     <UserControl.Resources>
         <resources:TypeBackgroundConverter x:Key="TypeBackgroundConverter"></resources:TypeBackgroundConverter>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" Background="White">
-        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="#FF006E71"
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color ="SkyBlue" Offset="0"/>
+                <GradientStop Color="LightGray" Offset="1.5"/>
+            </LinearGradientBrush>
+        </StackPanel.Background>
+        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" Height="90" FontSize="60"  Foreground="Black"
                    Opacity="0.9" FontStyle="Oblique" FontWeight="Bold" FontFamily="Palatino Linotype" TextDecorations="{x:Null}" Text="Image-Service Log">
             <TextBlock.Effect>
                 <DropShadowEffect BlurRadius="6" ShadowDepth="6"/>
             </TextBlock.Effect>
-            <TextBlock.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FFE7E7E7" Offset="0.648"/>
-                    <GradientStop Color="#FFF04040" Offset="0.103"/>
-                </LinearGradientBrush>
-            </TextBlock.Background></TextBlock>
+        </TextBlock>
         <DataGrid Name="DataGridLog" ItemsSource="{Binding VM_Logs}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
                   CanUserSortColumns="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                  VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Width="Auto" Height="300" Margin="0,0,0,10" RowHeight="30">
+                  VerticalScrollBarVisibility="Visible" Height="300" RowBackground="Transparent"  ScrollViewer.CanContentScroll="True" Width="Auto" Margin="0,0,0,10" RowHeight="30" Background="Transparent">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Type" Binding="{Binding Status}" Width="Auto">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Background" Value="{Binding Status, Converter={StaticResource TypeBackgroundConverter}}"></Setter>
                             <Setter Property="FontSize" Value="12"/>
-                            <Setter Property="FontFamily" Value="Kristen ITC"/>
                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                             <Setter Property="TextAlignment" Value="Center"></Setter>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

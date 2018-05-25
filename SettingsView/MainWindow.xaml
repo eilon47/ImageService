@@ -20,19 +20,15 @@
         <TabControl>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Settings" Foreground="Blue" />
-                    </StackPanel>
+                    <TextBlock Text="Settings" Foreground="Black" Background="Transparent"/>
                 </TabItem.Header>
-                <controls:ConfigView></controls:ConfigView>
+                <controls:ConfigView/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Logs" Foreground="Blue" />
-                    </StackPanel>
+                    <TextBlock Text="Logs" Foreground="Black" Background="Transparent" />
                 </TabItem.Header>
-                <controls:LogView></controls:LogView>
+                <controls:LogView/>
             </TabItem>
         </TabControl>
     </Grid>
