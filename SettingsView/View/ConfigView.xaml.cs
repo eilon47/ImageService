@@ -22,7 +22,7 @@ namespace SettingsView.View
     /// </summary>
     public partial class ConfigView : UserControl
     {
-        #region members, constructor
+        #region Members, Constructor
         private ConfigVM vm;
         public ConfigView()
         {

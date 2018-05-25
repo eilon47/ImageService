@@ -12,7 +12,7 @@ namespace SettingsView.Model
 {
     class ConfigModel : IConfigModel
     {
-        #region members, constructor
+        #region Members, Constructor
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
         public ConfigModel()
@@ -28,7 +28,7 @@ namespace SettingsView.Model
             }
         }
         #endregion
-        #region write/read
+        #region Write/Read
         public void GetMessageFromClient(object sender, string message)
         {
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
@@ -53,7 +53,7 @@ namespace SettingsView.Model
             client.Write(command.ToJson());
         }
         #endregion
-        #region properties
+        #region Setting's Properties 
         private string outputDir;
         public string OutputDir
         {
@@ -106,7 +106,7 @@ namespace SettingsView.Model
             }
         }
         #endregion
-        #region methods
+        #region Methods
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));

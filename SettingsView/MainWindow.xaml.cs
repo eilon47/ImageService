@@ -21,7 +21,7 @@ namespace SettingsView
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region memebers, constructor
+        #region Members, Constructor
         private MainWindowVM vm;
         public MainWindow()
         {

@@ -11,12 +11,14 @@ namespace SettingsView.Model
 {
     public interface IConfigModel
     {
-        #region methods
+        #region Methods and Events
 
         event PropertyChangedEventHandler PropertyChanged;
         void SendCommandToService(CommandRecievedEventArgs command);
         void GetMessageFromClient(object sender, string message);
         void NotifyPropertyChanged(string propName);
+        #endregion
+        #region Properties
         string OutputDir { get; set; }
         string SourceName { get; set; }
         string LogName { get; set; }

@@ -13,7 +13,7 @@ namespace SettingsView.Model
 {
     class LogModel : ILogModel
     {
-        #region members, properties, constructor
+        #region Members, Properties, Constructor
         private IISClient client;
         public event PropertyChangedEventHandler PropertyChanged;
          
@@ -40,7 +40,7 @@ namespace SettingsView.Model
             }
         }
         #endregion
-        #region read/write
+        #region Read/Write
         public void GetMessageFromClient(object sender, string message)
         {
             //If message if log - handle and notify, else ignore.
@@ -86,7 +86,7 @@ namespace SettingsView.Model
             client.Write(command.ToJson());
         }
         #endregion
-        #region methods
+        #region Methods
 
         public void NotifyPropertyChanged(string propName)
         {

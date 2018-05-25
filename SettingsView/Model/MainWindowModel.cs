@@ -11,7 +11,7 @@ namespace SettingsView.Model
 {
     public class MainWindowModel : IMainWindowModel
     {
-        #region constructor
+        #region Constructor
         public MainWindowModel()
         {
             try
@@ -26,7 +26,7 @@ namespace SettingsView.Model
         }
         #endregion
 
-        #region members, properties, 
+        #region Members, Properties 
         public event PropertyChangedEventHandler PropertyChanged;
         private IISClient client;
 
@@ -43,7 +43,7 @@ namespace SettingsView.Model
             }
         }
         #endregion
-        #region methods
+        #region Methods
         public void SendCloseCommandToService()
         {
             //Need to restart the log list

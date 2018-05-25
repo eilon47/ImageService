@@ -21,7 +21,7 @@ namespace SettingsView.View
     /// </summary>
     public partial class LogView : UserControl
     {
-        #region members, constructor
+        #region Members, Constructor
         private LogVM vm;
         public LogView()
         {

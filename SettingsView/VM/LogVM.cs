@@ -29,7 +29,7 @@ namespace SettingsView.VM
             set { logs = value; }
         }
         #endregion
-        #region methods
+        #region Methods
         public void NotifyPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PropertyChangedEventArgs p = new PropertyChangedEventArgs("VM_" + e.PropertyName);

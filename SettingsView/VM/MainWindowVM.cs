@@ -13,7 +13,7 @@ namespace SettingsView.VM
 {
     public class MainWindowVM : INotifyPropertyChanged
     {
-        #region Members, Properties, constructor
+        #region Members, Properties, Constructor
 
         public event PropertyChangedEventHandler PropertyChanged;
         private IMainWindowModel model;

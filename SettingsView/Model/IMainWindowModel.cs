@@ -10,10 +10,12 @@ namespace SettingsView.Model
 {
     public interface IMainWindowModel
     {
-        #region methods
+        #region Methods and Events
         event PropertyChangedEventHandler PropertyChanged;
         void SendCloseCommandToService();
         void NotifyPropertyChanged(string propName);
+        #endregion
+        #region Properties
         bool IsConnected { get; }
         #endregion
     }
