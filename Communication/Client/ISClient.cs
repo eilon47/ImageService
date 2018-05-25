@@ -12,6 +12,8 @@ namespace Communication.Client
 {
     public class ISClient : IISClient 
     {
+
+        #region Properties, Members and Events
         private static Mutex readerMutex = new Mutex();
         private static Mutex writerMutex = new Mutex();
         public event EventHandler<string> MessageRecieved;
@@ -42,6 +44,12 @@ namespace Communication.Client
                 return clientService;
             }
         }
+        #endregion
+        /// <summary>
+        /// private constructor for singleton
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
         private ISClient(string ip, int port)
         {
             portNumber = port;
@@ -49,6 +57,9 @@ namespace Communication.Client
             ep = new IPEndPoint(IPAddress.Parse(ip), port);
             CreateANewConnection();
         }
+        /// <summary>
+        /// Creates new connection
+        /// </summary>
         private void CreateANewConnection()
         {
             try
@@ -62,7 +73,10 @@ namespace Communication.Client
             Read();
         }
 
-
+        /// <summary>
+        /// writes string to server
+        /// </summary>
+        /// <param name="command"></param>
         public void Write(string command)
         {
            new Task(() =>
@@ -80,7 +94,9 @@ namespace Communication.Client
                 writerMutex.ReleaseMutex();
             }).Start();
         }
-
+        /// <summary>
+        /// Reads from server , runs in different task
+        /// </summary>
         public void Read()
         {
             new Task(() =>
@@ -106,7 +122,9 @@ namespace Communication.Client
                 }
             }).Start();
         }
-
+        /// <summary>
+        /// Disconnect
+        /// </summary>
         public void Disconnect()
         {
             if (client != null)

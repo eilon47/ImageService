@@ -12,6 +12,7 @@ namespace Communication.Server
 {
     public class ISServer : IISServer
     {
+        #region Properties , Events and Members
         private int port;
         private TcpListener listener;
         private IISClientHandler ch;
@@ -20,11 +21,20 @@ namespace Communication.Server
         public string IP { get { return ip; } set { this.ip = value; } }
         public int Port { get { return port; } set { this.port = value; } }
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
+        #endregion
+        #region Methods
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ch"></param>
         public ISServer(IISClientHandler ch)
         {
             this.ch = ch;
             ServerConfig();
         }
+        /// <summary>
+        /// Start
+        /// </summary>
         public void Start()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
@@ -49,15 +59,21 @@ namespace Communication.Server
             });
             task.Start();
         }
+        /// <summary>
+        /// Stop
+        /// </summary>
         public void Stop()
         {
             listener.Stop();
         }
-
+        /// <summary>
+        /// Configuration of server
+        /// </summary>
         private void ServerConfig()
         {
             Port = ComSettings.Default.Port;
             IP = ComSettings.Default.IP;
         }
+        #endregion
     }
 }

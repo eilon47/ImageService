@@ -96,12 +96,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConfigViewModel.xaml.cs">
-      <DependentUpon>ConfigViewModel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LogViewModel.xaml.cs">
-      <DependentUpon>LogViewModel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\ConfigModel.cs" />
     <Compile Include="Model\IConfigModel.cs" />
     <Compile Include="Model\ILogModel.cs" />
@@ -119,14 +113,6 @@
     <Compile Include="VM\ConfigVM.cs" />
     <Compile Include="VM\LogVM.cs" />
     <Compile Include="VM\MainWindowVM.cs" />
-    <Page Include="ConfigViewModel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LogViewModel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -9,6 +9,10 @@ namespace Communication.Server
 {
     public interface IISClientHandler
     {
+        /// <summary>
+        /// Handle client
+        /// </summary>
+        /// <param name="client"></param>
         void HandleClient(TcpClient client);
     }
 }

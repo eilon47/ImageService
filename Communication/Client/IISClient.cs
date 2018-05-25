@@ -8,10 +8,14 @@ namespace Communication.Client
 {
     public interface IISClient
     {
+        #region Properties and Events
         event EventHandler<string> MessageRecieved;
+        bool Connection { get; }
+        #endregion
+        #region Methods
         void Write(string command);
         void Read(); // blocking call
         void Disconnect();
-        bool Connection { get; }
+        #endregion
     }
 }
