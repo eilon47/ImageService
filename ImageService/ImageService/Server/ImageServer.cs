@@ -142,6 +142,10 @@ namespace ImageService.Server
                 }
             }).Start();
         }
+        /// <summary>
+        /// Publish result of the controller to all clients
+        /// </summary>
+        /// <param name="result"></param>
         public void PublishResult(string result)
         {
             new Task(() =>
@@ -152,7 +156,6 @@ namespace ImageService.Server
                     if (client.Connected)
                     {
                         MutexedWriter(client, result);
-
                     }
                     else
                     {
