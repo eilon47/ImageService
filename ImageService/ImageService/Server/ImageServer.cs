@@ -128,7 +128,7 @@ namespace ImageService.Server
                     }
                     bool result;
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                    MutexedWriter(client, res);
+                    PublishResult(res);
                     res = string.Empty;
                     if (crea.CommandID == (int)CommandEnum.GetConfigCommand)
                     {
@@ -139,6 +139,26 @@ namespace ImageService.Server
                     {
                         CloseDirectoryHandler(crea.Args[0]);
                     }
+                }
+            }).Start();
+        }
+        public void PublishResult(string result)
+        {
+            new Task(() =>
+            {
+                foreach (TcpClient client in clientsReadyForNewLogs.Keys)
+                {
+
+                    if (client.Connected)
+                    {
+                        MutexedWriter(client, result);
+
+                    }
+                    else
+                    {
+                        clientsReadyForNewLogs.Remove(client);
+                    }
+
                 }
             }).Start();
         }
