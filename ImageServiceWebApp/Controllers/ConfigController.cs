@@ -35,16 +35,16 @@ namespace ImageServiceWebApp.Controllers
         public ActionResult ClickedOnHandler(string clickedHandler)
         {
             deleteHandler = clickedHandler;
-            return RedirectToAction("Confirm");
+            return RedirectToAction("ConfirmView");
         }
         public ActionResult ApprovedDelete()
         {
             model.SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, new string[] { deleteHandler }, null));
-            return RedirectToAction("Config");
+            return RedirectToAction("ConfigView");
         }
         public ActionResult CanceledDelete()
         {
-            return RedirectToAction("Config");
+            return RedirectToAction("ConfigView");
         }
     }
 }
