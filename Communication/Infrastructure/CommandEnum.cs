@@ -13,6 +13,9 @@ namespace Communication.Infrastructure
         LogCommand,
         CloseCommand,
         NewLogEntryCommand,
-        WindowClosedCommand
+        WindowClosedCommand,
+        GetPhotoDetailsList,
+        RemovePhoto,
+        GetServiceDetails
     }
 }
