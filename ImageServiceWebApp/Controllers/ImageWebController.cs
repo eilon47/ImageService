@@ -16,7 +16,7 @@ namespace ImageServiceWebApp.Controllers
             ViewBag.PhotosCounter = model.PhotosCounter;
             ViewBag.Status = model.Status;
             ViewBag.Students = model.Students;
-            return View(model);
+            return View(model.Status);
         }
     }
 }

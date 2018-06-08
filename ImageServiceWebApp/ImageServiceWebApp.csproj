@@ -127,11 +127,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\ImageWebPage\ImageWebView.cshtml" />
-    <Content Include="Views\LogsPage\LogsView.cshtml" />
-    <Content Include="Views\PhotosPage\PhotosView.cshtml" />
-    <Content Include="Views\ConfigPage\ConfigView.cshtml" />
-    <Content Include="Views\ConfigPage\ConfirmView.cshtml" />
+    <Content Include="Views\ImageWeb\ImageWeb.cshtml" />
+    <Content Include="Views\Logs\Logs.cshtml" />
+    <Content Include="Views\Photos\Photos.cshtml" />
+    <Content Include="Views\Config\Config.cshtml" />
+    <Content Include="Views\Config\Confirm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -141,9 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ImageWeb\" />
-    <Folder Include="Views\Logs\" />
-    <Folder Include="Views\Photos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Communication\Communication.csproj">
