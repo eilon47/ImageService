@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Confirm";
 }
+<h2>Are you sure you want to delete the handler?</h2>
+<h1>@ViewBag.ClickedHandler</h1>
 
-<h2>Confirm</h2>
-
+<button type="button" id="btnOK" onclick="location.href='@Url.Action("ApprovedDelete", "Config")'" style="margin:10px">OK</button>
+<button type="button" id="btnCancel" onclick="location.href='@Url.Action("CancelDelete", "Config")'" style="margin:10px">Cancel</button>

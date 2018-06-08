@@ -94,3 +94,4 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\WebApp\obj
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\WebApp\bin\Communication.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\WebApp\bin\Communication.pdb
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\WebApp\bin\Communication.exe.config
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\WebApp\bin\ServerConfig.json

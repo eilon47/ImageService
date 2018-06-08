@@ -25,3 +25,4 @@ C:\Users\green\Source\Repos\ImageService\Communication\bin\Debug\Newtonsoft.Json
 C:\Users\green\Source\Repos\ImageService\Communication\bin\Debug\Newtonsoft.Json.xml
 C:\Users\green\Source\Repos\ImageService\Communication\obj\Debug\Communication.csproj.CopyComplete
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\obj\Debug\Communication.csprojAssemblyReference.cache
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\Communication\bin\Debug\ServerConfig.json

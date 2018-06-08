@@ -58,6 +58,7 @@
     <Compile Include="Infrastructure\MessageRecievedEventArgs.cs" />
     <Compile Include="Infrastructure\MessageTypeEnum.cs" />
     <Compile Include="Infrastructure\PhotoDetails.cs" />
+    <Compile Include="Infrastructure\SettingsHolder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IISClientHandler.cs" />
@@ -70,8 +71,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>ComSettings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="ServerConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

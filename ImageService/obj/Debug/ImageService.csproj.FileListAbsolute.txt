@@ -25,7 +25,6 @@ C:\Users\green\Source\Repos\ImageService\ImageService\obj\Debug\ImageService.pdb
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\ImageService.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\ImageService.exe
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\ImageService.pdb
-C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.ImageService.resources
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.ProjectInstaller.resources
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csproj.GenerateResource.cache
@@ -71,3 +70,5 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Communication.exe.config
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\Newtonsoft.Json.xml
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csprojAssemblyReference.cache
+C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\ServerConfig.json

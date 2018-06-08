@@ -11,67 +11,67 @@
 @using (Html.BeginForm())
 {
 
-    <div class="form-horizontal">
-        <h4>Config Settings</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <table class="table">
+<div class="form-horizontal">
+    <h4>Config Settings</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <table class="table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.OutputDir)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OutputDir)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SourceName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SourceName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.LogName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LogName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ThumbnailSize)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ThumbnailSize)
+            </td>
+        </tr>
+
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Handlers)
+            </th>
+        </tr>
+        @foreach (var item in Model.Handlers)
+        {
             <tr>
+
                 <td>
-                    @Html.LabelFor(model => model.OutputDir)
+                    @Html.ActionLink(@item, "ClickedOnHandler", new { clickedHandler = item })
                 </td>
-                <td>
-                    @Html.DisplayFor(model => model.OutputDir)
-                </td>
+
             </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.SourceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.SourceName)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.LogName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.LogName)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.ThumbnailSize)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.ThumbnailSize)
-                </td>
-            </tr>
-
-        </table>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Handlers)
-                </th>
-            </tr>
-            @*@if (Model.Handlers != null)
-            {
-            @foreach (var item in Model.Handlers)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(@item, "ClickedOnHandler", new { clickedHandler = item })
-                    </td>
-                </tr>
-            }
-            }*@
+        }
 
 
-        </table>
+    </table>
 
 
-    </div>
+
+</div>
 }

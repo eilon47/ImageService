@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Communication.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,6 +20,8 @@ namespace Communication.Client
         #region Properties, Members and Events
         private static Mutex readerMutex = new Mutex();
         private static Mutex writerMutex = new Mutex();
+        public int Port { get; set; }
+        public string IP { get; set; }
         public event EventHandler<string> MessageRecieved;
         private TcpClient client;
         private IPEndPoint ep;
@@ -35,7 +41,7 @@ namespace Communication.Client
                 {
                     try
                     {
-                        clientService = new ISClient(ComSettings.Default.IP, ComSettings.Default.Port);
+                        clientService = new ISClient();
                     } catch(Exception e)
                     {
                         throw e;
@@ -46,15 +52,24 @@ namespace Communication.Client
         }
         #endregion
         /// <summary>
+        /// Configuration of server
+        /// </summary>
+        public void ServerConfig()
+        {
+            IP = SettingsHolder.IP;
+            Port = SettingsHolder.Port;
+        }
+        /// <summary>
         /// private constructor for singleton
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
-        private ISClient(string ip, int port)
+        private ISClient()
         {
-            portNumber = port;
+            ServerConfig();
+            portNumber = Port;
             client = new TcpClient();
-            ep = new IPEndPoint(IPAddress.Parse(ip), port);
+            ep = new IPEndPoint(IPAddress.Parse(IP), Port);
             CreateANewConnection();
         }
         /// <summary>
@@ -135,5 +150,6 @@ namespace Communication.Client
                 client = null;
             }
         }
+       
     }
 }

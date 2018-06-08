@@ -28,23 +28,24 @@ namespace ImageServiceWebApp.Controllers
             return View(model);
         }
         // GET: Config
-        public ActionResult Confim()
+        public ActionResult Confirm()
         {
             return View(model);
         }
         public ActionResult ClickedOnHandler(string clickedHandler)
         {
             deleteHandler = clickedHandler;
-            return RedirectToAction("ConfirmView");
+            ViewBag.ClickedHandler = clickedHandler;
+            return RedirectToAction("Confirm");
         }
         public ActionResult ApprovedDelete()
         {
             model.SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, new string[] { deleteHandler }, null));
-            return RedirectToAction("ConfigView");
+            return RedirectToAction("Config");
         }
         public ActionResult CanceledDelete()
         {
-            return RedirectToAction("ConfigView");
+            return RedirectToAction("Config");
         }
     }
 }

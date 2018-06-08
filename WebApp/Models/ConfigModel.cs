@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -45,26 +47,17 @@ namespace ImageServiceWebApp.Models
         #endregion
         public ConfigModel()
         {
-
-            Console.WriteLine("######################################");
             DefaultValues();
             try
             {
-                Console.WriteLine("trying to connect to client");
+                
                 client = ISClient.ClientServiceIns;
-                Console.WriteLine("Connected!");
                 client.MessageRecieved += GetMessageFromClient;
-                Handlers = new ObservableCollection<string>();
-                Handlers.Add("a");
-                Handlers.Add("b");
                 Console.WriteLine("Sending Command");
                 SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null));
 
             } catch(Exception e) 
             {
-                Console.WriteLine("######################################");
-                Console.WriteLine("Failed connecting ");
-                Console.WriteLine("######################################");
             }
         }
         public void GetMessageFromClient(object sender, string crea)
@@ -112,7 +105,7 @@ namespace ImageServiceWebApp.Models
             SourceName = null;
             ThumbnailSize = 0;
             LogName = null;
-            Handlers = null;
+            Handlers = new ObservableCollection<string>();
         }
     }
 

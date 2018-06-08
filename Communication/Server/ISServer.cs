@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Communication.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -37,7 +40,7 @@ namespace Communication.Server
         /// </summary>
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), Port);
             listener = new TcpListener(ep);
             listener.Start();
             Console.WriteLine("Waiting for connections...");
@@ -71,8 +74,8 @@ namespace Communication.Server
         /// </summary>
         private void ServerConfig()
         {
-            Port = ComSettings.Default.Port;
-            IP = ComSettings.Default.IP;
+            IP = SettingsHolder.IP;
+            Port = SettingsHolder.Port;
         }
         #endregion
     }
