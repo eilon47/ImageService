@@ -7,10 +7,10 @@
 <table class="table">
     <tr>
         <th>
-            Status
+            @Html.DisplayNameFor(model => model.Logs[0].Status)
         </th>
         <th>
-            Message
+            @Html.DisplayNameFor(model => model.Logs[0].Message)
         </th>
     </tr>
     @foreach (var item in Model.Logs)

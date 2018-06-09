@@ -15,7 +15,7 @@ namespace WebApp.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Logs")]
-        public ObservableCollection<MessageRecievedEventArgs> Logs { get; set; }
+        public ObservableCollection<LogType> Logs { get; set; }
         #endregion
         #region Members & Events
         private static IISClient client;
@@ -24,7 +24,7 @@ namespace WebApp.Models
         #endregion
         public LogsModel()
         {
-            Logs = new ObservableCollection<MessageRecievedEventArgs>();
+            Logs = new ObservableCollection<LogType>();
             try
             {
                 client = ISClient.ClientServiceIns;
@@ -41,7 +41,7 @@ namespace WebApp.Models
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(message);
             if (command.CommandID == (int)CommandEnum.LogCommand)
             {
-                ObservableCollection<MessageRecievedEventArgs> list = new ObservableCollection<MessageRecievedEventArgs>();
+                ObservableCollection<LogType> list = new ObservableCollection<LogType>();
                 string[] logsStrings = command.Args[0].Split(';');
                 foreach (string s in logsStrings)
                 {
@@ -50,7 +50,7 @@ namespace WebApp.Models
                         try
                         {
                             MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(s);
-                            list.Add(m);
+                            list.Add(LogType.LogTypeFromMessageRecieved(m));
                         }
                         catch (Exception e)
                         {
@@ -67,8 +67,8 @@ namespace WebApp.Models
                 try
                 {
                     MessageRecievedEventArgs m = MessageRecievedEventArgs.FromJson(command.Args[0]);
-                    ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
-                    tempList.Add(m);
+                    ObservableCollection<LogType> tempList = new ObservableCollection<LogType>(Logs);
+                    tempList.Add(LogType.LogTypeFromMessageRecieved(m));
                     this.Logs = tempList;
                     NotifyRefresh?.Invoke();
                 }
@@ -82,6 +82,27 @@ namespace WebApp.Models
         public void SendCommandToService(CommandRecievedEventArgs command)
         {
             client.Write(command.ToJson());
+        }
+    }
+    public class LogType
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Status")]
+        public StatusType Status { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Message")]
+        public string Message { get; set; }
+        public static LogType LogTypeFromMessageRecieved(MessageRecievedEventArgs m)
+        {
+            return new LogType { Status = (StatusType)((int)m.Status), Message = m.Message };
+        }
+        public enum StatusType
+        {
+            INFO,
+            WARNING,
+            FAIL
         }
     }
 }
