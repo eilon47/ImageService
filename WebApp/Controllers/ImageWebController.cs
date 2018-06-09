@@ -1,6 +1,7 @@
 ﻿using ImageServiceWebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,12 +11,18 @@ namespace WebApp.Controllers
     public class ImageWebController : Controller
     {
         private static ImageWebModel model = new ImageWebModel();
+        public ImageWebController()
+        {
+            model.NotifyRefresh -= Refresh;
+            model.NotifyRefresh += Refresh;
+        }
+        public void Refresh()
+        {
+            ImageWeb();
+        }
         // GET: ImageWeb
         public ActionResult ImageWeb()
         {
-            ViewBag.PhotosCounter = model.PhotosCounter;
-            ViewBag.Status = model.Status;
-            ViewBag.Students = model.Students;
             return View(model);
         }
     }

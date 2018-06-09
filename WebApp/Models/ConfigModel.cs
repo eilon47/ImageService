@@ -73,12 +73,14 @@ namespace ImageServiceWebApp.Models
                 ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
                 LogName = (string)json["LogName"];
                 UpdateHandlersFromString((string)json["Handler"]);
+                NotifyRefresh?.Invoke();
             }
             else if (command.CommandID == (int)CommandEnum.CloseCommand)
             {
                 UpdateHandlersFromString(command.Args[0]);
+                NotifyRefresh?.Invoke();
             }
-            NotifyRefresh?.Invoke();
+           
         }
         public void SendCommandToService(CommandRecievedEventArgs command)
         {

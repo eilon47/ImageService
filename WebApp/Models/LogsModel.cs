@@ -59,6 +59,7 @@ namespace ImageServiceWebApp.Models
                     }
                 }
                 Logs = list;
+                NotifyRefresh?.Invoke();
             }
             else if (command.CommandID == (int)CommandEnum.NewLogEntryCommand)
             {
@@ -68,13 +69,14 @@ namespace ImageServiceWebApp.Models
                     ObservableCollection<MessageRecievedEventArgs> tempList = new ObservableCollection<MessageRecievedEventArgs>(Logs);
                     tempList.Add(m);
                     this.Logs = tempList;
+                    NotifyRefresh?.Invoke();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
                 }
             }
-            NotifyRefresh?.Invoke();
+           
         }
         public void SendCommandToService(CommandRecievedEventArgs command)
         {

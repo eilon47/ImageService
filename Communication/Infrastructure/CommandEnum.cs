@@ -16,6 +16,5 @@ namespace Communication.Infrastructure
         WindowClosedCommand,
         GetPhotoDetailsList,
         RemovePhoto,
-        GetServiceDetails
     }
 }

@@ -21,6 +21,8 @@ namespace ImageService.Modal
             LogName = ConfigurationManager.AppSettings["LogName"];
             ThumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
             Handlers = ConfigurationManager.AppSettings["Handler"];
+            Students = ConfigurationManager.AppSettings["Students"];
+            ServiceName = ConfigurationManager.AppSettings["ServiceName"];
             
         }
         public static SettingsObject GetInstance
@@ -36,6 +38,8 @@ namespace ImageService.Modal
         }
         #endregion
         #region Members, Properties
+        public string ServiceName { get; set; }
+        public string Students { get; set; }
         private string outputDir;
         public string OutPutDir
         {
@@ -83,6 +87,7 @@ namespace ImageService.Modal
             j["ThumbnailSize"] = ThumbnailSize.ToString();
             j["LogName"] = LogName;
             j["Handler"] = Handlers;
+            j["Students"] = Students;
             return j.ToString();
         }
         Mutex mutex = new Mutex();

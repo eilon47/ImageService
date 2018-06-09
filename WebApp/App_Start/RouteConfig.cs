@@ -16,7 +16,7 @@ namespace WebApp
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Config", action = "Config", id = UrlParameter.Optional }
+                defaults: new { controller = "ImageWeb", action = "ImageWeb", id = UrlParameter.Optional }
             );
         }
     }
