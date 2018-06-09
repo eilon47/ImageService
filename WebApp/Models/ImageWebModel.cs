@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace ImageServiceWebApp.Models
+namespace WebApp.Models
 {
     public class ImageWebModel
     {
@@ -17,7 +17,12 @@ namespace ImageServiceWebApp.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Status")]
-        public string Status { get; set; }
+        public string Status { get {
+                if (client == null)
+                    return "Not Running";
+                return (client.Connection ? "Running" : "Not Running");
+            }
+        }
 
         [Required]
         [DataType(DataType.Text)]
@@ -37,7 +42,7 @@ namespace ImageServiceWebApp.Models
         #endregion
         public ImageWebModel()
         {
-            DefaultValues();
+            Students = new ObservableCollection<Student>();
             try
             {
                 client = ISClient.ClientServiceIns;
@@ -46,7 +51,7 @@ namespace ImageServiceWebApp.Models
 
             } catch (Exception e)
             {
-                Status = "No connection";
+                
             }
         }
         public void GetMessageFromClient(object sender, string crea)
@@ -62,7 +67,6 @@ namespace ImageServiceWebApp.Models
                 foreach (string s in studs) {
                     Students.Add(Student.fromString(s));
                 }
-                Status = client.Connection ? "Running" : "Not Running";
                 NotifyRefresh?.Invoke();
             }
             
@@ -86,11 +90,7 @@ namespace ImageServiceWebApp.Models
         {
             client.Write(command.ToJson());
         }
-        private void DefaultValues()
-        {
-            Status = "No";
-            Students = new ObservableCollection<Student>();
-        }
+
     }
     public class Student
     {

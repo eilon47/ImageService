@@ -1,4 +1,4 @@
-﻿using ImageServiceWebApp.Models;
+﻿using WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

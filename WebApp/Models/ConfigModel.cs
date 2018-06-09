@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace ImageServiceWebApp.Models
+namespace WebApp.Models
 {
     public class ConfigModel
     {

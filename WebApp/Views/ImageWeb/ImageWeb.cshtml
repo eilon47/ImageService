@@ -1,15 +1,14 @@
-﻿@model ImageServiceWebApp.Models.ImageWebModel
+﻿@model WebApp.Models.ImageWebModel
 
 @{
     ViewBag.Title = "ImageWeb";
 }
 
-<h2>ImageWeb</h2>
+<h2>Image Web</h2>
 @using (Html.BeginForm())
 {
 
     <div class="form-horizontal">
-        <h4>Config Settings</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <table class="table">

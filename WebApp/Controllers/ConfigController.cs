@@ -1,12 +1,12 @@
 ﻿using Communication.Infrastructure;
-using ImageServiceWebApp.Models;
+using WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ImageServiceWebApp.Controllers
+namespace WebApp.Controllers
 {
     public class ConfigController : Controller
     {

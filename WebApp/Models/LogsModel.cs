@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ImageServiceWebApp.Models
+namespace WebApp.Models
 {
     public class LogsModel
     {
@@ -24,6 +24,7 @@ namespace ImageServiceWebApp.Models
         #endregion
         public LogsModel()
         {
+            Logs = new ObservableCollection<MessageRecievedEventArgs>();
             try
             {
                 client = ISClient.ClientServiceIns;
