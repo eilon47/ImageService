@@ -127,7 +127,6 @@ namespace ImageService.Server
                         break;
                     }
                     bool result;
-                    File.AppendAllText(@"C:\Users\eilon\Desktop\ss.txt", "CH got : " + commandLine + Environment.NewLine);
                     string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
                     PublishResult(res);
                     res = string.Empty;

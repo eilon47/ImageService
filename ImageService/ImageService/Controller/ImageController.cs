@@ -47,7 +47,6 @@ namespace ImageService.Controller
             //Checks if the id is of a existing command.
             if (IsCommand(commandID))
             {
-                File.AppendAllText(@"C:\Users\eilon\Desktop\ss.txt", "Controller got commnad " + (CommandEnum)commandID + Environment.NewLine);
                 this.loggingService.Log("Controller got commnad " + ((CommandEnum)commandID).ToString() + " " + args[0], MessageTypeEnum.INFO);
                 //Make new task to do it in another thread.
                 Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
