@@ -39,6 +39,11 @@ namespace WebApp.Models
         [DataType(DataType.Text)]
         [Display(Name = "Handlers")]
         public ObservableCollection<string> Handlers { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "DeleteHandler")]
+        public string DeleteHandler { get; set; }
         #endregion
         #region Members & Events
         private static IISClient client;

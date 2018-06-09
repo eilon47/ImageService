@@ -35,7 +35,7 @@ namespace WebApp.Controllers
         public ActionResult ClickedOnHandler(string clickedHandler)
         {
             deleteHandler = clickedHandler;
-            ViewBag.ClickedHandler = clickedHandler;
+            model.DeleteHandler = deleteHandler;
             return RedirectToAction("Confirm");
         }
         public ActionResult ApprovedDelete()
