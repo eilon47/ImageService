@@ -1,0 +1,11 @@
+﻿@model WebApp.Models.PhotosModel
+
+@{
+    ViewBag.Title = "ConfirmDeletePhoto";
+}
+
+<h2>Are you sure you want to delete the photo?</h2>
+<h2> @Model.ClickedPhotoName </h2>
+<img src="/@Model.ClickedPhotoThumbPath.Replace(Server.MapPath("~"),"").Replace("\\","/")" alt="Photo to delete" />
+<button type="button" id="btnOK" onclick="location.href='@Url.Action("ApprovedDelete", "Photos")'" style="margin:10px">OK</button>
+<button type="button" id="btnCancel" onclick="location.href='@Url.Action("CanceledDelete", "Photos")'" style="margin:10px">Cancel</button>

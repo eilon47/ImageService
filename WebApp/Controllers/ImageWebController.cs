@@ -13,6 +13,7 @@ namespace WebApp.Controllers
         private static ImageWebModel model = new ImageWebModel();
         public ImageWebController()
         {
+            ConfigModel con = ConfigModel.GetInstance;
             model.NotifyRefresh -= Refresh;
             model.NotifyRefresh += Refresh;
         }

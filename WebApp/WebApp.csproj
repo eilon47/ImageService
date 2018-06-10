@@ -199,6 +199,8 @@
     <Content Include="Views\Logs\Logs.cshtml" />
     <Content Include="Views\Photos\Photos.cshtml" />
     <Content Include="Views\Config\Confirm.cshtml" />
+    <Content Include="Views\Photos\EnlargePhoto.cshtml" />
+    <Content Include="Views\Photos\ConfirmDeletePhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

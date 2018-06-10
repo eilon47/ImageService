@@ -10,7 +10,7 @@ namespace WebApp.Controllers
 {
     public class ConfigController : Controller
     {
-        private static ConfigModel model = new ConfigModel();
+        private static ConfigModel model = ConfigModel.GetInstance;
         private static string deleteHandler;
 
         public ConfigController()

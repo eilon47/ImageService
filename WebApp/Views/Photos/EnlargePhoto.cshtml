@@ -1,0 +1,9 @@
+﻿@model WebApp.Models.PhotosModel
+
+@{
+    ViewBag.Title = "EnlargePhoto";
+}
+<h2> @Model.ClickedPhotoName </h2>
+<img src="/@Model.ClickedPhotoPath.Replace(Server.MapPath("~"),"").Replace("\\","/")" alt="Photo to delete" />
+<button type="button" id="btnCancel" onclick="location.href='@Url.Action("BackToPhotos", "Photos")'" style="margin:10px">Back</button>
+

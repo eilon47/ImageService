@@ -44,13 +44,26 @@ namespace WebApp.Models
         [DataType(DataType.Text)]
         [Display(Name = "DeleteHandler")]
         public string DeleteHandler { get; set; }
+        public string StudentsString { get; set; }
+        public static ConfigModel GetInstance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = new ConfigModel();
+                }
+                return instance;
+            }
+        }
         #endregion
         #region Members & Events
         private static IISClient client;
+        private static ConfigModel instance;
         public delegate void Refresh();
         public event Refresh NotifyRefresh;
         #endregion
-        public ConfigModel()
+        private ConfigModel()
         {
             DefaultValues();
             try
@@ -77,6 +90,7 @@ namespace WebApp.Models
                 SourceName = (string)json["SourceName"];
                 ThumbnailSize = int.Parse((string)json["ThumbnailSize"]);
                 LogName = (string)json["LogName"];
+                StudentsString = (string)json["Students"];
                 UpdateHandlersFromString((string)json["Handler"]);
                 NotifyRefresh?.Invoke();
             }
@@ -89,7 +103,6 @@ namespace WebApp.Models
         }
         public void SendCommandToService(CommandRecievedEventArgs command)
         {
-            Console.WriteLine("Send command: " + command.ToJson());
             client.Write(command.ToJson());
         }
         public void UpdateHandlersFromString(string handlers)
