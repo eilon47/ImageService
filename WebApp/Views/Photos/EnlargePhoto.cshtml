@@ -5,5 +5,6 @@
 }
 <h2> @Model.ClickedPhotoName </h2>
 <img src="/@Model.ClickedPhotoPath.Replace(Server.MapPath("~"),"").Replace("\\","/")" alt="Photo to delete" />
-<button type="button" id="btnCancel" onclick="location.href='@Url.Action("BackToPhotos", "Photos")'" style="margin:10px">Back</button>
+@Html.ActionLink("Delete", "DeletePhotoPressed", new { name = Model.ClickedPhotoName, path = Model.ClickedPhotoPath, thumbPath = Model.ClickedPhotoThumbPath }, new { @class = "btn btn-primary btn-info btn-xs" })
+@Html.ActionLink("Back", "BackToPhotos", null ,new { @class = "btn btn-primary btn-info btn-xs" })
 

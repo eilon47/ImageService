@@ -31,6 +31,7 @@ namespace ImageService.Controller
                 {(int) CommandEnum.GetConfigCommand,new GetConfigCommand()},
                 {(int) CommandEnum.LogCommand,new LogCommand(loggingService)},
                 {(int) CommandEnum.CloseCommand,new CloseCommand()},
+                {(int)CommandEnum.RemovePhoto, new RemovePhotoCommand()}
             };
         }
         #endregion
