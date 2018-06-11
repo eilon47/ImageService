@@ -72,3 +72,4 @@ C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageServi
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\obj\Debug\ImageService.csprojAssemblyReference.cache
 C:\Users\eilon\Desktop\אילון\Advanced Programming 2\ImageService\ImageService\bin\Debug\ServerConfig.json
+C:\Users\green\Source\Repos\ImageService\ImageService\bin\Debug\ServerConfig.json

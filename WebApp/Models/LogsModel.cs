@@ -30,10 +30,7 @@ namespace WebApp.Models
                 client = ISClient.ClientServiceIns;
                 client.MessageRecieved += GetMessageFromClient;
                 SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null));
-            } catch(Exception e)
-            {
-                Logs = null;
-            }
+            } catch(Exception e) {}
         }
         public void GetMessageFromClient(object sender, string message)
         {

@@ -34,7 +34,14 @@ namespace WebApp.Models
         #endregion
         public PhotosModel()
         {
-            client = ISClient.ClientServiceIns;
+            try
+            {
+                client = ISClient.ClientServiceIns;
+            } 
+            catch (Exception e)
+            {
+                client = null;
+            }
             Photos = new List<PhotosInfo>();
             ThumbnailsPath = new List<string>();
         }
