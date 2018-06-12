@@ -87,7 +87,7 @@ namespace ImageService.Modal
                     logging.Log("Added file " + name, MessageTypeEnum.INFO);
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
-                    Image thumbImage = Image.FromFile(dstFile);
+                    Image thumbImage = Image.FromStream(new MemoryStream(File.ReadAllBytes(dstFile)));
                     thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize,
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
