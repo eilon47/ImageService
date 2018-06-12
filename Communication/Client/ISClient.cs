@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -103,7 +104,7 @@ namespace Communication.Client
                 NetworkStream stream = client.GetStream();
                 BinaryWriter writer = new BinaryWriter(stream);
                 writerMutex.WaitOne();
-                Console.WriteLine("Writing : " + command);
+                Debug.WriteLine("Writing : " + command);
                 writer.Write(command);
                 writer.Flush();
                 writerMutex.ReleaseMutex();

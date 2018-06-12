@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace WebApp.Models
@@ -30,6 +31,7 @@ namespace WebApp.Models
                 client = ISClient.ClientServiceIns;
                 client.MessageRecieved += GetMessageFromClient;
                 SendCommandToService(new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null));
+                Thread.Sleep(1000);
             } catch(Exception e) {}
         }
         public void GetMessageFromClient(object sender, string message)

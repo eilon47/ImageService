@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -80,7 +81,7 @@ namespace WebApp.Models
         }
         public void GetMessageFromClient(object sender, string crea)
         {
-            Console.WriteLine("recieved" + crea);
+            Debug.WriteLine("recieved" + crea);
             CommandRecievedEventArgs command = CommandRecievedEventArgs.FromJson(crea);
             if (command.CommandID == (int)CommandEnum.GetConfigCommand)
             {
