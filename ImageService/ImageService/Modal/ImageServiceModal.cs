@@ -77,17 +77,29 @@ namespace ImageService.Modal
                     {
                         logging.Log("renaming file  " + name, MessageTypeEnum.WARNING);
                         name = RenameFile(loc, name);
+                        string oldName = Path.GetFileName(path);
+                        string oldPath = path;
+                        path = path.Replace(oldName, name);
+                        File.Move(oldPath, path);
                         dstFile = Path.Combine(loc, name);
-                        //File.Delete(path);
-                        //result = true;
-                        //return "The file already exist";
                     }
                     //File.Create(dstFile);
                     File.Move(path, dstFile);
                     logging.Log("Added file " + name, MessageTypeEnum.INFO);
                     //Save the thumbnail image.
                     string dstThum = System.IO.Path.Combine(thumLoc, name);
-                    Image thumbImage = Image.FromStream(new MemoryStream(File.ReadAllBytes(dstFile)));
+                    Image thumbImage;
+                    try
+                    {
+                        thumbImage = Image.FromStream(new MemoryStream(File.ReadAllBytes(dstFile))); 
+                    } catch(ArgumentException a)
+                    {
+                        File.Delete(dstFile);
+                        logging.Log("Argument exception at " + dstFile + "Could not create thumbnail!", MessageTypeEnum.FAIL);
+                        result = false;
+                        return "Image does not exist!";
+
+                    }
                     thumbImage = thumbImage.GetThumbnailImage(this.m_thumbnailSize,
                         this.m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(dstThum);
