@@ -10,9 +10,10 @@ namespace WebApp.Controllers
 {
     public class ConfigController : Controller
     {
+        #region Members
         private static ConfigModel model = ConfigModel.GetInstance;
         private static string deleteHandler;
-
+        #endregion
         public ConfigController()
         {
             model.NotifyRefresh -= Refresh;

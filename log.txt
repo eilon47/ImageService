@@ -1,3 +1,135 @@
+commit 5197241d7f1b03cba15342836bd0bb045af00a1e
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Tue Jun 12 19:55:01 2018 +0300
+
+    w
+
+commit 430f41afca69e7e8346b951320d23c41ad7866bf
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Tue Jun 12 19:35:48 2018 +0300
+
+    d
+
+commit 4e988abf086ad56951cb86f8f38de6eba2bafa95
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Tue Jun 12 19:01:38 2018 +0300
+
+    delete file ok
+
+commit a87904b3b86b479d2f407ebf115a71600fb43af0
+Author: daniel greenspan <greenspan1993@gmail.com>
+Date:   Mon Jun 11 14:19:41 2018 +0300
+
+    fix offline bugs
+
+commit 7b50cbc145baa0eac527fc5e23676768b178b8b9
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sun Jun 10 19:15:16 2018 +0300
+
+    delete and enlarge photos
+
+commit 6c3d03c56fa60bb0b799e8a7e4b07043fcfa8374
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sun Jun 10 18:54:10 2018 +0300
+
+    Added photos options
+
+commit 98f9bc86bffce6b02cebc5ddd214d0d2b9adfe86
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sun Jun 10 14:23:00 2018 +0300
+
+    Logs filter
+
+commit 18b59a7bee03a13069086d67d5827178908210d0
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat Jun 9 17:04:52 2018 +0300
+
+    show name of handler to delete
+
+commit 51ea8f56a58ee5e47fafc85c3f1b41ecd7c8b5ca
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat Jun 9 16:42:41 2018 +0300
+
+    Added log without filter
+
+commit a70e72b4bde88928d291b4ee161c2e2f5287964c
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat Jun 9 16:23:40 2018 +0300
+
+    fix
+
+commit 738153548ea7d51f1bcb1ac99ab9f846651b9498
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat Jun 9 15:31:17 2018 +0300
+
+    delete writing to file
+
+commit c6e5bab14174e218dd89bc1f3805f3b77e73f12e
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat Jun 9 15:30:33 2018 +0300
+
+    Config and ImageWeb
+
+commit 2b9c613a1632b95319dee8fe2c937e1f4cc558ec
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 12:34:18 2018 +0300
+
+    config
+
+commit 78523aad3065c3923da3bb443c3a80ed34ccf57c
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 08:09:03 2018 +0300
+
+    webapp
+
+commit 7626e3e2f6138dd4a584946feedf3a03069a023a
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 07:26:12 2018 +0300
+
+    cds
+
+commit 531fd6bc123a66c65994fa859117aa53e697e5e9
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 07:18:53 2018 +0300
+
+    cds
+
+commit 7c0bd693f6ddcf19cb22e01c7698b74ce352f118
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 07:14:58 2018 +0300
+
+    Removing webapp
+
+commit 9ef0638d411719d92ac76fbcf7a5ad86e97589c4
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Fri Jun 8 06:49:35 2018 +0300
+
+    sss
+
+commit 42df894e46fdd52d41d5cfead99cb1be8b77c337
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Thu Jun 7 23:59:47 2018 +0300
+
+    additional things
+
+commit 5685a737252dbbb96ce56e9fed4ccd445463d7d5
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Thu Jun 7 23:51:06 2018 +0300
+
+    Wen Project opened
+
+commit d11aa96c6f0a28e4b87883685b291c59987d3400
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat May 26 16:28:20 2018 +0300
+
+    publish to all clients
+
+commit f587ae94d1110cab3d2edc5e22ede9aec529b74a
+Author: elon bashari <elon.bashari@live.biu.ac.il>
+Date:   Sat May 26 16:07:58 2018 +0300
+
+    publish to all clients
+
 commit 85e4d761a32d69dd0ac0152aa11dba8bc78ee7a3
 Author: elon bashari <elon.bashari@live.biu.ac.il>
 Date:   Fri May 25 09:01:45 2018 +0300
