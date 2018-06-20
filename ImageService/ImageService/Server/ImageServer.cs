@@ -116,6 +116,15 @@ namespace ImageService.Server
                 while (client.Connected)
                 {
                     string commandLine = reader.ReadString();
+
+
+                    /// maybe here will go the getphoto
+                    /// public Image byteArrayToImage(byte[] byteArrayIn)
+                    ///{
+                       /// MemoryStream ms = new MemoryStream(byteArrayIn);
+                        ///Image returnImage = Image.FromStream(ms);
+                        ///return returnImage;
+                    ///}
                     if (commandLine == null)
                         continue;
                     CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);

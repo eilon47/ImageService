@@ -1,4 +1,5 @@
 ﻿using Communication.Infrastructure;
+using ImageService.ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -24,6 +25,7 @@ namespace Communication.Server
         public string IP { get { return ip; } set { this.ip = value; } }
         public int Port { get { return port; } set { this.port = value; } }
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
+        private Debug_Program debug;
         #endregion
         #region Methods
         /// <summary>
@@ -34,6 +36,7 @@ namespace Communication.Server
         {
             this.ch = ch;
             ServerConfig();
+            this.debug = new Debug_Program();
         }
         /// <summary>
         /// Start
@@ -51,6 +54,7 @@ namespace Communication.Server
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient(); //recieve new client
+                        debug.write("Connected new Client");
                         Console.WriteLine("Got new connection");
                         ch.HandleClient(client); //handle the player through the client handler
                     }

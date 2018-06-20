@@ -198,6 +198,35 @@ namespace ImageService.Modal
             return newName;
 
         }
+
+        public string GetImageFromAndroid(String str, out bool result)
+        {
+            try
+            {
+                byte[] bitmap = stringToByteArray(str);
+                Image newImage = byteArrayToImage(bitmap);
+                newImage.Save(@"C:\Users\green\Desktop\handle1", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            catch (Exception e)
+            {
+                result = false;
+                return null;
+            }
+            result = true;
+            return "new File";
+        }
+        public Image byteArrayToImage(byte[] byteArrayIn)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
+        }
+        public byte[] stringToByteArray(string stringToByte)
+        {
+            byte[] array = Encoding.ASCII.GetBytes(stringToByte);
+            return array;
+
+        }
     }
     #endregion
 
