@@ -1,5 +1,4 @@
 ﻿using Communication.Infrastructure;
-using ImageService.ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -28,7 +27,6 @@ namespace Communication.Client
         private TcpClient client;
         private IPEndPoint ep;
         private int portNumber;
-        private Debug_Program debug;
 
         //Propeties
         public bool Connection { get { return client.Connected; } }
@@ -75,7 +73,6 @@ namespace Communication.Client
             client = new TcpClient();
             ep = new IPEndPoint(IPAddress.Parse(IP), Port);
             CreateANewConnection();
-            debug = new Debug_Program();
         }
         /// <summary>
         /// Creates new connection
@@ -129,7 +126,6 @@ namespace Communication.Client
                         BinaryReader reader = new BinaryReader(stream);
                         string result = reader.ReadString();
                         Console.WriteLine("Recieved " + result);
-                        debug.write(result);
                         if (result == null)
                         {
                             return;

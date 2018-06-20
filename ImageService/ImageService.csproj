@@ -80,7 +80,7 @@
     </Compile>
     <Compile Include="ImageService\Commands\CloseCommand.cs" />
     <Compile Include="ImageService\Commands\GetConfigCommandcs.cs" />
-    <Compile Include="ImageService\Commands\GetImageFromAndroid.cs" />
+    <Compile Include="ImageService\Commands\ImageFromPhoneCommand.cs" />
     <Compile Include="ImageService\Commands\LogCommand.cs" />
     <Compile Include="ImageService\Commands\RemovePhotoCommand.cs" />
     <Compile Include="ImageService\Modal\Event\DirectoryCloseEventArgs.cs" />

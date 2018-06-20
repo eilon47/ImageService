@@ -108,6 +108,7 @@ namespace ImageService.Server
        /// <param name="client"></param>
         public void HandleClient(TcpClient client)
         {
+            this.m_logging.Log("new client connected", MessageTypeEnum.INFO);
             this.clientsReadyForNewLogs.Add(client, false);
             new Task(() =>
             {
