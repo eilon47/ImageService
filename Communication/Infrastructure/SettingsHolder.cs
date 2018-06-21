@@ -10,5 +10,6 @@ namespace Communication.Infrastructure
     {
         public static int Port { get { return 8500; } }
         public static string IP { get { return "127.0.0.1"; } }
+        public static int MobilePort { get { return 9000; } }
     }
 }

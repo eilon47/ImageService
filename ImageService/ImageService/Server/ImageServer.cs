@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Communication.Server;
 using Communication.Infrastructure;
 using System.Threading;
+using System.Net;
 
 namespace ImageService.Server
 {
@@ -26,6 +27,8 @@ namespace ImageService.Server
         #region Members, Constructor
         private IImageController m_controller;
         private ILoggingService m_logging;
+        public int MobilePort { get; set; }
+        public int RegPort { get; set; }
         private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
         private List<string> dirPaths;
         private static Mutex writeMutex = new Mutex();
@@ -108,49 +111,68 @@ namespace ImageService.Server
        /// <param name="client"></param>
         public void HandleClient(TcpClient client)
         {
-            this.m_logging.Log("new client connected", MessageTypeEnum.INFO);
+            int port = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
+            this.m_logging.Log("new client connected in port " + port.ToString(), MessageTypeEnum.INFO);
             this.clientsReadyForNewLogs.Add(client, false);
-            new Task(() =>
+            if (port == RegPort)
             {
-                NetworkStream stream = client.GetStream();
-                BinaryReader reader = new BinaryReader(stream);
-                while (client.Connected)
+                new Task(() =>
                 {
-                    string commandLine = reader.ReadString();
-
-
-                    /// maybe here will go the getphoto
-                    /// public Image byteArrayToImage(byte[] byteArrayIn)
-                    ///{
-                       /// MemoryStream ms = new MemoryStream(byteArrayIn);
-                        ///Image returnImage = Image.FromStream(ms);
-                        ///return returnImage;
-                    ///}
-                    if (commandLine == null)
-                        continue;
-                    CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
-                    if(crea.CommandID == (int) CommandEnum.WindowClosedCommand)
+                    NetworkStream stream = client.GetStream();
+                    BinaryReader reader = new BinaryReader(stream);
+                    while (client.Connected)
                     {
-                        m_logging.Log("in close window command", MessageTypeEnum.WARNING);
-                        client.GetStream().Close();
-                        client.Close();
-                        break;
+                        string commandLine = reader.ReadString();
+                        if (commandLine == null)
+                            continue;
+                        CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
+                        m_logging.Log("got cmd ---  " + commandLine, MessageTypeEnum.INFO);
+                        if (crea.CommandID == (int)CommandEnum.WindowClosedCommand)
+                        {
+                            m_logging.Log("in close window command", MessageTypeEnum.WARNING);
+                            client.GetStream().Close();
+                            client.Close();
+                            break;
+                        }
+                        bool result;
+                        string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
+                        PublishResult(res);
+                        res = string.Empty;
+                        if (crea.CommandID == (int)CommandEnum.LogCommand)
+                        {
+                            //Ready to get new logs entries
+                            clientsReadyForNewLogs[client] = true;
+                        }
+                        if (crea.CommandID == (int)CommandEnum.CloseCommand)
+                        {
+                            CloseDirectoryHandler(crea.Args[0]);
+                        }
                     }
-                    bool result;
-                    string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                    PublishResult(res);
-                    res = string.Empty;
-                    if (crea.CommandID == (int)CommandEnum.LogCommand)
+                }).Start();
+            }
+            else if (port == MobilePort)
+            {
+                new Task(() =>
+                {
+                    NetworkStream stream = client.GetStream();
+                    BinaryReader reader = new BinaryReader(stream);
+                    while (client.Connected)
                     {
-                        //Ready to get new logs entries
-                        clientsReadyForNewLogs[client] = true;
+                        byte[] lengthBytes = reader.ReadBytes(4);
+                        if (BitConverter.IsLittleEndian)
+                            Array.Reverse(lengthBytes);
+                        int length = BitConverter.ToInt32(lengthBytes, 0);
+                        byte[] strBytes = reader.ReadBytes(length);
+                        string s = Encoding.Default.GetString(strBytes);
+                        if (s == null)
+                            continue;
+                        CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(s);
+                        m_logging.Log("got cmd ---  " + s, MessageTypeEnum.INFO);
+                        bool result;
+                        string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
                     }
-                    if(crea.CommandID == (int)CommandEnum.CloseCommand)
-                    {
-                        CloseDirectoryHandler(crea.Args[0]);
-                    }
-                }
-            }).Start();
+                }).Start();
+            }
         }
         /// <summary>
         /// Publish result of the controller to all clients

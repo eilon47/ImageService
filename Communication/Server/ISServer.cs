@@ -23,6 +23,7 @@ namespace Communication.Server
         public IISClientHandler ClientHandler { get { return ch; } set { this.ch = value; } }
         public string IP { get { return ip; } set { this.ip = value; } }
         public int Port { get { return port; } set { this.port = value; } }
+        public int MobilePort { get; set; }
         public TcpListener Listener { get { return this.listener; } set { this.listener = value; } }
         #endregion
         #region Methods
@@ -34,6 +35,8 @@ namespace Communication.Server
         {
             this.ch = ch;
             ServerConfig();
+            this.ch.MobilePort = MobilePort;
+            this.ch.RegPort = Port;
         }
         /// <summary>
         /// Start
@@ -61,6 +64,27 @@ namespace Communication.Server
                 }
             });
             task.Start();
+            IPEndPoint epMobile = new IPEndPoint(IPAddress.Parse(IP), MobilePort);
+            listener = new TcpListener(epMobile);
+            listener.Start();
+            Console.WriteLine("Waiting for connections...");
+            Task taskMobile = new Task(() =>//creating a listening thread that keeps running.
+            {
+                while (true)
+                {
+                    try
+                    {
+                        TcpClient client = listener.AcceptTcpClient(); //recieve new client
+                        Console.WriteLine("Got new connection");
+                        ch.HandleClient(client); //handle the player through the client handler
+                    }
+                    catch (SocketException)
+                    {
+                        break;
+                    }
+                }
+            });
+            taskMobile.Start();
         }
         /// <summary>
         /// Stop
@@ -76,6 +100,7 @@ namespace Communication.Server
         {
             IP = SettingsHolder.IP;
             Port = SettingsHolder.Port;
+            MobilePort = SettingsHolder.MobilePort;
         }
         #endregion
     }
