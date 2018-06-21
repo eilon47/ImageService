@@ -27,8 +27,6 @@ namespace ImageService.Server
         #region Members, Constructor
         private IImageController m_controller;
         private ILoggingService m_logging;
-        public int MobilePort { get; set; }
-        public int RegPort { get; set; }
         private Dictionary<TcpClient, bool> clientsReadyForNewLogs;
         private List<string> dirPaths;
         private static Mutex writeMutex = new Mutex();
@@ -109,12 +107,11 @@ namespace ImageService.Server
        /// Handle client
        /// </summary>
        /// <param name="client"></param>
-        public void HandleClient(TcpClient client)
+        public void HandleClient(TcpClient client , int port)
         {
-            int port = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
             this.m_logging.Log("new client connected in port " + port.ToString(), MessageTypeEnum.INFO);
             this.clientsReadyForNewLogs.Add(client, false);
-            if (port == RegPort)
+            if (port == 0)
             {
                 new Task(() =>
                 {
@@ -150,7 +147,7 @@ namespace ImageService.Server
                     }
                 }).Start();
             }
-            else if (port == MobilePort)
+            else if (port == 1)
             {
                 new Task(() =>
                 {

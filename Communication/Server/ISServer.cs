@@ -35,8 +35,6 @@ namespace Communication.Server
         {
             this.ch = ch;
             ServerConfig();
-            this.ch.MobilePort = MobilePort;
-            this.ch.RegPort = Port;
         }
         /// <summary>
         /// Start
@@ -55,7 +53,7 @@ namespace Communication.Server
                     {
                         TcpClient client = listener.AcceptTcpClient(); //recieve new client
                         Console.WriteLine("Got new connection");
-                        ch.HandleClient(client); //handle the player through the client handler
+                        ch.HandleClient(client, 0); //handle the player through the client handler
                     }
                     catch (SocketException)
                     {
@@ -76,7 +74,7 @@ namespace Communication.Server
                     {
                         TcpClient client = listener.AcceptTcpClient(); //recieve new client
                         Console.WriteLine("Got new connection");
-                        ch.HandleClient(client); //handle the player through the client handler
+                        ch.HandleClient(client, 1); //handle the player through the client handler
                     }
                     catch (SocketException)
                     {

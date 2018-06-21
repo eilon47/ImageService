@@ -13,8 +13,7 @@ namespace Communication.Server
         /// Handle client
         /// </summary>
         /// <param name="client"></param>
-        void HandleClient(TcpClient client);
-        int RegPort { get; set; }
-        int MobilePort { get; set; }
+        void HandleClient(TcpClient client, int flag);
+
     }
 }
