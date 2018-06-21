@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Communication.Server;
 using Communication.Infrastructure;
 using System.Threading;
-using System.Net;
 
 namespace ImageService.Server
 {
@@ -92,7 +91,7 @@ namespace ImageService.Server
         {
             try
             {
-                foreach(string path in dirPaths)
+                foreach (string path in dirPaths)
                 {
                     CloseDirectoryHandler(path);
                 }
@@ -103,73 +102,45 @@ namespace ImageService.Server
                 m_logging.Log("Error in closing the handlers", MessageTypeEnum.FAIL);
             }
         }
-       /// <summary>
-       /// Handle client
-       /// </summary>
-       /// <param name="client"></param>
-        public void HandleClient(TcpClient client , int port)
+        /// <summary>
+        /// Handle client
+        /// </summary>
+        /// <param name="client"></param>
+        public void HandleClient(TcpClient client)
         {
-            this.m_logging.Log("new client connected in port " + port.ToString(), MessageTypeEnum.INFO);
             this.clientsReadyForNewLogs.Add(client, false);
-            if (port == 0)
+            new Task(() =>
             {
-                new Task(() =>
+                NetworkStream stream = client.GetStream();
+                BinaryReader reader = new BinaryReader(stream);
+                while (client.Connected)
                 {
-                    NetworkStream stream = client.GetStream();
-                    BinaryReader reader = new BinaryReader(stream);
-                    while (client.Connected)
+                    string commandLine = reader.ReadString();
+                    if (commandLine == null)
+                        continue;
+                    CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
+                    if (crea.CommandID == (int)CommandEnum.WindowClosedCommand)
                     {
-                        string commandLine = reader.ReadString();
-                        if (commandLine == null)
-                            continue;
-                        CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(commandLine);
-                        m_logging.Log("got cmd ---  " + commandLine, MessageTypeEnum.INFO);
-                        if (crea.CommandID == (int)CommandEnum.WindowClosedCommand)
-                        {
-                            m_logging.Log("in close window command", MessageTypeEnum.WARNING);
-                            client.GetStream().Close();
-                            client.Close();
-                            break;
-                        }
-                        bool result;
-                        string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
-                        PublishResult(res);
-                        res = string.Empty;
-                        if (crea.CommandID == (int)CommandEnum.LogCommand)
-                        {
-                            //Ready to get new logs entries
-                            clientsReadyForNewLogs[client] = true;
-                        }
-                        if (crea.CommandID == (int)CommandEnum.CloseCommand)
-                        {
-                            CloseDirectoryHandler(crea.Args[0]);
-                        }
+                        m_logging.Log("in close window command", MessageTypeEnum.WARNING);
+                        client.GetStream().Close();
+                        client.Close();
+                        break;
                     }
-                }).Start();
-            }
-            else if (port == 1)
-            {
-                new Task(() =>
-                {
-                    NetworkStream stream = client.GetStream();
-                    BinaryReader reader = new BinaryReader(stream);
-                    while (client.Connected)
+                    bool result;
+                    string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
+                    PublishResult(res);
+                    res = string.Empty;
+                    if (crea.CommandID == (int)CommandEnum.LogCommand)
                     {
-                        byte[] lengthBytes = reader.ReadBytes(4);
-                        if (BitConverter.IsLittleEndian)
-                            Array.Reverse(lengthBytes);
-                        int length = BitConverter.ToInt32(lengthBytes, 0);
-                        byte[] strBytes = reader.ReadBytes(length);
-                        string s = Encoding.Default.GetString(strBytes);
-                        if (s == null)
-                            continue;
-                        CommandRecievedEventArgs crea = CommandRecievedEventArgs.FromJson(s);
-                        m_logging.Log("got cmd ---  " + s, MessageTypeEnum.INFO);
-                        bool result;
-                        string res = this.m_controller.ExecuteCommand(crea.CommandID, crea.Args, out result);
+                        //Ready to get new logs entries
+                        clientsReadyForNewLogs[client] = true;
                     }
-                }).Start();
-            }
+                    if (crea.CommandID == (int)CommandEnum.CloseCommand)
+                    {
+                        CloseDirectoryHandler(crea.Args[0]);
+                    }
+                }
+            }).Start();
         }
         /// <summary>
         /// Publish result of the controller to all clients
@@ -235,11 +206,12 @@ namespace ImageService.Server
                     {
                         clientsReadyForNewLogs.Remove(client);
                     }
-                    
+
                 }
             }).Start();
         }
-        private void CloseDirectoryHandler(string path) {
+        private void CloseDirectoryHandler(string path)
+        {
             m_logging.Log("Server closing the handler: " + path, MessageTypeEnum.INFO);
             CloseEvent?.Invoke(this, new DirectoryCloseEventArgs(path, null));
             this.dirPaths.Remove(path);
