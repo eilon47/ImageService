@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Communication.Server;
 using Communication.Infrastructure;
 using System.Threading;
+using System.Diagnostics;
 
 namespace ImageService.Server
 {
@@ -106,9 +107,104 @@ namespace ImageService.Server
         /// Handle client
         /// </summary>
         /// <param name="client"></param>
-        public void HandleClient(TcpClient client)
+        public void HandleClient(TcpClient client, int flag)
         {
+            m_logging.Log("Client connected from flag " + flag.ToString(), MessageTypeEnum.INFO);
+            Debug.WriteLine("##############################");
             this.clientsReadyForNewLogs.Add(client, false);
+            if (flag == 0)
+            {
+                HandleRegularClient(client);
+            }
+            if (flag == 1)
+            {
+                HandleMobileClient(client);
+            }
+
+        }
+        private void HandleMobileClient(TcpClient client) 
+        {
+            new Task(() =>
+            {
+                try
+                {
+                    while (client.Connected)
+                    {
+                        NetworkStream stream = client.GetStream();
+                        //get the image name
+                        byte[] nameInBytes = ReadName(stream);
+                        string name = Convert.ToBase64String(nameInBytes);
+                        
+                        //tell the client we got the name and return 0 if it is already exists
+                        Byte[] confirmation = new byte[1];
+                        if (CheckIfFileExistsAlready(name))
+                        {
+                            confirmation[0] = 0;
+                        }
+                        else
+                        {
+                            confirmation[0] = 1;
+                        }
+                        stream.Write(confirmation, 0, 1);
+                        
+                        //read the image
+                        byte[] photoBytes = ReadPhotoBytes(stream);
+                        string photo = Convert.ToBase64String(photoBytes);
+                        bool result;
+                        this.m_controller.ExecuteCommand((int)CommandEnum.GetImageFromAndroid, new string[] { photo, name }, out result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.clientsReadyForNewLogs.Remove(client);
+                    m_logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                    client.Close();
+                }
+
+            }).Start();
+
+        }
+        private byte[] ReadPhotoBytes(NetworkStream stream)
+        {
+            List<Byte> bytesArr = new List<byte>();
+            Byte[] temp;
+            Byte[] data = new Byte[6790];
+            int size = 0;
+            //start reading the bytes in parts to get the whole image
+            do
+            {
+                size = stream.Read(data, 0, data.Length);
+                temp = new byte[size];
+                for (int n = 0; n < size; n++)
+                {
+                    temp[n] = data[n];
+                    bytesArr.Add(temp[n]);
+
+                }
+                System.Threading.Thread.Sleep(300);
+            } while (stream.DataAvailable || size  == data.Length);
+            return bytesArr.ToArray();
+        }
+        private byte[] ReadName(NetworkStream stream)
+        {
+            Byte[] temp = new Byte[1];
+            List<Byte> fileName = new List<byte>();
+            //read the file name
+            do
+            {
+                stream.Read(temp, 0, 1);
+                fileName.Add(temp[0]);
+            } while (stream.DataAvailable);
+            return fileName.ToArray();
+        } 
+        private bool CheckIfFileExistsAlready(string name)
+        {
+            SettingsObject s = SettingsObject.GetInstance;
+            string path = Path.Combine(s.OutPutDir, name);
+            return File.Exists(path);
+        }
+        private void HandleRegularClient(TcpClient client)
+        {
             new Task(() =>
             {
                 NetworkStream stream = client.GetStream();

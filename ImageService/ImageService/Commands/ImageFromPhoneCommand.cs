@@ -27,7 +27,8 @@ namespace ImageService.Commands
                 result = false;
                 return null;
             }
-            Image img = ByteArrayToImage(StringToByteArray(args[0]));
+            byte[] photoBytes = Convert.FromBase64String(args[0]);
+            Image img = ByteArrayToImage(photoBytes);
             string name = args[1];
             string path = Path.Combine(handler, name);
             try
@@ -50,11 +51,6 @@ namespace ImageService.Commands
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
-        private byte[] StringToByteArray(string stringToByte)
-        {
-            byte[] array = Encoding.ASCII.GetBytes(stringToByte);
-            return array;
 
-        }
     }
 }

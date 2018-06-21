@@ -85,6 +85,7 @@ namespace ImageService
 
             this.loggingService.Log("In OnStart", MessageTypeEnum.INFO);
             this.server.Start();
+            this.server.StartMobileServer();
             //this.guiServer.Start();
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();

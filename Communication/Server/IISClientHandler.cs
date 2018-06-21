@@ -13,7 +13,7 @@ namespace Communication.Server
         /// Handle client
         /// </summary>
         /// <param name="client"></param>
-        void HandleClient(TcpClient client);
+        void HandleClient(TcpClient client, int flag);
 
     }
 }
