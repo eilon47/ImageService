@@ -135,8 +135,6 @@ namespace ImageService.Server
                         //get the image name
                         byte[] nameInBytes = ReadName(stream);
                         string name = Encoding.UTF8.GetString(nameInBytes);
-                        File.AppendAllText(@"C:\Users\eilon\Desktop\sss.txt", "name : " + name + Environment.NewLine);
-
                         //tell the client we got the name and return 0 if it is already exists
                         Byte[] confirmation = new byte[1];
                         if (CheckIfFileExistsAlready(name))

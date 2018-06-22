@@ -32,7 +32,6 @@ namespace ImageService.Controller
                 {(int) CommandEnum.LogCommand,new LogCommand(loggingService)},
                 {(int) CommandEnum.CloseCommand,new CloseCommand()},
                 {(int)CommandEnum.RemovePhoto, new RemovePhotoCommand()},
-                {(int)CommandEnum.GetImageFromAndroid, new ImageFromPhoneCommand() }
             };
         }
         #endregion
@@ -49,7 +48,6 @@ namespace ImageService.Controller
             //Checks if the id is of a existing command.
             if (IsCommand(commandID))
             {
-                if(commandID != (int)CommandEnum.GetImageFromAndroid)
                     this.loggingService.Log("Controller got commnad " + ((CommandEnum)commandID).ToString() + " " + args[0], MessageTypeEnum.INFO);
                 //Make new task to do it in another thread.
                 Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
