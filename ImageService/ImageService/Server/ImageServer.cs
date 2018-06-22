@@ -137,21 +137,25 @@ namespace ImageService.Server
                         string name = Encoding.UTF8.GetString(nameInBytes);
                         //tell the client we got the name and return 0 if it is already exists
                         Byte[] confirmation = new byte[1];
-                        if (CheckIfFileExistsAlready(name))
+                        if (CheckIfFileExistsAlready(name) == 1)
                         {
                             confirmation[0] = 0;
+                            stream.Write(confirmation, 0, 1);
+                            continue;
                         }
                         else
                         {
                             confirmation[0] = 1;
+                            stream.Write(confirmation, 0, 1);
                         }
-                        stream.Write(confirmation, 0, 1);
+                       
                         
                         //read the image
                         byte[] photoBytes = ReadPhotoBytes(stream);
                         SettingsObject settings = SettingsObject.GetInstance;
                         string handler = (settings.Handlers.Split(';'))[0];
                         File.WriteAllBytes(handler + @"\" + name, photoBytes);
+                        stream.Write(confirmation, 0, 1);
                     }
                 }
                 catch (Exception ex)
@@ -197,12 +201,19 @@ namespace ImageService.Server
             } while (stream.DataAvailable);
             return fileName.ToArray();
         } 
-        private bool CheckIfFileExistsAlready(string name)
+        private int CheckIfFileExistsAlready(string name)
         {
             SettingsObject s = SettingsObject.GetInstance;
             string path = Path.Combine(s.OutPutDir, name);
-            return File.Exists(path);
+            string[] files = Directory.GetFiles(s.OutPutDir, "*", SearchOption.AllDirectories);
+            foreach(string f in files)
+            {
+                if (f.Contains(name))
+                    return 1;
+            }
+            return 0;
         }
+        
         private void HandleRegularClient(TcpClient client)
         {
             new Task(() =>
