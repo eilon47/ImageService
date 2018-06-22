@@ -53,7 +53,7 @@ namespace ImageService
             };
             this.imageController = new ImageController(this.imageModal, this.loggingService);
             this.imageServer = new ImageServer(loggingService, imageController);
-            this.server = new ISServer(imageServer);
+            this.server = new ISMobileServer(imageServer);
             //this.guiServer = new GuiServer(8000, imageServer);
             string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
             string logName = ConfigurationManager.AppSettings["LogName"];
@@ -85,7 +85,6 @@ namespace ImageService
 
             this.loggingService.Log("In OnStart", MessageTypeEnum.INFO);
             this.server.Start();
-            this.server.StartMobileServer();
             //this.guiServer.Start();
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();

@@ -17,7 +17,6 @@ namespace Communication.Server
         #endregion
         #region Methods
         void Start();
-        void StartMobileServer();
         void Stop();
         #endregion
     }

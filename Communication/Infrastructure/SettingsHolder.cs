@@ -8,8 +8,12 @@ namespace Communication.Infrastructure
 {
     class SettingsHolder
     {
-        public static int Port { get { return 8500; } }
         public static string IP { get { return "127.0.0.1"; } }
-        public static int MobilePort { get { return 7999; } }
+        private static readonly Dictionary<string, int> ports = new Dictionary<string, int>()
+        {
+            {"mobile", 8500 },
+            {"regular", 8000 }
+        };
+        public static Dictionary<string , int> PortByKey { get { return ports; } }
     }
 }

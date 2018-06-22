@@ -28,6 +28,7 @@ namespace ImageService.Logging
 
         public void Log(string message, MessageTypeEnum type)
         {
+
             if (message == null)
                 return;
             MessageRecievedEventArgs eventArgs = new MessageRecievedEventArgs((int)type,message);

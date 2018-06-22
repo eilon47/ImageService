@@ -59,7 +59,7 @@ namespace Communication.Client
         public void ServerConfig()
         {
             IP = SettingsHolder.IP;
-            Port = SettingsHolder.Port;
+            Port = SettingsHolder.PortByKey["regular"];
         }
         /// <summary>
         /// private constructor for singleton

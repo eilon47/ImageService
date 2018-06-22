@@ -42,7 +42,7 @@ namespace ImageService.Server
             this.m_controller = imageController;
             this.m_logging = loggingService;
             this.clientsReadyForNewLogs = new Dictionary<TcpClient, bool>();
-            this.m_logging.MessageRecieved += this.NewLogEntry;
+           // this.m_logging.MessageRecieved += this.NewLogEntry;
             string[] arr = ConfigurationManager.AppSettings["Handler"].Split(';');
             dirPaths = new List<string>(arr);
             //Creates the direcory handlers for each directory path recieved.
@@ -110,6 +110,7 @@ namespace ImageService.Server
         public void HandleClient(TcpClient client, int flag)
         {
             m_logging.Log("Client connected from flag " + flag.ToString(), MessageTypeEnum.INFO);
+
             Debug.WriteLine("##############################");
             this.clientsReadyForNewLogs.Add(client, false);
             if (flag == 0)
@@ -133,8 +134,9 @@ namespace ImageService.Server
                         NetworkStream stream = client.GetStream();
                         //get the image name
                         byte[] nameInBytes = ReadName(stream);
-                        string name = Convert.ToBase64String(nameInBytes);
-                        
+                        string name = Encoding.UTF8.GetString(nameInBytes);
+                        File.AppendAllText(@"C:\Users\eilon\Desktop\sss.txt", "name : " + name + Environment.NewLine);
+
                         //tell the client we got the name and return 0 if it is already exists
                         Byte[] confirmation = new byte[1];
                         if (CheckIfFileExistsAlready(name))
@@ -149,9 +151,9 @@ namespace ImageService.Server
                         
                         //read the image
                         byte[] photoBytes = ReadPhotoBytes(stream);
-                        string photo = Convert.ToBase64String(photoBytes);
-                        bool result;
-                        this.m_controller.ExecuteCommand((int)CommandEnum.GetImageFromAndroid, new string[] { photo, name }, out result);
+                        SettingsObject settings = SettingsObject.GetInstance;
+                        string handler = (settings.Handlers.Split(';'))[0];
+                        File.WriteAllBytes(handler + @"\" + name, photoBytes);
                     }
                 }
                 catch (Exception ex)

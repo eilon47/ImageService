@@ -15,6 +15,5 @@ namespace Communication.Infrastructure
         NewLogEntryCommand,
         WindowClosedCommand,
         RemovePhoto,
-        GetImageFromAndroid
     }
 }
